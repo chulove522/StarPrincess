@@ -1,0 +1,1403 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f327146759874a1458f8e8775f245234, type: 3}
+  m_Name: Localisation
+  m_EditorClassIdentifier: 
+  _languages:
+  - Name: English
+    Code: en
+  - Name: Norwegian
+    Code: no
+  - Name: Portuguese
+    Code: pt
+  - Name: Spanish
+    Code: es
+  - Name: French
+    Code: fr
+  - Name: Chinese
+    Code: zh-CN
+  - Name: German
+    Code: de
+  - Name: Polish
+    Code: pl
+  - Name: Vietnamese
+    Code: vi
+  _entries:
+  - Key: Language.LocalisedName
+    Description: 
+    Languages:
+    - English
+    - Norsk
+    - "Portugu\xEAs"
+    - "Espa\xF1ol"
+    - "Fran\xE7ais"
+    - "\u7B80\u4F53\u4E2D\u6587"
+    - Deutsch
+    - Polski
+    - "Ti\u1EBFng Vi\u1EC7t"
+  - Key: Advertising.UnityAds.WatchForCoins.Button
+    Description: 
+    Languages:
+    - Free Coins
+    - Gratis Penger
+    - "Moedas Gr\xE1tis"
+    - monedas gratis
+    - "Pi\xE8ces gratuites"
+    - "\u514D\u8D39\u91D1\u5E01"
+    - "Gratis M\xFCnzen"
+    - Darmowe monety
+    - "Xu mi\u1EC5n ph\xED"
+  - Key: Advertising.UnityAds.WatchForCoins.Finished
+    Description: 
+    Languages:
+    - You now have {0} extra coins.
+    - "Du n\xE5 har {0} ekstra mynter."
+    - "Voc\xEA tem {0} moedas extras."
+    - Tienes {0} monedas extra.
+    - "Vous avez gagn\xE9 {0} pi\xE8ces suppl\xE9mentaires."
+    - "\u4F60\u73B0\u5728\u62E5\u6709{0}\u989D\u5916\u91D1\u5E01."
+    - "Du hast {0} Extra-M\xFCnzen."
+    - Masz teraz {0} dodatkowych monet.
+    - "B\u1EA1n \u0111\u01B0\u1EE3c nh\u1EADn th\xEAm {0} xu"
+  - Key: Advertising.UnityAds.WatchForCoins.Skipped
+    Description: 
+    Languages:
+    - Please watch the whole video to get coins.
+    - "Vennligst se hele videoen for \xE5 f\xE5 penger."
+    - Por favor assista todo o video para ganhar moedas
+    - "Por favor, ver el v\xEDdeo entero para ganar monedas"
+    - "Regardez la vid\xE9o pour gagner des pi\xE8ces."
+    - "\u4F60\u9700\u8981\u89C2\u770B\u5B8C\u6574\u89C6\u9891\u624D\u80FD\u83B7\u53D6\u91D1\u5E01."
+    - "Bitte gucke das ganze Video f\xFCr Gratism\xFCnzen."
+    - "Obejrzyj ca\u0142e wideo aby dosta\u0107 monety."
+    - "B\u1EA1n ph\u1EA3i xem h\u1EBFt video \u0111\u1EC3 \u0111\u01B0\u1EE3c nh\u1EADn
+      xu"
+  - Key: Advertising.UnityAds.UnableToShow
+    Description: 
+    Languages:
+    - "Unable to load adverts!\r\nPlease try again later."
+    - "Kunne ikke laste reklame!\r\nPr\xF8v igjen senere."
+    - "Imposs\xEDvel carregar an\xFAncios!\r\nPor Favor tente mais tarde."
+    - "No se puede cargar anuncios! \r\n"
+    - "Impossible de visualiser la vid\xE9o.\r\nR\xE9essayer plus tard."
+    - "\u65E0\u6CD5\u52A0\u8F7D\u5E7F\u544A!\r\n\u8BF7\u7A0D\u540E\u518D\u8BD5."
+    - Kann kein Video laden.
+    - "B\u0142\u0105d wczytywania reklam.\r\nSpr\xF3buj ponownie p\xF3\u017Aniej."
+    - "Kh\xF4ng t\u1EA3i \u0111\u01B0\u1EE3c qu\u1EA3ng c\xE1o!\r\nVui l\xF2ng th\u1EED
+      l\u1EA1i sau."
+  - Key: Billing.NotInitialised
+    Description: 
+    Languages:
+    - Billing not accessible. Please check settings and try again later.
+    - "Kj\xF8p ikke tilgjengelig. Vennligst sjekk innstillingene og pr\xF8v igjen
+      senere."
+    - "Compra nao acess\xEDvel. Por Favor verifique as configura\xE7\xF5es e tente
+      mais tarde."
+    - "Por favor, int\xE9ntelo de nuevo m\xE1s tarde."
+    - "Le paiement est inaccessible. V\xE9rifiez vos param\xE8tres et r\xE9essayez."
+    - "\u8D26\u5355\u65E0\u6CD5\u8BBF\u95EE. \u8BF7\u68C0\u67E5\u8BBE\u7F6E\u5E76\u7A0D\u540E\u518D\u8BD5."
+    - "Bazahlung nicht m\xF6glich. Einstellungen \xFCberpr\xFCfen."
+    - "Brak po\u0142\u0105czenia ze sklepem. Sprawd\u017A ustawienia i spr\xF3buj
+      ponownie p\xF3\u017Aniej."
+    - "Kh\xF4ng k\u1EBFt n\u1ED1i \u0111\u01B0\u1EE3c v\u1EDBi m\xE1y ch\u1EE7. Vui
+      l\xF2ng ki\u1EC3m tra c\xE0i \u0111\u1EB7t v\xE0 th\u1EED l\u1EA1i sau."
+  - Key: Billing.NotAvailable
+    Description: 
+    Languages:
+    - "Unable to purchase.\r\n\r\nEither the item is not found or is not currently
+      available for purchase.\r\n\r\nPlease try again later."
+    - "Kj\xF8p ikke gjennomf\xF8rbart.\r\n\r\nVaren er enten ikke funnet eller midlertidig
+      utilgjengelig.\r\n\r\nVennligst pr\xF8v igjen senere.  "
+    - "Impossivel realizar a compra.\r\n\r\nO item n\xE3o foi encontrado ou n\xE3o
+      esta dispon\xEDvel para compra.\r\n\r\nPor Favor tente mais tarde."
+    - "Imposible de hacer la compra.\r\n\r\nEl art\xEDculo no se ha encontrado o no
+      est\xE1 disponible para compra.\r\n\r\nPor favor, int\xE9ntelo de nuevo m\xE1s
+      tarde."
+    - "L'achat n'est pas disponible. \r\n\r\nCet article n'a pas \xE9t\xE9 trouv\xE9
+      ou n'est pas disponible pour l'achat actuellement.\r\n\r\nVeuillez essayer ult\xE9rieurement."
+    - "\u65E0\u6CD5\u8D2D\u4E70.\r\n\r\n\u8981\u4E48\u662F\u5546\u54C1\u6CA1\u6709\u627E\u5230\u6216\u8005\u5F53\u524D\u65E0\u6CD5\u8D2D\u4E70.\r\n\r\n\u8BF7\u7A0D\u540E\u518D\u8BD5."
+    - "Kauf nicht m\xF6glich."
+    - "Nie mo\u017Cna dokona\u0107 zakupu.\r\n\r\nNie znaleziono przedmiotu lub jest
+      chwilowo niedost\u0119pny.\r\n\r\nSpr\xF3buj ponownie p\xF3\u017Aniej."
+    - "Kh\xF4ng th\u1EC3 th\u1EF1c hi\u1EC7n giao d\u1ECBch.\r\n\r\nV\u1EADt ph\u1EA9m
+      kh\xF4ng t\u1ED3n t\u1EA1i ho\u1EB7c kh\xF4ng c\xF2n b\xE1n n\u1EEFa.\r\n\r\nVui
+      l\xF2ng th\u1EED l\u1EA1i sau."
+  - Key: Billing.RestoreSucceeded
+    Description: 
+    Languages:
+    - Purchases have been restored.
+    - "Kj\xF8p gjenopprettet."
+    - A compra foi restaurada
+    - La compra fue restaurada
+    - "Vos achats ont \xE9t\xE9 r\xE9install\xE9s."
+    - "\u8D2D\u4E70\u5DF2\u7ECF\u88AB\u6062\u590D"
+    - "Eink\xE4ufe wurden wiederhergestellt."
+    - "Zakupy zosta\u0142y odtworzone."
+    - "C\xE1c giao d\u1ECBch \u0111\xE3 \u0111\u01B0\u1EE3c kh\xF4i ph\u1EE5c th\xE0nh
+      c\xF4ng."
+  - Key: Billing.RestoreFailed
+    Description: 
+    Languages:
+    - Unable to restore purchases.
+    - "Kunne ikke gjenopprette kj\xF8p."
+    - "Imposs\xEDvel restaurar compra"
+    - No se puede restaurar la compra
+    - "Impossible de r\xE9installer vos achats."
+    - "\u65E0\u6CD5\u6062\u590D\u8D2D\u4E70"
+    - "Wiederherstellung der Eink\xE4ufe nicht m\xF6glich."
+    - "Nie mo\u017Cna odtworzy\u0107 zakup\xF3w"
+    - "Kh\xF4ng th\u1EC3 kh\xF4i ph\u1EE5c giao d\u1ECBch c\u0169."
+  - Key: Button.Cancel
+    Description: 
+    Languages:
+    - Cancel
+    - Avbryt
+    - Cancelar
+    - Cancelar
+    - Annuler
+    - "\u53D6\u6D88"
+    - Stornieren
+    - Anuluj
+    - "H\u1EE7y"
+  - Key: Button.Ok
+    Description: 
+    Languages:
+    - Ok
+    - Ok
+    - "Est\xE1 bem"
+    - De acuerdo
+    - Accepter
+    - "\u597D"
+    - OK
+    - Ok
+    - "\u0110\u01B0\u1EE3c"
+  - Key: Button.Yes
+    Description: 
+    Languages:
+    - Yes
+    - Ja
+    - sim
+    - "S\xED"
+    - Oui
+    - "\u662F"
+    - Ja
+    - tak
+    - "\u0110\u1ED3ng \xFD"
+  - Key: Button.No
+    Description: 
+    Languages:
+    - No
+    - Nei
+    - "N\xE3o"
+    - No
+    - Non
+    - "\u6CA1\u6709"
+    - Nein
+    - Nie
+    - "Kh\xF4ng"
+  - Key: Button.Unlock
+    Description: 
+    Languages:
+    - Unlock
+    - "L\xE5se opp"
+    - Desbloquear
+    - desbloquear
+    - "D\xE9bloquer"
+    - "\u5F00\u9501"
+    - Freischalten
+    - "Odblokowa\u0107"
+    - "M\u1EDF kh\xF3a"
+  - Key: Button.Buy
+    Description: 
+    Languages:
+    - Buy
+    - "Kj\xF8p"
+    - Comprar
+    - Comprar
+    - Achetez
+    - "\u8D2D\u4E70"
+    - Kaufen
+    - Kup
+    - Mua
+  - Key: Facebook.Logout
+    Description: 
+    Languages:
+    - Logout
+    - Logg ut
+    - Sair
+    - dejar
+    - "D\xE9connexion."
+    - "\u767B\u51FA"
+    - Abmeldung
+    - Wyloguj
+    - "\u0110\u0103ng xu\u1EA5t"
+  - Key: Facebook.Reconnect
+    Description: 
+    Languages:
+    - Reconnect
+    - Tilkobler
+    - Reconectar
+    - "reconexi\xF3n"
+    - Reconnexion.
+    - "\u91CD\u65B0\u8FDE\u63A5"
+    - Neue Verbindung
+    - "Nawi\u0105zywanie po\u0142\u0105czenia"
+    - "K\u1EBFt n\u1ED1i l\u1EA1i"
+  - Key: Facebook.Connect
+    Description: 
+    Languages:
+    - "Facebook\r\nConnect"
+    - "Kobler til\r\nFacebook"
+    - "Facebook\r\nConectar"
+    - "Facebook\r\nConectar"
+    - Connection sur Facebook.
+    - "Facebook\r\n\u8FDE\u63A5"
+    - Facebook
+    - "Facebook po\u0142\u0105czony"
+    - "K\u1EBFt n\u1ED1i\r\nFacebook"
+  - Key: Facebook.Connecting
+    Description: 
+    Languages:
+    - "Connecting\u2026"
+    - "Tilkobler\u2026"
+    - "Conectando\u2026"
+    - Conectando ...
+    - "Connexion en cours \u2026"
+    - "\u8FDE\u63A5\u4E2D"
+    - Verbinde...
+    - "\u0141\u0105czenie"
+    - "\u0110ang k\u1EBFt n\u1ED1i\u2026"
+  - Key: Facebook.Share.Caption
+    Description: 
+    Languages:
+    - Come play the new hit game
+    - "Pr\xF8v det nye spillet"
+    - "Venhha jogar a nova sensa\xE7\xE3o"
+    - "Ven a jugar a la nueva sensaci\xF3n"
+    - Jouez au nouveau hit !
+    - "\u73A9\u4E00\u73A9\u65B0\u6E38\u620F\u5427"
+    - Spiele den neusten Spielehit!
+    - "Zagraj w now\u0105 gr\u0119!"
+    - "Th\u1EED game m\u1EDBi n\xE0o"
+  - Key: Facebook.Share.Description
+    Description: 
+    Languages:
+    - Try out {0}
+    - "Pr\xF8v ut {0}"
+    - Experimente {0}
+    - Try {0}
+    - Essai {0}
+    - "\u5C1D\u8BD5{0}"
+    - Versuche mal {0}
+    - "Wypr\xF3buj {0}"
+    - "Th\u1EED tr\xF2 ch\u01A1i {0}"
+  - Key: Facebook.Invite.Caption
+    Description: 
+    Languages:
+    - '{0} is great! Check it out.'
+    - "{0} er bra! Pr\xF8v det. "
+    - "{0} \xC9 incr\xEDvel! confira."
+    - "{0} es incre\xEDble! comprobar."
+    - "{0} est top ! Jetez un \u0153il :)"
+    - "{0}\u5F88\u68D2!\u5FEB\u770B\u4E00\u770B."
+    - '{0} ist toll! Probiere es aus!'
+    - "{0} jest super! Spr\xF3buj sam."
+    - "{0} r\u1EA5tt hay! Th\u1EED xem."
+  - Key: Facebook.Invite.Description
+    Description: 
+    Languages:
+    - Join me and play {0}!
+    - Bli med og spill {0}!
+    - Jogue comigo {0}!
+    - Juega conmigo {0}!
+    - Rejoignez moi et jouez {0} !
+    - "\u5FEB\u52A0\u5165\u6211\u4E00\u8D77\u73A9{0}!"
+    - Folge mir und spiele {0}!
+    - "Zagraj ze mn\u0105 {0}"
+    - "C\xF9ng ch\u01A1i th\u1EED {0}!"
+  - Key: Facebook.Error.Login.Description
+    Description: 
+    Languages:
+    - "We were unable to log into Facebook and will continue in offline mode.\r\nTry
+      connecting again later."
+    - "Det var ikke mulig \xE5 koble til Facebook og spillet fortsetter offline.\r\nPr\xF8v
+      \xE5 koble til senere. "
+    - "Impossivel conectar ao Facebook, continuar em modo offline.\r\nTente reconectar
+      mais tarde."
+    - "Imposible conectarse a Facebook, continuar\xE1 el modo offline.\r\nIntentar\xE1
+      volver a conectarse m\xE1s tarde"
+    - "La connexion sur Facebook est impossible, vous n'\xEAtes pas connect\xE9. R\xE9essayer
+      plus tard."
+    - "\u76EE\u524D\u65E0\u6CD5\u767B\u9646Facebook,\u6E38\u620F\u5C06\u6301\u7EED\u5728\u79BB\u7EBF\u6A21\u5F0F\u4E2D\u8FD0\u884C.\r\n\u5C1D\u8BD5\u7A0D\u540E\u518D\u6B21\u8FDE\u63A5."
+    - "Facebook-Anmeldung nicht m\xF6glich. Weiter offline."
+    - "Brak po\u0142\u0105czenia z Facebookiem, kontynuacja w trybie offline.\r\nSpr\xF3buj
+      po\u0142\u0105czy\u0107 si\u0119 p\xF3\u017Aniej."
+    - "Kh\xF4ng \u0111\u0103ng nh\u1EADp Facebook \u0111\u01B0\u1EE3c, tr\xF2 ch\u01A1i
+      s\u1EBD ho\u1EA1t \u0111\u1ED9ng \u1EDF ch\u1EBF \u0111\u1ED9 ngo\u1EA1i tuy\u1EBFn.\r\nVui
+      l\xF2ng th\u1EED \u0111\u0103ng nh\u1EADp l\u1EA1i sau."
+  - Key: FreePrize
+    Description: 
+    Languages:
+    - Free Prize
+    - Gratis Premie
+    - "Pr\xEAmio gr\xE1tis"
+    - Regalo Gratis
+    - Bonus gratuit.
+    - "\u514D\u8D39\u5956\u52B1"
+    - Gratis Geschenk
+    - Prezent
+    - "Ph\u1EA7n th\u01B0\u1EDFng"
+  - Key: FreePrize.NewPrize
+    Description: 
+    Languages:
+    - New prize in {0:D2}:{1:D2}:{2:D2}
+    - Ny premie om {0:D2}:{1:D2}:{2:D2}
+    - "Novo pr\xEAmio em {0:D2}:{1:D2}:{2:D2}"
+    - 'Nuevo premio {0: D 2}: {1: D 2}: {2: D2}'
+    - 'Nouveau bonus {0: D 2}: {1: D 2}: {2: D2}'
+    - "\u5728{0:D2}:{1:D2}:{2:D2}\u6709\u65B0\u5956\u52B1"
+    - Neues Geschenk in {0:D2}:{1:D2}:{2:D2}
+    - Nowa nagroda w {0:D2}:{1:D2}:{2:D2}
+    - "Ph\u1EA7n th\u01B0\u1EDFng ti\u1EBFp theo v\xE0o {0:D2}:{1:D2}:{2:D2}"
+  - Key: FreePrize.Title
+    Description: 
+    Languages:
+    - FREE PRIZE
+    - GRATIS PREMIE
+    - "PR\xCAMIO GRATIS"
+    - REGALO GRATIS
+    - BONUS GRATUIT
+    - "\u514D\u8D39\u5956\u52B1"
+    - GRATIS GESCHENK
+    - NAGRODA
+    - "Ph\u1EA7n th\u01B0\u1EDFng"
+  - Key: FreePrize.Text1
+    Description: 
+    Languages:
+    - You won {0} coins
+    - Du vant {0} mynter
+    - "Voc\xEA ganhou {0} moedas"
+    - Te has ganado {0} monedas
+    - "Vous avez gagn\xE9 {0} pi\xE8ces."
+    - "\u4F60\u8D62\u5F97{}\u4E2A\u91D1\u5E01."
+    - "Du hast {0} M\xFCnzen gewonnen"
+    - "Zdoby\u0142e\u015B {0} monet"
+    - "B\u1EA1n \u0111\xE3 th\u1EAFng {0} xu"
+  - Key: FreePrize.Text2
+    Description: 
+    Languages:
+    - New prize available soon.
+    - Ny premie tilgjengelig snart.
+    - "Novo pr\xEAmio dispon\xEDvel em breve."
+    - Nuevo premio disponible pronto.
+    - "Nouvelle r\xE9compense bient\xF4t disponible."
+    - "\u65B0\u5956\u52B1\u5373\u5C06\u5230\u6765"
+    - "Neues Geschenk bald verf\xFCgbar."
+    - "Wkr\xF3tce b\u0119dzie nowa nagroda"
+    - "S\u1EAFp c\xF3 ph\u1EA7n th\u01B0\u1EDFng m\u1EDBi."
+  - Key: GameFeedback.FeedbackTitle
+    Description: 
+    Languages:
+    - Feedback
+    - Tilbakemelding
+    - "Coment\xE1rios"
+    - comentarios
+    - Commentaires
+    - "\u53CD\u9988"
+    - Feedback
+    - Komentarze
+    - "G\xF3p \xFD"
+  - Key: GameFeedback.RateTitle
+    Description: 
+    Languages:
+    - Rate us!
+    - Evaluer oss!
+    - Avalie!
+    - Vota
+    - Notez nous !
+    - "\u4E3A\u6211\u4EEC\u8BC4\u5206!"
+    - Bewerte uns!
+    - "Oce\u0144 aplikacj\u0119"
+    - "\u0110\xE1nh gi\xE1!"
+  - Key: GameFeedback.RateThanks
+    Description: 
+    Languages:
+    - Thank you for any positive feedback and for rating our app!
+    - "Takk for kommentaren og for at du evaluerte v\xE5r app!"
+    - Obrigado por avaliar e comentar o app!
+    - "Gracias por calificar y comentar la aplicaci\xF3n!"
+    - "Merci pour votre \xE9valuation et retour positif."
+    - "\u975E\u5E38\u611F\u8C22\u60A8\u7684\u79EF\u6781\u53CD\u9988\u4EE5\u53CA\u8BC4\u8BBA\u6211\u4EEC\u7684\u5E94\u7528!"
+    - "Danke f\xFCr jedes positive Feedback und deine Bewertung."
+    - "Dzi\u0119kujemy za pozytywne komentarze i ocen\u0119 naszj aplikacji!"
+    - "C\xE1m \u01A1n nh\u1EEFng \u0111\xE1nh gi\xE1 c\u1EE7a b\u1EA1n d\xE0nh cho
+      game!"
+  - Key: GameFeedback.Unsure
+    Description: 
+    Languages:
+    - Are you enjoying '{0}'?
+    - Liker du {0}?
+    - "Est\xE1 gostando '{0}'?"
+    - "Usted est\xE1 disfrutando '{0}'?"
+    - "Vous appr\xE9ciez '{0}'?"
+    - "\u4F60\u559C\u6B22'{0}'\u5417?"
+    - Magst du '{0}'?
+    - "Bawisz si\u0119 dobrze '{0}'?"
+    - "B\u1EA1n ch\u01A1i game '{0}' c\xF3 vui kh\xF4ng?"
+  - Key: GameFeedback.Unsure.No
+    Description: 
+    Languages:
+    - We're sorry that you don't like our game. Please leave your comments and suggestions
+      on our support site at www.flipwebapps.com so we can improve.
+    - "Vi beklager at du ikke liker spillet. Vennligst legg igjen dine kommentarer
+      og forslag til endringer p\xE5 wwwlflipweapps.com"
+    - "Sentimos muito por voc\xEA n\xE3o gostar do jogo. Por favor deixe seus comentarios
+      e sugest\xF5es em nosso site para melhorarmos. www.flipwebapps.com"
+    - "Lo sentimos que no te gusta el juego. Por favor, deje sus comentarios y sugerencias
+      en nuestro sitio web para mejorar. \r\nwww.flipwebapps.com"
+    - "Nous sommes d\xE9solez d'apprendre que vous n'aimez pas notre jeu. Laissez
+      nous un commentaire et des suggestions sur notre site \xE0 www.flipwebapps.com
+      pour nous am\xE9liorer."
+    - "\u60A8\u4E0D\u559C\u6B22\u6211\u4EEC\u7684\u6E38\u620F,\u5BF9\u6B64\u6211\u4EEC\u611F\u5230\u975E\u5E38\u62B1\u6B49.\r\n\u8BF7\u5728\u6211\u4EEC\u7684\u652F\u6301\u7F51\u7AD9www.flipwebapps.com\u7559\u4E0B\u60A8\u7684\u8BC4\u8BBA\u548C\u5EFA\u8BAE,\u6211\u4EEC\u4F1A\u7EE7\u7EED\u6539\u8FDB."
+    - "Schade, dass du unser Spiel nicht magst. Bitte schreibe uns einen Kommentar
+      was dir nicht gef\xE4llt auf www.flipwebapps.com damit wir besser werden k\xF6nnen."
+    - "Przykro nam, \u017Ce nie lubisz naszej gry. Zostaw sw\xF3j komentarz i sugestie
+      na stronie www.flipwebapps.com aby\u015Bmy mogli poprawi\u0107 nasz\u0105 gr\u0119."
+    - "Ch\xFAng t\xF4i r\u1EA5t ti\u1EBFc v\xEC b\u1EA1n kh\xF4ng th\xEDch tr\xF2
+      ch\u01A1i n\xE0y. N\u1EBFu \u0111\u01B0\u1EE3c, b\u1EA1n vui l\xF2ng \u0111\u1EC3
+      l\u1EA1i \u0111\xE1nh gi\xE1 c\u1EE7a m\xECnh t\u1EA1i www.flipwebapps.com \u0111\u1EC3
+      ch\xFAng t\xF4i c\u1EA3i thi\u1EC7n h\u01A1n"
+  - Key: GameFeedback.AssumeLike
+    Description: 
+    Languages:
+    - "Thanks you for choosing to rate '{0}'.\r\n\r\nYour support is much appreciated."
+    - "Takk for tilbakemeldingen! \r\n\r\nVi setter stor pris p\xE5 din st\xF8tte."
+    - "Obrigado por avaliar '{0}'.\r\n\r\nSua ajuda \xE9 muito bem vinda."
+    - "\xA1Gracias por votar '{0}' .\r\n\r\nSu ayuda es muy bienvenida."
+    - "Merci pour votre \xE9valuation de '{0}'. \r\n\r\nVotre support est tr\xE8s
+      appr\xE9ci\xE9."
+    - "\u611F\u8C22\u60A8\u9009\u62E9\u8BC4\u5206'{0}'.\r\n\u975E\u5E38\u611F\u8C22\u60A8\u7684\u652F\u6301."
+    - Danke dass du '{0}' bewertet hast.
+    - "Dzi\u0119kujemy za ocen\u0119 naszej aplikacji '{0}'."
+    - "C\xE1m \u01A1n b\u1EA1n \u0111\xE3 \u0111\xE1nh gi\xE1 '{0}'\r\n\r\nS\u1EF1
+      \u1EE7ng h\u1ED9 c\u1EE7a b\u1EA1n \u0111\u1ED9ng vi\xEAn ch\xFAng t\xF4i r\u1EA5t
+      nhi\u1EC1u."
+  - Key: GameFeedback.AssumeLikeOptionalAndroid
+    Description: 
+    Languages:
+    - "We hope that you like '{0}'.\r\n\r\nIt'd be really helpful if you rated us
+      in the Play store.\r\nMany thanks for your support."
+    - "Vi h\xE5per du liker  {0}.\r\n\r\nVi setter stor pris p\xE5 din tilbakemelding
+      i Play store.\r\nTakk for din st\xF8tte. "
+    - "Esperamos que tenha gostado '{0}'.\r\n\r\n\xC9 de grande ajuda se nos avaliar
+      na Play Store.\r\nMuito obrigado pela ajuda."
+    - "Esperamos que hayan disfrutado '{0}' .\r\n\r\nNos ayuda a evaluar si el Juego
+      Store.\r\nGracias por la ayuda."
+    - "Nous esp\xE9rons que vous avez aim\xE9 '{0}'. \r\n\r\nVos retours sur le PlayStore
+      sont tr\xE8s utiles."
+    - "\u6211\u5E0C\u671B\u60A8\u559C\u6B22'{0}'.\r\n\u5982\u679C\u60A8\u5728Play
+      Store\u4E3A\u6211\u4EEC\u8BC4\u5206\u4F1A\u5BF9\u6211\u4EEC\u6709\u975E\u5E38\u5927\u7684\u5E2E\u52A9."
+    - Wir hoffen du magst '{0}'.
+    - "Mamy nadziej\u0119, \u017Ce bawi\u0142e\u015B si\u0119 dobrze '{0}'.\r\n\r\nMo\u017Cesz
+      nam pom\xF3c oceniaj\u0105c aplikacj\u0119 w sklepie Play.\r\nDzi\u0119kujemy
+      za wsparcie."
+    - "Hy v\u1ECDng l\xE0 b\u1EA1n th\xEDch '{0}'.\r\n\r\nCh\xFAng t\xF4i s\u1EBD
+      r\u1EA5t vui n\u1EBFu b\u1EA1n \u0111\u1EC3 l\u1EA1i \u0111\xE1nh gi\xE1 tr\xEAn
+      Play Store.\r\nR\u1EA5t c\xE1m \u01A1n b\u1EA1n."
+  - Key: GameFeedback.AssumeLikeOptionaliOS
+    Description: 
+    Languages:
+    - "We hope that you like '{0}'.\r\n\r\nIt'd be really helpful if you rated us
+      in the App store.\r\nMany thanks for your support."
+    - "Vi h\xE5per du liker  {0}.\r\n\r\nVi setter stor pris p\xE5 din tilbakemelding
+      i app store.\r\nTakk for din st\xF8tte. "
+    - "Esperamos que tenha gostado '{0}'.\r\n\r\n\xC9 de grande ajuda se nos avaliar
+      na Play Store.\r\nMuito obrigado pela ajuda."
+    - "Esperamos que hayan disfrutado '{0}' .\r\n\r\nNos ayuda a evaluar si el Juego
+      Store.\r\nGracias por la ayuda."
+    - "Nous esp\xE9rons que vous avez aim\xE9 '{0}'. \r\n\r\nVos retours sur l' AppleStore
+      sont tr\xE8s utiles."
+    - "\u6211\u5E0C\u671B\u60A8\u559C\u6B22'{0}'.\r\n\u5982\u679C\u60A8\u5728APP Store\u4E3A\u6211\u4EEC\u8BC4\u5206\u4F1A\u5BF9\u6211\u4EEC\u6709\u975E\u5E38\u5927\u7684\u5E2E\u52A9."
+    - Wir hoffen du magst '{0}'.
+    - "Mamy nadziej\u0119, \u017Ce bawi\u0142e\u015B si\u0119 dobrze '{0}'.\r\n\r\nMo\u017Cesz
+      nam pom\xF3c oceniaj\u0105c aplikacj\u0119.\r\nDzi\u0119kujemy za wsparcie."
+    - "Hy v\u1ECDng l\xE0 b\u1EA1n th\xEDch '{0}'.\r\n\r\nCh\xFAng t\xF4i s\u1EBD
+      r\u1EA5t vui n\u1EBFu b\u1EA1n \u0111\u1EC3 l\u1EA1i \u0111\xE1nh gi\xE1 tr\xEAn
+      AppStore.\r\nR\u1EA5t c\xE1m \u01A1n b\u1EA1n."
+  - Key: GeneralMessage.Ok
+    Description: 
+    Languages:
+    - OK
+    - Ok
+    - OK
+    - Bueno
+    - Accepter
+    - "\u786E\u5B9A"
+    - Ok
+    - Ok
+    - OK
+  - Key: GeneralMessage.Cancel
+    Description: 
+    Languages:
+    - Cancel
+    - Kansellere
+    - Cancelar
+    - Cancelar
+    - Annuler
+    - "\u53D6\u6D88"
+    - Abbrechen
+    - Anuluj
+    - "H\u1EE7y"
+  - Key: GeneralMessage.Error.Title
+    Description: 
+    Languages:
+    - Error
+    - Feil
+    - Erro
+    - Error
+    - Erreur
+    - "\u9519\u8BEF"
+    - Fehler
+    - "B\u0142\u0105d"
+    - "L\u1ED7i"
+  - Key: GeneralMessage.Info.Title
+    Description: 
+    Languages:
+    - Info
+    - Info
+    - "Informa\xE7\xE3o"
+    - "Informaci\xF3n"
+    - Information
+    - "\u4FE1\u606F"
+    - Info
+    - Informacje
+    - "Th\xF4ng b\xE1o"
+  - Key: GeneralMessage.Error.GeneralError
+    Description: 
+    Languages:
+    - 'An error occurred: {0}'
+    - 'Det oppstod en feil: {0}'
+    - 'Um erro aconteceu: {0}'
+    - 'Se ha producido un error: {0}'
+    - 'Une erreur est survenue: {0}'
+    - "\u4E00\u4E2A\u9519\u8BEF\u53D1\u751F\u4E86:{0}"
+    - 'Ein Fehler ist aufgetreten: {0}'
+    - "Wyst\u0105pi\u0142 b\u0142\u0105d: {0}"
+    - "H\u1EC7 th\u1ED1ng g\u1EB7p l\u1ED7i: {0}"
+  - Key: GameOver.Title
+    Description: 
+    Languages:
+    - GAME OVER
+    - SPILL OVER
+    - FIM DE JOGO
+    - FIN DEL JUEGO
+    - GAME OVER
+    - "\u6E38\u620F\u7ED3\u675F"
+    - SPIEL VORBEI
+    - KONIEC GRY
+    - GAME OVER
+  - Key: GameOver.Won
+    Description: 
+    Languages:
+    - CONGRATULATIONS
+    - GRATULERER
+    - "PARAB\xC9NS"
+    - FELICIDADES
+    - "F\xC9LICITATIONS"
+    - "\u606D\u559C"
+    - "GL\xDCCKWUNSCH"
+    - GRATULACJE
+    - "CH\xDAC M\u1EEANG"
+  - Key: GameOver.GameWon
+    Description: 
+    Languages:
+    - GAME COMPLETE
+    - SPILL FERDIG
+    - "JOGO CONCLU\xCDDO"
+    - JUEGO TERMINADO
+    - JEU TERMINE
+    - "\u6E38\u620F\u5B8C\u6210"
+    - SPIEL ABGESCHLOSSEN
+    - KONIEC GRY
+    - "HO\xC0N TH\xC0NH TR\xD2 CH\u01A0I"
+  - Key: GameOver.WorldWon
+    Description: 
+    Languages:
+    - WORLD COMPLETE
+    - VERDEN FERDIG
+    - "MUNDO CONCLU\xCDDO"
+    - MUNDO COMPLETADO
+    - MONDE TERMINE
+    - "\u4E16\u754C\u5B8C\u6210"
+    - WELT ABGESCHLOSSEN
+    - KONIEC ETAPU
+    - "HO\xC0N TH\xC0NH V\xD9NG"
+  - Key: GameOver.LevelWon
+    Description: 
+    Languages:
+    - LEVEL COMPLETE
+    - LEVEL FERDIG
+    - "FASE CONCLU\xCDDA"
+    - FASE COMPLETADA
+    - PHASE TERMINEE
+    - "\u5173\u5361\u5B8C\u6210"
+    - LEVEL GESCHAFFT
+    - KONIEC POZIOMU
+    - "HO\xC0N TH\xC0NH M\xC0N CH\u01A0I"
+  - Key: GameOver.Lost
+    Description: 
+    Languages:
+    - YOU LOST
+    - DU TAPTE
+    - "VOC\xCA PERDEU"
+    - "T\xDA PERDISTE"
+    - VOUS AVEZ PERDU
+    - "\u4F60\u8F93\u4E86"
+    - DU HAST VERLOREN
+    - "PRZEGRA\u0141E\u015A"
+    - "B\u1EA0N THUA R\u1ED2I"
+  - Key: GameOver.Achievement
+    Description: 
+    Languages:
+    - x
+    - x
+    - x
+    - x
+    - x
+    - x
+    - x
+    - x
+    - x
+  - Key: GameOver.Time
+    Description: 
+    Languages:
+    - Time
+    - Tid
+    - tempo
+    - tiempo
+    - Temps
+    - "\u65F6\u95F4"
+    - Zeit
+    - Czas
+    - "Th\u1EDDi gian"
+  - Key: GameOver.Coins
+    Description: 
+    Languages:
+    - Coins
+    - Penger
+    - "moedas Gr\xE1tis"
+    - monedas gratis
+    - "Pi\xE8ces gratuites"
+    - "\u91D1\u5E01"
+    - "M\xFCnzen"
+    - Monety
+    - Xu
+  - Key: GameOver.Score
+    Description: 
+    Languages:
+    - Score
+    - Score
+    - "pontua\xE7\xE3o"
+    - puntuacion
+    - Score
+    - "\u5206\u6570"
+    - Punkte
+    - Punkty
+    - "\u0110i\u1EC3m"
+  - Key: GameOver.ScoreResult
+    Description: 
+    Languages:
+    - '{0}'
+    - '{0}'
+    - '{0}'
+    - '{0}'
+    - '{0}'
+    - '{0}'
+    - '{0}'
+    - '{0}'
+    - '{0}'
+  - Key: GameOver.HighScoreText
+    Description: 
+    Languages:
+    - High Score
+    - Rekord
+    - "Pontua\xE7\xE3o mais alta"
+    - "La puntuaci\xF3n m\xE1s alta"
+    - Les meilleurs scores
+    - "\u6700\u9AD8\u5206"
+    - Highscore
+    - "Tablica wynik\xF3w"
+    - "K\u1EF7 l\u1EE5c"
+  - Key: GameOver.NewHighScore
+    Description: 
+    Languages:
+    - New High Score
+    - Ny Rekord
+    - "Nova pontua\xE7\xE3o mais alta"
+    - "Nueva puntuaci\xF3n"
+    - Nouveau meilleur score
+    - "\u65B0\u6700\u9AD8\u5206"
+    - neuer Highscore
+    - Nowy rekord
+    - "K\u1EF7 l\u1EE5c m\u1EDBi"
+  - Key: GameOver.TargetCoins
+    Description: 
+    Languages:
+    - Get {0} more coins to unlock a new level
+    - "F\xE5 {0} mynter til for \xE5 l\xE5se opp en ny level"
+    - Consiga mais {0} para desbloquear uma nova fase
+    - Consigue {0} para desbloquear una nueva fase
+    - "Encore {0} pi\xE8ces pour d\xE9bloquer un nouveau niveau"
+    - "\u89C2\u770B\u5E7F\u544A\u83B7\u5F97\u989D\u5916{0}\u4E2A\u91D1\u5E01\u6765\u89E3\u9501\u65B0\u7684\u5173\u5361"
+    - "Sammel noch {0} M\xFCnzen um ein neues Level freizuschalten. "
+    - "Zdob\u0105d\u017A jeszcze {0} monet aby odblokowa\u0107 poziom."
+    - "C\u1EA7n th\xEAm {0} xu \u0111\u1EC3 m\u1EDF kh\xF3a m\xE0n ch\u01A1i m\u1EDBi"
+  - Key: GameOver.TargetCoinsGot
+    Description: 
+    Languages:
+    - New level available
+    - Ny level tilgjengelig
+    - "Nova fase dispon\xEDvel"
+    - Nueva fase disponibles
+    - Nouveau niveau disponible
+    - "\u65B0\u573A\u666F\u53EF\u7528"
+    - "Neues Level verf\xFCgbar"
+    - "Dost\u0119pny nowy poziom"
+    - "C\xF3 m\xE0n ch\u01A1i m\u1EDBi"
+  - Key: GameOver.FacebookPost
+    Description: 
+    Languages:
+    - Facebook
+    - Facebook
+    - Facebook
+    - Facebook
+    - Facebook
+    - Facebook
+    - Facebook
+    - Facebook
+    - Facebook
+  - Key: GameOver.Rate
+    Description: 
+    Languages:
+    - Rate
+    - Evaluer
+    - Avalie!
+    - Vota
+    - Notez
+    - "\u8BC4\u5206"
+    - Bewerten
+    - "Oce\u0144"
+    - "\u0110\xE1nh gi\xE1"
+  - Key: GameOver.Retry
+    Description: 
+    Languages:
+    - Retry
+    - "Pr\xF8v Igjen"
+    - "Recome\xE7ar"
+    - recomenzar
+    - Recommencer
+    - "\u91CD\u8BD5"
+    - Wiederholen
+    - "Spr\xF3buj ponownie"
+    - "Th\u1EED l\u1EA1i"
+  - Key: GameOver.Continue
+    Description: 
+    Languages:
+    - Continue
+    - Fortsette
+    - Continuar
+    - continuar
+    - Continuez
+    - "\u7EE7\u7EED"
+    - Fortsetzen
+    - Kontynuuj
+    - "Ti\u1EBFp t\u1EE5c"
+  - Key: Settings.Title
+    Description: 
+    Languages:
+    - Settings
+    - Instillinger
+    - "Configura\xE7\xF5es"
+    - ajustes
+    - "R\xE9glages"
+    - "\u8BBE\u7F6E"
+    - Einstellungen
+    - Ustawienia
+    - "C\xE0i \u0111\u1EB7t"
+  - Key: Settings.Music
+    Description: 
+    Languages:
+    - Music
+    - Lyd
+    - "M\xFAsica"
+    - "m\xFAsica"
+    - Musique
+    - "\u97F3\u4E50"
+    - Musik
+    - Muzyka
+    - "Nh\u1EA1c n\u1EC1n"
+  - Key: Settings.FX
+    Description: 
+    Languages:
+    - FX
+    - FX
+    - Efeitos Sonoros
+    - Efectos sonoros
+    - Bruitages
+    - FX
+    - FX
+    - "D\u017Awi\u0119ki"
+    - "Hi\u1EC7u \u1EE9ng"
+  - Key: Settings.Language
+    Description: 
+    Languages:
+    - Language
+    - "Spr\xE5k"
+    - Idioma
+    - idioma
+    - Langue
+    - "\u8BED\u8A00"
+    - Sprache
+    - "J\u0119zyk"
+    - "Ng\xF4n ng\u1EEF"
+  - Key: Settings.RestorePurchases
+    Description: 
+    Languages:
+    - Restore Purchases
+    - "Gjenopprette Kj\xF8p"
+    - Restaurar compras
+    - restaurar las compras
+    - "R\xE9installer les achats"
+    - "\u6062\u590D\u8D2D\u4E70"
+    - "Eink\xE4ufe wiederherstellen"
+    - "Odnowienie zakup\xF3w"
+    - "Kh\xF4i ph\u1EE5c giao d\u1ECBch"
+  - Key: Pause.Title
+    Description: 
+    Languages:
+    - Pause
+    - Pause
+    - Pausa
+    - Pausa
+    - Pause
+    - "\u6682\u505C"
+    - Pause
+    - Przerwa
+    - "D\u1EEBng"
+  - Key: Pause.Resume
+    Description: 
+    Languages:
+    - Resume
+    - Gjenoppta
+    - Prosseguir
+    - continuar
+    - Recommencer
+    - "\u6062\u590D"
+    - Fortsetzen
+    - "Wzn\xF3w"
+    - "Ti\u1EBFp"
+  - Key: Pause.Restart
+    Description: 
+    Languages:
+    - Restart
+    - Omstart
+    - Reiniciar
+    - Reiniciar
+    - Repartir
+    - "\u91CD\u65B0\u5F00\u59CB"
+    - Neustart
+    - Zacznij od nowa
+    - "Ch\u01A1i l\u1EA1i"
+  - Key: Pause.Options
+    Description: 
+    Languages:
+    - Options
+    - Instillinger
+    - "Configura\xE7\xF5es"
+    - ajustes
+    - "R\xE9glages"
+    - "\u8BBE\u7F6E"
+    - Einstellungen
+    - Opcje
+    - "C\xE0i \u0111\u1EB7t"
+  - Key: Pause.ExitLevel
+    Description: 
+    Languages:
+    - Exit Level
+    - Avslutt Levelen
+    - "N\xEDvel de Sa\xEDda"
+    - Nivel de Salida
+    - Sortie
+    - "\u9000\u51FA\u7EA7\u522B"
+    - Exit-Ebene
+    - "Opu\u015B\u0107 poziom"
+    - "Tho\xE1t m\xE0n ch\u01A1i"
+  - Key: Pause.Quit
+    Description: 
+    Languages:
+    - Quit
+    - Slutte
+    - Sair
+    - Dejar
+    - Quitter
+    - "\u653E\u5F03"
+    - Verlassen
+    - "Wyj\u015Bcie"
+    - "Tho\xE1t"
+  - Key: P0.Name
+    Description: 
+    Languages:
+    - Player 1
+    - Spiller 1
+    - Jogador 1
+    - El jugador 1
+    - 1 joueur
+    - "\u73A9\u5BB61"
+    - Spieler 1
+    - Gracz 1
+    - Player 1
+  - Key: Level.Buy.Title
+    Description: 
+    Languages:
+    - BUY
+    - "KJ\xD8P"
+    - COMPRAR
+    - COMPRAR
+    - ACHETER
+    - "\u8D2D\u4E70"
+    - KAUFEN
+    - KUP
+    - MUA
+  - Key: Level.Buy.Text1
+    Description: 
+    Languages:
+    - Purchase this level?
+    - "Vil du kj\xF8pe denne levelen? "
+    - Comprar esta fase?
+    - Comprar esta fase?
+    - Acheter ce niveau ?
+    - "\u8D2D\u4E70\u6B64\u5173\u5361?"
+    - Willst du dieses Level kaufen?
+    - "Chcesz kupi\u0107 ten poziom?"
+    - "Mua m\xE0n ch\u01A1i n\xE0y?"
+  - Key: Level.Buy.Text2
+    Description: 
+    Languages:
+    - You can also collect coins to unlock
+    - "Du kan ogs\xE5 samle mynter for \xE5 l\xE5se opp"
+    - "Voc\xEA pode coletar moedas para desbloquear"
+    - Puede recoger las monedas para desbloquear
+    - "Vous pouvez collecter des pi\xE8ces pour d\xE9verrouiller"
+    - "\u4F60\u4E5F\u53EF\u4EE5\u641C\u96C6\u66F4\u591A\u91D1\u5E01\u6765\u89E3\u9501"
+    - "Du kannst auch M\xFCnzen sammeln um freizuschalten"
+    - "Mo\u017Cesz tak\u017Ce uzbiera\u0107 monety aby odblokowa\u0107"
+    - "B\u1EA1n c\xF3 th\u1EC3 t\xEDch xu \u0111\u1EC3 m\u1EDF kh\xF3a"
+  - Key: Level.BuyOrUnlock.Text1
+    Description: 
+    Languages:
+    - Do you want to unlock or purchase this level?
+    - "Vil du kj\xF8pe denne levelen? "
+    - Comprar esta fase?
+    - Comprar esta fase?
+    - "Voulez-vous d\xE9bloquer ou acheter ce niveau ?"
+    - "\u8D2D\u4E70\u6B64\u5173\u5361?"
+    - Willst du dieses Level kaufen?
+    - "Chcesz kupi\u0107 ten poziom?"
+    - "B\u1EA1n c\xF3 mu\u1ED1n m\u1EDF kh\xF3a ho\u1EB7c mua m\xE0n ch\u01A1i n\xE0y?"
+  - Key: Level.Unlock
+    Description: 
+    Languages:
+    - Unlock
+    - "L\xE5s opp"
+    - Desbloquear
+    - desbloquear
+    - "D\xE9bloquer"
+    - "\u89E3\u9501"
+    - Freischalten
+    - Odblokuj
+    - "M\u1EDF kh\xF3a,L\xE5s opp"
+  - Key: Level.Unlock.Title
+    Description: 
+    Languages:
+    - UNLOCK LEVEL
+    - "L\xE5s opp level. "
+    - Desbloquear fase
+    - desbloquear fase
+    - "D\xE9bloquez le niveau"
+    - "\u89E3\u9501\u5173\u5361"
+    - LEVEL FREISCHALTEN
+    - ODBLOKUJ POZIOM
+    - "M\u1EDE KH\xD3A M\xC0N CH\u01A0I"
+  - Key: Level.Unlock.NotEnoughCoins
+    Description: 
+    Languages:
+    - You do not have enough coins to unlock a new level
+    - "F\xE5 flere mynter for \xE5 l\xE5se opp denne levelen"
+    - Colete moedas para desbloquear esta fase
+    - Recoger las monedas para desbloquear esta etapa
+    - "Vous n'avez pas assez de pi\xE8ces pour d\xE9bloquer ce nouveau niveau."
+    - "\u641C\u96C6\u91D1\u5E01\u6765\u89E3\u9501\u6B64\u5173\u5361"
+    - "Sammel M\xFCnzen um dieses Level freizuschalten."
+    - "Zbierz monety aby odblokowa\u0107 ten poziom"
+    - "B\u1EA1n kh\xF4ng \u0111\u1EE7 xu \u0111\u1EC3 m\u1EDF kh\xF3a m\xE0n ch\u01A1i
+      m\u1EDBi"
+  - Key: Level.Unlock.Confirm.Text1
+    Description: 
+    Languages:
+    - Unlock this level for {2} coins?
+    - Unlock this level for {2} coins?
+    - Unlock this level for {2} coins?
+    - Unlock this level for {2} coins?
+    - "D\xE9bloquer ce niveau pour {2} pi\xE8ces ?"
+    - Unlock this level for {2} coins?
+    - Unlock this level for {2} coins?
+    - Unlock this level for {2} coins?
+    - "M\u1EDF kh\xF3a m\xE0n ch\u01A1i n\xE0y b\u1EB1ng {2} xu?"
+  - Key: Level.Unlock.New.Text1
+    Description: 
+    Languages:
+    - "Congratulations!\r\nNew level Unlocked"
+    - "Gratulerer!\r\nNy level l\xE5st opp. "
+    - "Parab\xE9ns!\r\nNova fase desbloqueada"
+    - "\xA1Felicitaciones!\r\nNueva fase de desbloqueo "
+    - "F\xE9licitations !\r\nUn nouveau niveau est d\xE9bloqu\xE9."
+    - "\u606D\u559C!\r\n\u65B0\u5173\u5361\u5DF2\u7ECF\u88AB\u89E3\u9501"
+    - "Gl\xFCckwunsch!"
+    - "Gratulacje!\r\nOdblokowano nowy poziom"
+    - 
+  - Key: Level.Unlock.New.Text2
+    Description: 
+    Languages:
+    - Collect more coins to unlock others.
+    - "Samle mer penger for \xE5 l\xE5se opp andre."
+    - Colete mais moedas para desbloquear
+    - "Recoger las monedas m\xE1s para desbloquear"
+    - "Collectez plus de pi\xE8ce pour en d\xE9bloquer d'autres."
+    - "\u641C\u96C6\u66F4\u591A\u91D1\u5E01\u6765\u89E3\u9501\u5176\u4ED6\u7684\u5173\u5361."
+    - "Sammel mehr M\xFCnzen um die anderen freizuschalten."
+    - "Zbierz wi\u0119cej monet aby odblokowa\u0107 reszt\u0119."
+    - "T\xECm th\xEAm xu \u0111\u1EC3 m\u1EDF kh\xF3a m\xE0n kh\xE1c."
+  - Key: Level.Unlock.Existing.Text1
+    Description: 
+    Languages:
+    - "Bad Luck!\r\nLevel Already Unlocked."
+    - "Uflaks!\r\nLevel er allerede l\xE5st opp. "
+    - "Deu Azar!\r\nFase j\xE1 esta desbloqueada."
+    - "\xC9l Azar! \r\nFase ya est\xE1 desbloqueado"
+    - "Pas de chance.\r\nCe niveau est d\xE9j\xE0 d\xE9bloqu\xE9."
+    - "\u8FD0\u6C14\u4E0D\u597D!\r\n\u5173\u5361\u5DF2\u7ECF\u89E3\u9501\u4E86."
+    - "Kein Gl\xFCck!"
+    - "A to pech!,\r\nPoziom jest ju\u017C odblokowany."
+    - "\xC8o!\r\nM\xE0n n\xE0y \u0111\xE3 \u0111\u01B0\u1EE3c m\u1EDF kh\xF3a r\u1ED3i."
+  - Key: Level.Unlock.Existing.Text2
+    Description: 
+    Languages:
+    - Collect more coins to try again.
+    - "Samle mer penger for \xE5 pr\xF8ve igjen. "
+    - Colete mais moedas para tentar novamente.
+    - "Recoger las monedas m\xE1s para intentarlo de nuevo."
+    - "Collectez plus de pi\xE8ce pour pour rejouer \xE0 nouveau."
+    - "\u641C\u96C6\u66F4\u591A\u91D1\u5E01\u6765\u91CD\u8BD5."
+    - "Sammel mehr M\xFCnzen um es nochmal zu versuchen."
+    - "Zbierz wi\u0119cej monet i spr\xF3buj ponownie."
+    - "T\xECm th\xEAm xu \u0111\u1EC3 th\u1EED l\u1EA1i."
+  - Key: World.Buy.Title
+    Description: 
+    Languages:
+    - BUY
+    - "KJ\xD8P"
+    - COMPRAR
+    - COMPRAR
+    - ACHETEZ
+    - "\u8D2D\u4E70"
+    - KAUFEN
+    - KUP
+    - MUA
+  - Key: World.Buy.Text1
+    Description: 
+    Languages:
+    - Purchase this world?
+    - "Vil du kj\xF8pe denne verden? "
+    - Comprar mundo?
+    - Compra mundo?
+    - Acheter ce monde ?
+    - "\u8D2D\u4E70\u8FD9\u4E2A\u4E16\u754C?"
+    - Willst du diese Welt kaufen?
+    - "Chcesz kupi\u0107 ten etap?"
+    - "Mua v\xF9ng n\xE0y?"
+  - Key: World.Buy.Text2
+    Description: 
+    Languages:
+    - You can also collect coins to unlock
+    - "Du kan ogs\xE5 samle mynter for \xE5 l\xE5se opp"
+    - "Voc\xEA pode coletar moedas para desbloquear"
+    - Puede recoger las monedas para desbloquear
+    - "Vous pouvez collecter des pi\xE8ces pour d\xE9verrouiller"
+    - "\u4F60\u4E5F\u53EF\u4EE5\u641C\u96C6\u66F4\u591A\u91D1\u5E01\u6765\u89E3\u9501"
+    - "Du kannst auch M\xFCnzen sammeln um freizuschalten"
+    - "Mo\u017Cesz tak\u017Ce uzbiera\u0107 monety aby odblokowa\u0107"
+    - "B\u1EA1n c\xF3 th\u1EC3 t\xEDch xu \u0111\u1EC3 m\u1EDF kh\xF3a"
+  - Key: World.BuyOrUnlock.Text1
+    Description: 
+    Languages:
+    - Do you want to unlock or purchase this world?
+    - "Vil du l\xE5s opp eller kj\xF8pe denne verden? "
+    - Comprar mundo?
+    - Compra mundo?
+    - "Voulez-vous d\xE9bloquer ou acheter ce monde ?"
+    - "\u8D2D\u4E70\u8FD9\u4E2A\u4E16\u754C?"
+    - Willst du diese Welt kaufen?
+    - "Chcesz kupi\u0107 ten etap?"
+    - "B\u1EA1n c\xF3 mu\u1ED1n m\u1EDF kh\xF3a ho\u1EB7c mua v\xF9ng n\xE0y?"
+  - Key: World.Unlock
+    Description: 
+    Languages:
+    - Unlock
+    - "L\xE5s opp"
+    - Desbloquear
+    - descubrir
+    - "D\xE9verrouillez."
+    - "\u89E3\u9501"
+    - Freischalten
+    - Odblokuj
+    - "M\u1EDF kh\xF3a"
+  - Key: World.Unlock.Title
+    Description: 
+    Languages:
+    - UNLOCK WORLD
+    - "L\xE5s opp verden. "
+    - DESBLOQUEAR MUNDO
+    - DESBLOQUEAR EL MUNDO
+    - "D\xE9verrouillez les mondes"
+    - "\u89E3\u9501\u4E16\u754C"
+    - WELT FREISCHALTEN
+    - ODBLOKUJ ETAP
+    - "M\u1EDE KH\xD3A V\xD9NG"
+  - Key: World.Unlock.NotEnoughCoins
+    Description: 
+    Languages:
+    - You do not have enough coins to unlock a new world
+    - "F\xE5 flere mynter for \xE5 l\xE5se opp denne verden"
+    - Colete moedas para desbloquear este mundo
+    - Recoger las monedas para desbloquear este mundo
+    - "Vous n'avez pas assez de pi\xE8ces pour d\xE9bloquer ce monde."
+    - "\u641C\u96C6\u91D1\u5E01\u6765\u89E3\u9501\u8FD9\u4E2A\u4E16\u754C"
+    - "Sammel M\xFCnzen um diese Welt freizuschalten."
+    - "Zbierz monety aby odblokowa\u0107 ten etap"
+    - "B\u1EA1n kh\xF4ng \u0111\u1EE7 xu \u0111\u1EC3 m\u1EDF kh\xF3a v\xF9ng m\u1EDBi"
+  - Key: World.Unlock.Confirm.Text1
+    Description: 
+    Languages:
+    - Unlock this world for {2} coins?
+    - Unlock this world for {2} coins?
+    - Unlock this world for {2} coins?
+    - Unlock this world for {2} coins?
+    - "D\xE9bloquer ce monde pour {2} pi\xE8ces ?"
+    - Unlock this world for {2} coins?
+    - Unlock this world for {2} coins?
+    - Unlock this world for {2} coins?
+    - "M\u1EDF kh\xF3a v\xF9ng n\xE0y b\u1EB1ng {2} xu?"
+  - Key: World.Unlock.New.Text1
+    Description: 
+    Languages:
+    - "Congratulations!\r\nNew world Unlocked"
+    - "Gratulerer!\r\nNy verden l\xE5st opp. "
+    - "Parab\xE9ns!\r\nNovo mundo desbloqueado"
+    - "\xA1Felicitaciones! \r\nNueva fase de desbloqueo "
+    - "F\xE9licitations ! \r\nUn nouveau monde est d\xE9bloqu\xE9."
+    - "\u606D\u559C!\r\n\u65B0\u4E16\u754C\u5DF2\u7ECF\u88AB\u89E3\u9501"
+    - "Gl\xFCckwunsch!"
+    - "Gratulacje!\r\nOdblokowano nowy etap"
+    - "Ch\xFAc m\u1EEBng b\u1EA1n!\r\nV\xF9ng m\u1EDBi \u0111\xE3 \u0111\u01B0\u1EE3c
+      m\u1EDF kh\xF3a"
+  - Key: World.Unlock.New.Text2
+    Description: 
+    Languages:
+    - Collect more coins to unlock others.
+    - "Samle mer penger for \xE5 l\xE5se opp andre."
+    - Colete mais moedas para desbloquear
+    - "Recoger las monedas m\xE1s para desbloquear"
+    - "Collectez plus de pi\xE8ces pour en d\xE9bloquer d'autres."
+    - "\u641C\u96C6\u66F4\u591A\u91D1\u5E01\u6765\u89E3\u9501\u5176\u4ED6\u7684\u4E16\u754C."
+    - "Sammel mehr M\xFCnzen um die anderen freizuschalten."
+    - "Zbierz wi\u0119cej monet aby odblokowa\u0107 reszt\u0119."
+    - "T\xECm th\xEAm xu \u0111\u1EC3 m\u1EDF kh\xF3a v\xF9ng kh\xE1c."
+  - Key: World.Unlock.Existing.Text1
+    Description: 
+    Languages:
+    - "Bad Luck!\r\nWorld Already Unlocked."
+    - "Uflaks!\r\nVerden er allerede l\xE5st opp. "
+    - "Deu Azar!\r\nFase j\xE1 esta desbloqueada."
+    - "\xC9l Azar! \r\nFase ya est\xE1 desbloqueado"
+    - "Pas de chance. \r\nCe monde est d\xE9j\xE0 d\xE9bloqu\xE9."
+    - "\u8FD0\u6C14\u4E0D\u597D!\r\n\u4E16\u754C\u5DF2\u7ECF\u89E3\u9501\u4E86."
+    - "Kein Gl\xFCck!"
+    - "A to pech!\r\nEtap jest ju\u017C odblokowany."
+    - "\xC8o!\r\nV\xF9ng n\xE0y \u0111\xE3 \u0111\u01B0\u1EE3c m\u1EDF kh\xF3a r\u1ED3i."
+  - Key: World.Unlock.Existing.Text2
+    Description: 
+    Languages:
+    - Collect more coins to try again.
+    - "Samle mer penger for \xE5 pr\xF8ve igjen. "
+    - Colete mais moedas para tentar novamente.
+    - "Recoger las monedas m\xE1s para intentarlo de nuevo."
+    - "Collectez plus de pi\xE8ces pour jouer \xE0 nouveau."
+    - "\u641C\u96C6\u66F4\u591A\u91D1\u5E01\u6765\u91CD\u8BD5."
+    - "Sammel mehr M\xFCnzen um es nochmal zu versuchen."
+    - "Zbierz wi\u0119cej monet i spr\xF3buj ponownie."
+    - "T\xECm th\xEAm xu \u0111\u1EC3 th\u1EED l\u1EA1i."
+  - Key: Character.Buy.Title
+    Description: 
+    Languages:
+    - BUY
+    - "KJ\xD8P"
+    - COMPRAR
+    - COMPRAR
+    - ACHETEZ
+    - "\u8D2D\u4E70"
+    - KAUFEN
+    - KUP
+    - MUA
+  - Key: Character.Buy.Text1
+    Description: 
+    Languages:
+    - Purchase this character?
+    - "Vil du kj\xF8pe denne karakteren? "
+    - Comprar este personagem?
+    - Comprar este personaje?
+    - Achetez ce personnage ?
+    - "\u8D2D\u4E70\u6B64\u89D2\u8272?"
+    - Willst du diesen Charakter kaufen?
+    - "Chcesz kupi\u0107 t\u0119 posta\u0107?"
+    - "Mua nh\xE2n v\u1EADt n\xE0y?"
+  - Key: Character.Buy.Text2
+    Description: 
+    Languages:
+    - You can also collect coins to unlock
+    - "Du kan ogs\xE5 samle mynter for \xE5 l\xE5se opp"
+    - "Voc\xEA pode coletar moedas para desbloquear"
+    - Puede recoger las monedas para desbloquear
+    - "Vous pouvez collecter des pi\xE8ces pour d\xE9verrouiller"
+    - "\u4F60\u4E5F\u53EF\u4EE5\u641C\u96C6\u66F4\u591A\u91D1\u5E01\u6765\u89E3\u9501"
+    - "Du kannst auch M\xFCnzen sammeln um freizuschalten"
+    - "Mo\u017Cesz tak\u017Ce uzbiera\u0107 monety aby odblokowa\u0107"
+    - "B\u1EA1n c\xF3 th\u1EC3 t\xEDch xu \u0111\u1EC3 m\u1EDF kh\xF3a"
+  - Key: Character.BuyOrUnlock.Text1
+    Description: 
+    Languages:
+    - Do you want to unlock or purchase this character?
+    - "Vil du l\xE5s opp eller kj\xF8pe denne karakteren?"
+    - Comprar este personagem?
+    - Comprar este personaje?
+    - "Voulez-vous d\xE9bloquer ou acheter ce personnage ?"
+    - "\u8D2D\u4E70\u6B64\u89D2\u8272?"
+    - Willst du diesen Charakter kaufen?
+    - "Chcesz kupi\u0107 t\u0119 posta\u0107?"
+    - "B\u1EA1n c\xF3 mu\u1ED1n m\u1EDF kh\xF3a ho\u1EB7c mua nh\xE2n v\u1EADt n\xE0y?"
+  - Key: Character.Unlock
+    Description: 
+    Languages:
+    - Unlock
+    - "L\xE5s opp"
+    - Desbloquear
+    - descubrir
+    - "D\xE9bloquez"
+    - "\u89E3\u9501"
+    - Freischalten
+    - Odblokuj
+    - "M\u1EDF kh\xF3a"
+  - Key: Character.Unlock.Title
+    Description: 
+    Languages:
+    - UNLOCK CHARACTER
+    - "L\xE5s opp karakteren. "
+    - DESBLOQUEAR PERSONAGEM
+    - "CAR\xC1CTER DE DESBLOQUEO"
+    - DEBLOQUEZ LES PERSONNAGES
+    - "\u89E3\u9501\u89D2\u8272"
+    - CHARACTER freigeschaltet!
+    - "ODBLOKUJ POSTA\u0106"
+    - "M\u1EDE KH\xD3A M\xC0N CH\u01A0I"
+  - Key: Character.Unlock.NotEnoughCoins
+    Description: 
+    Languages:
+    - You do not have enough coins to unlock a new character
+    - "F\xE5 flere mynter for \xE5 l\xE5se opp denne karakteren"
+    - Colete moedas para desbloquear este personagem.
+    - Recoger las monedas para desbloquear este personaje.
+    - "Vous n'avez pas assez de pi\xE8ces pour d\xE9bloquer ce nouveau personnage."
+    - "\u641C\u96C6\u91D1\u5E01\u6765\u89E3\u9501\u8FD9\u4E2A\u89D2\u8272"
+    - "Sammel M\xFCnzen um den Character freizuschalten."
+    - "Zbierz monety aby odblokowa\u0107 t\u0119 posta\u0107"
+    - "B\u1EA1n kh\xF4ng \u0111\u1EE7 xu \u0111\u1EC3 m\u1EDF kh\xF3a nh\xE2n v\u1EADt
+      m\u1EDBi"
+  - Key: Character.Unlock.Confirm.Text1
+    Description: 
+    Languages:
+    - Unlock this character for {2} coins?
+    - Unlock this character for {2} coins?
+    - Unlock this character for {2} coins?
+    - Unlock this character for {2} coins?
+    - "D\xE9bloquer ce personnage pour {2} pi\xE8ces ?"
+    - Unlock this character for {2} coins?
+    - Unlock this character for {2} coins?
+    - Unlock this character for {2} coins?
+    - "M\u1EDF kh\xF3a nh\xE2n v\u1EADt n\xE0y b\u1EB1ng {2} xu?"
+  - Key: Character.Unlock.New.Text1
+    Description: 
+    Languages:
+    - "Congratulations!\r\nNew character Unlocked"
+    - "Gratulerer!\r\nNy karakter l\xE5st opp. "
+    - "Parab\xE9ns!\r\nNovo personagem desbloqueado"
+    - "\xA1Felicitaciones! \r\nNuevo personaje desbloqueado"
+    - "F\xE9licitations ! \r\nUn nouveau personnage est d\xE9bloqu\xE9"
+    - "\u606D\u559C!\r\n\u65B0\u89D2\u8272\u5DF2\u7ECF\u88AB\u89E3\u9501"
+    - "Gl\xFCckwunsch!"
+    - "Gratulacje!\r\nNowa posta\u0107 odblokowana"
+    - "Ch\xFAc m\u1EEBng b\u1EA1n!\r\nNh\xE2n v\u1EADt m\u1EDBi \u0111\xE3 \u0111\u01B0\u1EE3c
+      m\u1EDF kh\xF3a"
+  - Key: Character.Unlock.New.Text2
+    Description: 
+    Languages:
+    - Collect more coins to unlock others.
+    - "Samle mer penger for \xE5 l\xE5se opp andre."
+    - Colete mais moedas para desbloquear
+    - "Recoger las monedas m\xE1s para desbloquear"
+    - "Collectez plus de pi\xE8ces pour en d\xE9bloquer d'autres."
+    - "\u641C\u96C6\u66F4\u591A\u91D1\u5E01\u6765\u89E3\u9501\u5176\u4ED6\u7684\u89D2\u8272."
+    - "Sammel mehr M\xFCnzen um die anderen freizuschalten."
+    - "Zbierz wi\u0119cej monet aby odblokowa\u0107 reszt\u0119."
+    - "T\xECm th\xEAm xu \u0111\u1EC3 m\u1EDF kh\xF3a nh\xE2n v\u1EADt kh\xE1c."
+  - Key: Character.Unlock.Existing.Text1
+    Description: 
+    Languages:
+    - "Bad Luck!\r\nCharacter Already Unlocked."
+    - "Uflaks!\r\nKarakteren er allerede l\xE5st opp. "
+    - "Deu Azar!\r\nPersonagem j\xE1 desbloqueado"
+    - "\xC9l Azar! \r\nPersonaje ya desbloqueado"
+    - "Pas de chance.\r\nCe personnage est d\xE9j\xE0 d\xE9bloqu\xE9."
+    - "\u8FD0\u6C14\u4E0D\u597D!\r\n\u4E16\u754C\u5DF2\u7ECF\u89E3\u9501\u4E86."
+    - "Kein Gl\xFCck!"
+    - "A to pech!\r\nPosta\u0107 jest ju\u017C odblokowana."
+    - "\xC8o!\r\nNh\xE2n v\u1EADt n\xE0y \u0111\xE3 \u0111\u01B0\u1EE3c m\u1EDF kh\xF3a
+      r\u1ED3i."
+  - Key: Character.Unlock.Existing.Text2
+    Description: 
+    Languages:
+    - Collect more coins to try again.
+    - "Samle mer penger for \xE5 pr\xF8ve igjen. "
+    - Colete mais moedas para tentar novamente.
+    - "Recoger las monedas m\xE1s para intentarlo de nuevo."
+    - "Collectez plus de pi\xE8ces pour jouer \xE0 nouveau."
+    - "\u641C\u96C6\u66F4\u591A\u91D1\u5E01\u6765\u91CD\u8BD5."
+    - "Sammel mehr M\xFCnzen um es nochmal zu versuchen."
+    - "Zbierz wi\u0119cej monet i spr\xF3buj ponownie."
+    - "T\xECm th\xEAm xu \u0111\u1EC3 th\u1EED l\u1EA1i."
