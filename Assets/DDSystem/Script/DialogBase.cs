@@ -37,6 +37,7 @@ namespace Doublsb.Dialog
     {
         Active,
         Wait,
+        Back,
         Deactivate
     }
 
@@ -132,16 +133,18 @@ namespace Doublsb.Dialog
         public string PrintText = string.Empty;
 
         public bool isSkippable = true;
+        public bool canRollBack = false;
         public UnityAction Callback = null;
 
         //================================================
         //Public Method
         //================================================
-        public DialogData(string originalString, string character = "", UnityAction callback = null, bool isSkipable = true)
+        public DialogData(string originalString, string character = "", UnityAction callback = null, bool isSkipable = true, bool canRollBack = false)
         {
             _convert(originalString);
 
             this.isSkippable = isSkipable;
+            this.canRollBack = canRollBack;
             this.Callback = callback;
             this.Character = character;
         }

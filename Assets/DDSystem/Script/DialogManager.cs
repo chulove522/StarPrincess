@@ -39,6 +39,7 @@ namespace Doublsb.Dialog
         [Header("Game Objects")]
         public GameObject Printer;
         public GameObject Characters;
+        public GameObject ButtonBack;
 
         [Header("UI Objects")]
         public Text Printer_Text;
@@ -104,6 +105,18 @@ namespace Doublsb.Dialog
             }
         }
 
+        public void Click_Back()
+        {
+            switch (state)
+            {
+                case State.Active:
+                    StartCoroutine(_skip()); break;
+
+                case State.Wait:
+                    if(_current_Data.SelectList.Count <= 0) Rollback(); break;
+            }
+        }
+
         public void Hide()
         {
             if(_textingRoutine != null)
@@ -124,6 +137,30 @@ namespace Doublsb.Dialog
                 _current_Data.Callback = null;
             }
         }
+
+        
+        public void Rollback()
+        {
+            if(_textingRoutine != null) 
+                StopCoroutine(_textingRoutine);
+
+            if(_printingRoutine != null)
+                StopCoroutine(_printingRoutine);
+
+            Printer.SetActive(false);
+            Characters.SetActive(false);
+            Selector.SetActive(false);
+
+            state = State.Back;
+
+            if (_current_Data.Callback != null)
+            {
+                _current_Data.Callback.Invoke();
+                _current_Data.Callback = null;
+            }
+        }
+
+
         #endregion
 
         #region Selector
@@ -256,12 +293,27 @@ namespace Doublsb.Dialog
         {
             state = State.Active;
 
-            foreach (var Data in DataList)
+            Debug.Log(1);
+
+            for(var i = 0 ; i < DataList.Count; i++)
             {
-                Show(Data);
+                var data = DataList[i];
+
+                if (data.canRollBack)
+                    ButtonBack.SetActive(true);
+                else
+                    ButtonBack.SetActive(false);
+
+                Show(data);
                 _init_selector();
 
-                while (state != State.Deactivate) { yield return null; }
+                while (state != State.Deactivate && state != State.Back ) { yield return null; }
+
+                _current_Data.PrintText = string.Empty;
+
+                if (state == State.Back) {
+                    i -= 2;
+                }
             }
         }
 
