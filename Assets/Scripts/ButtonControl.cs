@@ -16,7 +16,7 @@ public class ButtonControl : MonoBehaviour
 
         dialogTexts.Add(new DialogData("/size:up/Hi, /size:init/my name is Li.", "Li"));
 
-        dialogTexts.Add(new DialogData("I am Sa. Popped out to let you know Asset can show other characters.", "Sa"));
+        dialogTexts.Add(new DialogData("I am Sa. Popped out to let you know Asset can show other characters.", "Sa", null, true, true));
         
         dialogTexts.Add(new DialogData("This Asset, The D'Dialog System has many features.", "Li"));
 
