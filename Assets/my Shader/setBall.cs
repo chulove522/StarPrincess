@@ -5,38 +5,46 @@ using UnityEngine.UI;
 
 public class setBall : MonoBehaviour{
     public GameObject Ball;
-    public Material HueMat;
-    private Slider slidebar;
+    public Material BallMat;
+    public Texture2D[] BallTexture;
+    private byte TexPointer= 0;
+    //public Texture2D SampleTexture;
+    public Slider HueSlidebar,SizeSlider;
     public float HueVal;
     public float ScaleVal;
+    private void Start() {
 
-    void Start()
-    {
-        slidebar = this.gameObject.GetComponent<Slider>();
     }
+
     void OnEnable() {
         //Subscribe to the Slider Click event
-        slidebar.onValueChanged.AddListener(delegate { setSizeCallBack(slidebar); });
+
+        SizeSlider.onValueChanged.AddListener(delegate { setSizeCallBack(SizeSlider); });
+        HueSlidebar.onValueChanged.AddListener(delegate { setHueColor(); });
     }
     //Will be called when Slider changes
-    public void setSizeCallBack(Slider slidebar) {
+    public void setSizeCallBack(Slider SizeSlider) {
         //Debug.Log("Slider Changed: " + slidebar.value);
-        ScaleVal = slidebar.value;
+        ScaleVal = SizeSlider.value;
         Ball.transform.localScale = new Vector3(4+ScaleVal, 4+ScaleVal, 4+ScaleVal);
     }
 
     public void setHueColor() {
-        HueVal = slidebar.value;
-        HueMat.SetFloat("_hue", HueVal); //踩雷 要加底線並且以Material內的refrence name為對象
+        HueVal = HueSlidebar.value;
+        BallMat.SetFloat("_hue", HueVal); //踩雷 要加底線並且以Material內的refrence name為對象
+    }
+    public void changeTexture() {
+
+        if (TexPointer < BallTexture.Length) {
+            BallMat.SetTexture("_pattern", BallTexture[TexPointer]);
+            TexPointer += 1;
+ 
+        }else {
+            BallMat.SetTexture("_pattern", BallTexture[0]);
+            TexPointer -= (byte)(BallTexture.Length-1);
+        }
     }
 
-    public void setSize() {
-    }
-    public void setBrightness() {
-    }
-
-    public void setBasicColor() {
-    }
 
 
 }

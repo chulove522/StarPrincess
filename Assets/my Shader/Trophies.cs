@@ -1,4 +1,5 @@
-﻿using System;
+﻿using StellarGen;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -41,7 +42,7 @@ public class Trophies : MonoBehaviour
         Debug.Log("unlock" + starsignNum.ToString());
     }
 
-    void FinishStage(int stage) { 
+    public void FinishStage(int stage) { 
         if (stage ==1) { //fire
             setUnlock(0);
             setUnlock(4);
