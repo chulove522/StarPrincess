@@ -7,7 +7,6 @@ using UnityEngine.UI;
 
 public class Trophies : MonoBehaviour
 {
-    public GameObject MainGameController;
     public GameObject[] starsignObj;
     public Image[] stars;
     private bool isAllClear = false;
