@@ -19,7 +19,18 @@ public class MainGameController : MonoBehaviour {
     {
         
     }
+    void Save(int stagenum) {
+        PlayerPrefs.SetInt("Stage",stagenum);
+        //PlayerPrefs.GetString("Stage");
 
+
+
+    }
+    public void clearAll() {
+
+        PlayerPrefs.DeleteAll();
+        t.initClear();
+    }
     public void Win(int stage) {
         t.FinishStage(stage);
     }

@@ -95,28 +95,6 @@ public class Trophies : MonoBehaviour
             stars[i].color = Color.gray;
         }
     }
-    private IEnumerator MoveTo(GameObject obj, Vector3 currentPos, Vector3 targetPos, float speed) {
-
-        var duration = 1000 / speed;
-
-        var timePassed = 0f;
-        while (timePassed < duration) {
-            // always a factor between 0 and 1
-            var factor = timePassed / duration;
-
-            obj.transform.position = Vector3.Lerp(currentPos, targetPos, factor);
-
-            // increase timePassed with Mathf.Min to avoid overshooting
-            timePassed += Math.Min(Time.deltaTime, duration - timePassed);
-
-            // "Pause" the routine here, render this frame and continue
-            // from here in the next frame
-            yield return null;
-        }
-
-        transform.position = targetPos;
-
-        // move done!
-    }
+    
 
 }

@@ -1,19 +1,26 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class setBall : MonoBehaviour{
-    public GameObject Ball;
+    public GameObject[] Ball;
     public Material BallMat;
     public Texture2D[] BallTexture;
     private byte TexPointer= 0;
-    //public Texture2D SampleTexture;
+    private byte BallPointer = 0;
     public Slider HueSlidebar,SizeSlider;
     public float HueVal;
     public float ScaleVal;
-    private void Start() {
+    public Vector3[] position;
+    new Renderer renderer;
 
+    private void Start() {
+       /* for (int i = 0; i < positionObject.Length; i++) {
+            position[i] = positionObject[i].transform.position;
+        
+        }*/
     }
 
     void OnEnable() {
@@ -22,11 +29,43 @@ public class setBall : MonoBehaviour{
         SizeSlider.onValueChanged.AddListener(delegate { setSizeCallBack(SizeSlider); });
         HueSlidebar.onValueChanged.AddListener(delegate { setHueColor(); });
     }
-    //Will be called when Slider changes
+
+
+    public void changeBall(int sample) {
+        //if(BallPointer < Ball.Length) {
+        if (sample == 0 ) {
+            BallPointer = 1;
+            StartCoroutine(MoveTo(Ball[1], Ball[1].transform.position, position[0], 20f));
+            StartCoroutine(MoveTo(Ball[0], Ball[0].transform.position, position[2], 20f));
+            StartCoroutine(MoveTo(Ball[2], Ball[2].transform.position, position[1], 20f));
+        }
+        else if (sample == 1 ) {
+            BallPointer = 0;
+            StartCoroutine(MoveTo(Ball[0], Ball[0].transform.position, position[0], 20f));
+            StartCoroutine(MoveTo(Ball[2], Ball[2].transform.position, position[2], 20f));
+            StartCoroutine(MoveTo(Ball[1], Ball[1].transform.position, position[1], 20f));
+
+        }
+        else if (sample == 2) {
+            BallPointer = 2;
+            StartCoroutine(MoveTo(Ball[2], Ball[2].transform.position, position[0], 20f));
+            StartCoroutine(MoveTo(Ball[1], Ball[1].transform.position, position[2], 20f));
+            StartCoroutine(MoveTo(Ball[0], Ball[0].transform.position, position[1], 20f));
+        }
+        /*
+        else {
+            BallPointer -= (byte)(Ball.Length-1);
+
+        }*/
+        
+        renderer = Ball[BallPointer].GetComponent<Renderer>();
+        BallMat = renderer.GetComponent<Renderer>().material;
+
+    }
     public void setSizeCallBack(Slider SizeSlider) {
         //Debug.Log("Slider Changed: " + slidebar.value);
         ScaleVal = SizeSlider.value;
-        Ball.transform.localScale = new Vector3(4+ScaleVal, 4+ScaleVal, 4+ScaleVal);
+        Ball[BallPointer].transform.localScale = new Vector3(2+ScaleVal, 2+ScaleVal, 2+ScaleVal);
     }
 
     public void setHueColor() {
@@ -45,6 +84,29 @@ public class setBall : MonoBehaviour{
         }
     }
 
+    private IEnumerator MoveTo(GameObject obj, Vector3 currentPos, Vector3 targetPos, float speed) {
 
+
+        var duration = 20 / speed;
+
+        var timePassed = 0f;
+        while (timePassed < duration) {
+            // always a factor between 0 and 1
+            var factor = timePassed / duration;
+
+            obj.transform.position = Vector3.Lerp(currentPos, targetPos, factor);
+
+            // increase timePassed with Mathf.Min to avoid overshooting
+            timePassed += Math.Min(Time.deltaTime, duration - timePassed);
+
+            // "Pause" the routine here, render this frame and continue
+            // from here in the next frame
+            yield return null;
+        }
+
+        obj.transform.position = targetPos;
+
+        // move done!
+    }
 
 }
