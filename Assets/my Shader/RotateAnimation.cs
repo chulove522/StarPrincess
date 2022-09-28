@@ -7,7 +7,7 @@ public class RotateAnimation : MonoBehaviour
     private GameObject rotateobj;
     private Sprite image;
     public bool isaBall;
-    bool isRoating;
+    public bool isRoating;
     private Vector3 rotationvector = new Vector3(0f, 0f, 1f); //icon rotation only has Z axes
     void Start()
     {

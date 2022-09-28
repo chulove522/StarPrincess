@@ -10,6 +10,8 @@ public class MainGameController : MonoBehaviour {
     private AudioSource audioSource;
     public GameObject[] hideThese;
     public GameObject LoadingInterface;
+    public GameObject GameOverRetry;
+    public GameObject GameWinScreen;
     public Image loadingImg;
     Trophies t = new Trophies();
 
@@ -18,11 +20,12 @@ public class MainGameController : MonoBehaviour {
     //事先把場景名稱取名吧我怕打錯字
     string[] scenesName = { "SpaceScene", "Maker", "Travel" ,
         "stage01","stage02","stage03","stage04",
-        "Conversation01","Conversation02",};
+        "DialogScene","Conversation02",};
 
     private bool showornot = false;
     void Start() {
-        
+        GameOverRetry.SetActive(false);
+        GameWinScreen.SetActive(false);
         audioSource = this.GetComponent<AudioSource>();
         audioSource.playOnAwake = true;
         audioSource.loop = true;
@@ -36,11 +39,16 @@ public class MainGameController : MonoBehaviour {
         if (name == scenesName[0]) {
             //spacetitle
             audioSource.clip = audioClips[6];
-        }else if(name == scenesName[1]) {
+        }
+        else if (name == scenesName[1]) {
             //Makeer
             audioSource.clip = audioClips[3];
         }
+        else if (name == scenesName[7]) {
+            //Mdia
+            audioSource.clip = audioClips[1];
 
+        }
     }
     void Update()
     {
@@ -53,6 +61,19 @@ public class MainGameController : MonoBehaviour {
 
 
     }
+
+    /*
+     * scenesName 
+     * 0 = "SpaceScene" 
+     * 1 ="Maker"
+     * 2= "Travel"
+       3= "stage01"
+       4= "stage02"
+       5= "stage03"
+       6= "stage04",
+       7= "DialogScene"
+       8="Conversation02"
+     */
     public void StartGame(int scenceNumber) {
 
         hideTheseThings(true);
@@ -87,6 +108,12 @@ public class MainGameController : MonoBehaviour {
         }
     }
 
+    public void GameOver() {
+        GameOverRetry.SetActive(true);
+    }
+    public void GameWin() {
+        GameWinScreen.SetActive(true);
+    }
     public void clearAll() {
 
         PlayerPrefs.DeleteAll();

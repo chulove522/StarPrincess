@@ -84,7 +84,7 @@ public class setBall : MonoBehaviour{
         }
     }
 
-    private IEnumerator MoveTo(GameObject obj, Vector3 currentPos, Vector3 targetPos, float speed) {
+    public IEnumerator MoveTo(GameObject obj, Vector3 currentPos, Vector3 targetPos, float speed) {
 
 
         var duration = 20 / speed;

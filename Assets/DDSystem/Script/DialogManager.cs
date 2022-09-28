@@ -293,7 +293,7 @@ namespace Doublsb.Dialog
         {
             state = State.Active;
 
-            Debug.Log(1);
+            //Debug.Log(1);
 
             for(var i = 0 ; i < DataList.Count; i++)
             {

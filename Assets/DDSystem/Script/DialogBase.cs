@@ -133,13 +133,13 @@ namespace Doublsb.Dialog
         public string PrintText = string.Empty;
 
         public bool isSkippable = true;
-        public bool canRollBack = false;
+        public bool canRollBack = true;
         public UnityAction Callback = null;
 
         //================================================
         //Public Method
         //================================================
-        public DialogData(string originalString, string character = "", UnityAction callback = null, bool isSkipable = true, bool canRollBack = false)
+        public DialogData(string originalString, string character = "", UnityAction callback = null, bool isSkipable = true, bool canRollBack = true)
         {
             _convert(originalString);
 
