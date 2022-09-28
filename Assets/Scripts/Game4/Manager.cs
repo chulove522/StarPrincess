@@ -1,6 +1,4 @@
-﻿using GameFramework.GameStructure.Levels.ObjectModel;
-using Sirenix.OdinInspector;
-using System.Collections;
+﻿using Sirenix.OdinInspector;
 using System.Collections.Generic;
 using UnityEngine;
 
