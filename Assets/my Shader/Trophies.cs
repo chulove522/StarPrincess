@@ -7,7 +7,6 @@ using UnityEngine.UI;
 
 public class Trophies : MonoBehaviour
 {
-    public GameObject MainGameController;
     public GameObject[] starsignObj;
     public Image[] stars;
     private bool isAllClear = false;
@@ -41,7 +40,7 @@ public class Trophies : MonoBehaviour
         Debug.Log("unlock" + starsignNum.ToString());
     }
 
-    void FinishStage(int stage) { 
+    public void FinishStage(int stage) { 
         if (stage ==1) { //fire
             setUnlock(0);
             setUnlock(4);
@@ -94,28 +93,6 @@ public class Trophies : MonoBehaviour
             stars[i].color = Color.gray;
         }
     }
-    private IEnumerator MoveTo(GameObject obj, Vector3 currentPos, Vector3 targetPos, float speed) {
-
-        var duration = 1000 / speed;
-
-        var timePassed = 0f;
-        while (timePassed < duration) {
-            // always a factor between 0 and 1
-            var factor = timePassed / duration;
-
-            obj.transform.position = Vector3.Lerp(currentPos, targetPos, factor);
-
-            // increase timePassed with Mathf.Min to avoid overshooting
-            timePassed += Math.Min(Time.deltaTime, duration - timePassed);
-
-            // "Pause" the routine here, render this frame and continue
-            // from here in the next frame
-            yield return null;
-        }
-
-        transform.position = targetPos;
-
-        // move done!
-    }
+    
 
 }
