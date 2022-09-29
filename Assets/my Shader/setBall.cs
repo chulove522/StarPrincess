@@ -11,7 +11,7 @@ public class setBall : MonoBehaviour{
     private byte TexPointer= 0;
     private byte BallPointer = 0;
     public Slider HueSlidebar,SizeSlider;
-    public float HueVal;
+    [SerializeField] float HueVal;
     public float ScaleVal;
     public Vector3[] position;
     new Renderer renderer;
@@ -29,23 +29,26 @@ public class setBall : MonoBehaviour{
         SizeSlider.onValueChanged.AddListener(delegate { setSizeCallBack(SizeSlider); });
         HueSlidebar.onValueChanged.AddListener(delegate { setHueColor(); });
     }
-
+    //提供給場景轉換時呼叫出那顆星球 顏色
+    public float getColor => HueVal;
+    //材質是第幾個
+    public byte GetBallMatByte => BallPointer;
 
     public void changeBall(int sample) {
-        //if(BallPointer < Ball.Length) {
+        //alpha star
         if (sample == 0 ) {
             BallPointer = 1;
             StartCoroutine(MoveTo(Ball[1], Ball[1].transform.position, position[0], 20f));
             StartCoroutine(MoveTo(Ball[0], Ball[0].transform.position, position[2], 20f));
             StartCoroutine(MoveTo(Ball[2], Ball[2].transform.position, position[1], 20f));
-        }
+        } //beta star
         else if (sample == 1 ) {
             BallPointer = 0;
             StartCoroutine(MoveTo(Ball[0], Ball[0].transform.position, position[0], 20f));
             StartCoroutine(MoveTo(Ball[2], Ball[2].transform.position, position[2], 20f));
             StartCoroutine(MoveTo(Ball[1], Ball[1].transform.position, position[1], 20f));
 
-        }
+        }//theta star
         else if (sample == 2) {
             BallPointer = 2;
             StartCoroutine(MoveTo(Ball[2], Ball[2].transform.position, position[0], 20f));

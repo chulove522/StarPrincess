@@ -5,24 +5,30 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
+
 public class Trophies : MonoBehaviour
 {
+    StarSign[] starsigninfo;
     public GameObject[] starsignObj;
     public Image[] stars;
     private bool isAllClear = false;
     private Vector3 showplace = new Vector3(0,0,-50f);
     public float showspeed = 20f;
+
+    
     //Image starsignImg;
 
     private void Start() {
-        
+        for (int i = 0; i < 12; i++) {
+            starsigninfo[i] = starsignObj[i].GetComponent<StarSign>();
+        }
     }
     public enum Constellations {
         Aries=0, Taurus = 1, Gemini = 2, Cancer = 3, Leo = 4, Virgo = 5,
         Libra = 6, Scorpio = 7, Sagittarius = 8, Capricorn = 9, Aquarius = 10, Pisces = 11
     };
     // Aries=0~Pisces=11
-    private bool[] clear = { false, false, false, false, false, false, false, false, false, false, false, false };
+    //private bool[] clear = { false, false, false, false, false, false, false, false, false, false, false, false };
 
     public void setUnlock(int starsignNum) {
 
@@ -34,8 +40,13 @@ public class Trophies : MonoBehaviour
 
         //以上廢棄不用
 
-        clear[starsignNum] = true;
-        starsignObj[starsignNum].transform.position += showplace;
+        starsigninfo[starsignNum].setClear(true);
+        if(starsigninfo[starsignNum].isFront == false) {
+
+            starsignObj[starsignNum].transform.position += showplace;
+            starsigninfo[starsignNum].setFront(true);
+        }
+
         stars[starsignNum].color = Color.white;
         Debug.Log("unlock" + starsignNum.ToString());
     }
@@ -88,8 +99,14 @@ public class Trophies : MonoBehaviour
     public void initClear() {
         isAllClear = false;
         for (int i = 0; i < 12; i++) {
-            starsignObj[i].transform.position -= showplace;
-            clear[i] = false;
+            if (starsigninfo[i].isFront == true) {
+                //如果人在前面救移回來
+                starsignObj[i].transform.position -= showplace;
+
+                starsigninfo[i].setFront(false);
+            }
+
+
             stars[i].color = Color.gray;
         }
     }
