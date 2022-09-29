@@ -14,7 +14,7 @@ namespace Game4
         public Sprite[] BubbSprites;
         [SerializeField]
         public GameObject StageBubblePrefab;
-        [SerializeField, LabelText("游戏配置")]
+        [SerializeField, LabelText("遊戲配置")]
         private GameCfg _gameCfg;
 
         public int Level { get; private set; }

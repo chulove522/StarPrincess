@@ -16,7 +16,7 @@ namespace Game4
         // 舞台边距,本应该计算得出,偷懒直接按照场景数据赋值
         public float TopEdge { get; private set; } = 5.6f;
         public float BottomEdge => TopEdge - GameConstant.RowHeight * GameConstant.StageRowCount;
-        public float LeftEdge { get; private set; } = -3;
+        public float LeftEdge { get; private set; } = -5f;
         public float RightEdge { get; private set; } = 5;
         public StageType CurrStageType { get; private set; }
 
