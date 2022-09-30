@@ -17,7 +17,21 @@ public class MainGameController : MonoBehaviour {
     public GameObject GameOverRetry;  //輸了prefab/如果關卡沒有輸贏.那就隨便拉一個fake
     public GameObject GameWinScreen;  //贏了prefab/隨便拉一個fake
     public Image loadingImg;  //把5star圖片拉近來這邊
-    Trophies t = new Trophies();
+    public GameObject TrophiesPanel;
+    Trophies t;
+
+
+    [SerializeField]
+    static int DialogueNum = 2;  /// <summary>
+    /// 先拿來測試啊啊啊之後要記得改掉!!!
+    /// </summary>
+    /// <param name="dia"></param>
+
+
+    public static void setDialog(int dia) {
+        DialogueNum = dia;
+    }
+    public static int getDialog => DialogueNum;
 
     //所有需要載入的的場景list
     List<AsyncOperation> scenes = new List<AsyncOperation>();
@@ -35,6 +49,8 @@ public class MainGameController : MonoBehaviour {
         audioSource.loop = true;
         setAudioClip();
         audioSource.Play();
+        t = TrophiesPanel.transform.GetComponent<Trophies>();
+
     }
     // Update is called once per frame
 

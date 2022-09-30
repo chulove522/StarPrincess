@@ -9,10 +9,11 @@ public class setBall : MonoBehaviour{
     public Material BallMat;
     public Texture2D[] BallTexture;
     private byte TexPointer= 0;
-    private byte BallPointer = 0;
+    private byte BallPointer=0;
     public Slider HueSlidebar,SizeSlider;
-    [SerializeField] float HueVal;
-    public float ScaleVal;
+    [SerializeField] 
+    float HueVal=0;
+    float ScaleVal=0;
     public Vector3[] position;
     new Renderer renderer;
 
@@ -29,10 +30,9 @@ public class setBall : MonoBehaviour{
         SizeSlider.onValueChanged.AddListener(delegate { setSizeCallBack(SizeSlider); });
         HueSlidebar.onValueChanged.AddListener(delegate { setHueColor(); });
     }
-    //提供給場景轉換時呼叫出那顆星球 顏色
-    public float getColor => HueVal;
-    //材質是第幾個
-    public byte GetBallMatByte => BallPointer;
+
+
+
 
     public void changeBall(int sample) {
         //alpha star
@@ -110,6 +110,22 @@ public class setBall : MonoBehaviour{
         obj.transform.position = targetPos;
 
         // move done!
+    }
+
+    public void FinishPlanet() {
+        /*
+        //提供給場景轉換時呼叫出那顆星球 顏色
+        public float getColor => HueVal;
+        //材質是第幾個
+        public byte GetBallMatByte => BallPointer;
+        */
+        
+        MainGameController.setDialog(2);
+        PlayerPrefs.SetFloat("PlanetColor", HueVal);
+        //PlayerPrefs.SetInt("PlanetColor", (int)HueVal);
+        PlayerPrefs.SetFloat("PlanetSize", ScaleVal);
+        PlayerPrefs.SetInt("PlanetMat", BallPointer);
+
     }
 
 }
