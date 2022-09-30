@@ -11,7 +11,7 @@ public class Trophies : MonoBehaviour
     StarSign[] starsigninfo;
     public GameObject[] starsignObj;
     public Image[] stars;
-    private bool isAllClear = false;
+    private static bool isAllClear = false;
     private Vector3 showplace = new Vector3(0,0,-50f);
     public float showspeed = 20f;
 
@@ -27,7 +27,7 @@ public class Trophies : MonoBehaviour
     // Aries=0~Pisces=11
     //private bool[] clear = { false, false, false, false, false, false, false, false, false, false, false, false };
 
-    public void setUnlock(int starsignNum) {
+    void setUnlock(int starsignNum) {
 
         //starsignImg = GameObject.Find(starsign.ToString()).GetComponent<Image>();
         //starsignImg.color = Color.white;
@@ -71,6 +71,7 @@ public class Trophies : MonoBehaviour
             setUnlock(6);
             setUnlock(10);
             isAllClear = true;
+            setTheFire();
         }
     }
 

@@ -22,7 +22,7 @@ public class MainGameController : MonoBehaviour {
 
 
     [SerializeField]
-    static int DialogueNum = 2;  /// <summary>
+    static int DialogueNum = 1;  /// <summary>
     /// 先拿來測試啊啊啊之後要記得改掉!!!
     /// </summary>
     /// <param name="dia"></param>
@@ -93,6 +93,7 @@ public class MainGameController : MonoBehaviour {
         }
         else {
             //意料之外的scene名稱
+            Debug.LogError("在main的setAudioClip之中 有意料之外的scene名稱");
             audioSource.clip = audioClips[3];
         }
 

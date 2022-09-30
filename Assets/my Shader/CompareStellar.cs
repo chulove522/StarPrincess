@@ -13,7 +13,7 @@ public class CompareStellar : MonoBehaviour {
     private int BallPointer;
     //Canvas canvas;
 
-    [SerializeField] int result;
+    [SerializeField] static int result;
 
     /*public*/
     public Text starNameText;   //the title
@@ -212,7 +212,7 @@ public class CompareStellar : MonoBehaviour {
 
         return result;
     }
-    void showResult() {
+    void showResult(int result) {
         for (int i = 0; i < 12; i++) {
             starSigns[i].SetActive(false);
         }
@@ -228,10 +228,27 @@ public class CompareStellar : MonoBehaviour {
     }
     public void ShowCompareScreen() {
         compare();
-        showResult();
+        showResult(result);
     }
-    public void original() {
+    public void ShowOriginal() {
         compare();
+        showResult(result);
+
+    }
+    public void ShowLeft() {
+        if (result == 0)
+            result += 11;
+        else
+            result -= 1;
+        showResult(result);
+
+    }
+    public void ShowRight() {
+        if (result == 11)
+            result -= 11;
+        else
+            result += 1;
+        showResult(result);
 
     }
 
