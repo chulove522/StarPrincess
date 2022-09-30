@@ -8,7 +8,7 @@ namespace Game4
 {
     public class GameConstant
     {
-        public const int StageRowCount = 14;
+        public const int StageRowCount = 5;
         public const int RowBubbMaxNum = 10;
         public const int RowBubbMinNum = RowBubbMaxNum - 1;
         public const float BubbRadius = 0.5f;

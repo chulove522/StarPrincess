@@ -40,6 +40,7 @@ namespace Game4
             gameObject.SetActive(true);
             BubbType = type;
             _image.sprite = Manager.Instance.BubbSprites[(int)BubbType];
+            DragBubbleImage.sprite = _image.sprite;
             _punchAnim.Restart();
             return _punchAnim.WaitForCompletion();
         }
@@ -48,10 +49,10 @@ namespace Game4
 
         public void OnBeginDrag(PointerEventData eventData)
         {
-            var startPos = Vector3.Scale(transform.position, new Vector3(1, 1, 0));
+            var startPos = Vector3.Scale(transform.position, new Vector3(0, 1, 0));
+            _image.sprite = Manager.Instance.BubbSprites[(int)BubbType];
             LineRenderer.positionCount = 1;
             LineRenderer.SetPosition(0, startPos);
-            DragBubbleImage.sprite = _image.sprite;
             DragBubbleImage.gameObject.SetActive(true);
         }
 
@@ -60,17 +61,21 @@ namespace Game4
             var panelRect = (RectTransform)transform.parent;
             RectTransformUtility.ScreenPointToLocalPointInRectangle(panelRect, eventData.position, eventData.pressEventCamera, out var pos);
             var selfPos = ((RectTransform)transform).anchoredPosition;
-            if (pos.y > selfPos.y) return;
+
+            // if (pos.y > selfPos.y) return;
 
             DragBubbleImage.rectTransform.anchoredPosition = pos;
             var ray = Physics2D.Raycast(transform.position, (selfPos - pos));
             var anchors = Manager.Instance.Anchors;
 
-            if (ray.point.y < anchors.BottomEdge) return; // 不能出下边界
+            // if (ray.point.y < anchors.BottomEdge) return; // 不能出下边界
 
             FlyDirection = (selfPos - pos).normalized;
             LineRenderer.positionCount = 2;
             LineRenderer.SetPosition(1, ray.point);
+
+            if (ray.rigidbody == null) return;
+
             // 碰到墙壁
             if (ray.rigidbody.bodyType == RigidbodyType2D.Static && ray.point.y < anchors.TopEdge)
             {
@@ -91,8 +96,8 @@ namespace Game4
 
         public void OnEndDrag(PointerEventData eventData)
         {
-            gameObject.SetActive(false);
-            DragBubbleImage.gameObject.SetActive(false);
+           // gameObject.SetActive(false);
+           // DragBubbleImage.gameObject.SetActive(false);
             LineRenderer.positionCount = 0;
             // Manager.Instance.SpawnFlyBubble(BubbType, FlyDirection, transform.position);
         }

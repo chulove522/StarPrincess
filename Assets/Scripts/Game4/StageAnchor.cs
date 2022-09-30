@@ -10,11 +10,10 @@ namespace Game4
           , OddStage  // 首行是奇数的舞台
     }
 
-    // 泡泡锚点数据生成类
     public class StageAnchor : IStageAnchor
     {
         // 舞台边距,本应该计算得出,偷懒直接按照场景数据赋值
-        public float TopEdge { get; private set; } = 5.6f;
+        public float TopEdge { get; private set; } = 4.5f;
         public float BottomEdge => TopEdge - GameConstant.RowHeight * GameConstant.StageRowCount;
         public float LeftEdge { get; private set; } = -5f;
         public float RightEdge { get; private set; } = 5;

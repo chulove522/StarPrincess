@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UnityEditor;
+using UnityEngine;
 
 namespace Game4
 {
@@ -46,6 +47,9 @@ namespace Game4
         [TabGroup("關卡配置"), LabelText("關卡配置"), ListDrawerSettings(ShowIndexLabels = true)]
         public LevelTunning[] LevelTunnings;
 
+
+        [TabGroup("通用配置"), LabelText("飛行氣泡速度")]
+        public float FlyBubbleSpeed;
 
 #if UNITY_EDITOR
 

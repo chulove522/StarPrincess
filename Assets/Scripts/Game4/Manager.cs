@@ -1,4 +1,5 @@
 ﻿using Sirenix.OdinInspector;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -135,6 +136,16 @@ namespace Game4
                     SpawnStageBubble(node);
             }
 
+        }
+
+        internal void OnCollideStageBubble(Collision2D collision)
+        {
+            throw new NotImplementedException();
+        }
+
+        internal void OnCollideStageTopEdge(Collision2D collision)
+        {
+            throw new NotImplementedException();
         }
     }
 
