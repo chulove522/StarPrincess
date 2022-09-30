@@ -98,7 +98,7 @@ namespace Game4
         {
            // gameObject.SetActive(false);
            // DragBubbleImage.gameObject.SetActive(false);
-            LineRenderer.positionCount = 0;
+            //LineRenderer.positionCount = 0;
             // Manager.Instance.SpawnFlyBubble(BubbType, FlyDirection, transform.position);
         }
 
