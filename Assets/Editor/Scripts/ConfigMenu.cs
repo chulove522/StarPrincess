@@ -1,14 +1,14 @@
 ﻿using System.IO;
+using Config;
 using UnityEngine;
 using UnityEditor;
-using Game4;
 
 [InitializeOnLoad]
 public static class ConfigMenu
 {
     public static void Load<T>() where T : ScriptableObject
     {
-        var type = typeof(T);
+        var type       = typeof(T);
         var configPath = $"Assets/{type.Name}.asset";
         if (!File.Exists(configPath))
         {
