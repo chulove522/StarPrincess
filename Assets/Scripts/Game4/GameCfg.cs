@@ -51,6 +51,9 @@ namespace Game4
         [TabGroup("通用配置"), LabelText("飛行氣泡速度")]
         public float FlyBubbleSpeed;
 
+        [TabGroup("通用配置"), LabelText("飞行中的球")]
+        public GameObject FlyBubble;
+
 #if UNITY_EDITOR
 
         [Button("保存", ButtonSizes.Medium)]

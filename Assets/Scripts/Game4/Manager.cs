@@ -25,6 +25,7 @@ namespace Game4
         public GameCfg GameCfg => _gameCfg;
 
         private Dictionary<StageNode, HashSet<StageNode>> _parentRecords;
+        private Lazy<FlyBubble> _lazyFlyBubble;
 
         protected void Awake()
         {
@@ -34,6 +35,7 @@ namespace Game4
             for (var i = 0; i < GameConstant.StageRowCount; ++i)
                 StageNodes.Add(new List<StageNode>(GameConstant.RowBubbMaxNum));
             _parentRecords = new Dictionary<StageNode, HashSet<StageNode>>();
+            _lazyFlyBubble = new Lazy<FlyBubble>(() => Instantiate(GameCfg.FlyBubble).GetComponent<FlyBubble>());
         }
 
         void Start()
@@ -146,6 +148,12 @@ namespace Game4
         internal void OnCollideStageTopEdge(Collision2D collision)
         {
             throw new NotImplementedException();
+        }
+
+        internal void SpawnFlyBubble(BubbleType bubbType, Vector2 flyDirection, Vector3 position)
+        {
+            ++FlyCount;
+            _lazyFlyBubble.Value.Respawn(bubbType, flyDirection, position);
         }
     }
 

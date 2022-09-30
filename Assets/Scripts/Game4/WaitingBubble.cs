@@ -96,10 +96,10 @@ namespace Game4
 
         public void OnEndDrag(PointerEventData eventData)
         {
-           // gameObject.SetActive(false);
-           // DragBubbleImage.gameObject.SetActive(false);
-            //LineRenderer.positionCount = 0;
-            // Manager.Instance.SpawnFlyBubble(BubbType, FlyDirection, transform.position);
+           gameObject.SetActive(false);
+           DragBubbleImage.gameObject.SetActive(false);
+           LineRenderer.positionCount = 0;
+           Manager.Instance.SpawnFlyBubble(BubbType, FlyDirection, transform.position);
         }
 
         #endregion
