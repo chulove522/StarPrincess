@@ -5,14 +5,18 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class MainGameController : MonoBehaviour {
-    [SerializeField]
-    private AudioClip[] audioClips;
-    private AudioSource audioSource;
+    [SerializeField]  //以免不小心拉動到
+    AudioClip[] audioClips;
+
+    public AudioClip[] audioEffects;
+    private AudioSource audioSource; //一律掛載在maingameobject上方
+
+
     public GameObject[] hideThese;
-    public GameObject LoadingInterface;
-    public GameObject GameOverRetry;
-    public GameObject GameWinScreen;
-    public Image loadingImg;
+    public GameObject LoadingInterface; //loading panel本身
+    public GameObject GameOverRetry;  //輸了prefab/如果關卡沒有輸贏.那就隨便拉一個fake
+    public GameObject GameWinScreen;  //贏了prefab/隨便拉一個fake
+    public Image loadingImg;  //把5star圖片拉近來這邊
     Trophies t = new Trophies();
 
     //所有需要載入的的場景list
@@ -20,7 +24,7 @@ public class MainGameController : MonoBehaviour {
     //事先把場景名稱取名吧我怕打錯字
     string[] scenesName = { "SpaceScene", "Maker", "Travel" ,
         "stage01","stage02","stage03","stage04",
-        "DialogScene","Conversation02",};
+        "DialogScene","other",};
 
     private bool showornot = false;
     void Start() {
@@ -36,19 +40,46 @@ public class MainGameController : MonoBehaviour {
 
     void setAudioClip() {
         string name = SceneManager.GetActiveScene().name;
-        if (name == scenesName[0]) {
+
+
+        if (name == scenesName[7]) {
+            //DialogScene
+            audioSource.clip = audioClips[1];
+
+        }
+        else if (name == scenesName[2]) {
+            //Travel
+            audioSource.clip = audioClips[6];
+        }
+        else if (name == scenesName[0]) {
             //spacetitle
             audioSource.clip = audioClips[6];
         }
         else if (name == scenesName[1]) {
-            //Makeer
+            //Maker
             audioSource.clip = audioClips[3];
         }
-        else if (name == scenesName[7]) {
-            //Mdia
-            audioSource.clip = audioClips[1];
-
+        else if (name == scenesName[3]) {
+            //stage01
+            audioSource.clip = audioClips[3];
         }
+        else if (name == scenesName[4]) {
+            //stage02
+            audioSource.clip = audioClips[3];
+        }
+        else if (name == scenesName[5]) {
+            //stage03
+            audioSource.clip = audioClips[3];
+        }
+        else if (name == scenesName[6]) {
+            //stage04
+            audioSource.clip = audioClips[3];
+        }
+        else {
+            //意料之外的scene名稱
+            audioSource.clip = audioClips[3];
+        }
+
     }
     void Update()
     {
