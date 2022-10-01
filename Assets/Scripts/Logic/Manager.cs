@@ -569,7 +569,7 @@ namespace Logic
             } 
             else if (result == LevelResult.FailToFindNode || result == LevelResult.FailToMoveDown)
             {
-                mainGameController.Lose();
+                mainGameController.GameOver();
             }
             else
                 _startPanel.gameObject.SetActive(true);
