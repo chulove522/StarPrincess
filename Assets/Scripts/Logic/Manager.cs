@@ -3,13 +3,16 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Threading;
 using Config;
 using GamePrefab;
 using GameUI;
 using Sirenix.OdinInspector;
+using Sirenix.Utilities;
 using UnityEngine;
 using UnityEngine.Android;
+using static UnityEngine.Rendering.PostProcessing.HistogramMonitor;
 using UnityRandom = UnityEngine.Random;
 
 namespace Logic
@@ -361,43 +364,14 @@ namespace Logic
             }
 
             _nodesCache.Clear(); // GenLinkDataByBubb 用到了缓存
-            int checkRow = int.MaxValue;
-            StageNode changed = null;
-            // 找出最上面的
-            foreach(var node in wipeNodes)
-            {
-                if( node.Row <= checkRow)
-                {
-                    checkRow = node.Row;
-                    changed = node;
-                }
-            }
-
+          
             _stageBubbParent.GetComponentsInChildren(_bubbsCache);
 
-
-            if (changed.BubbType != ((BubbType)BubbType.Colorful-2))
-            {
-                wipeNodes.Remove(changed);
-                changed.BubbType = (BubbType)(changed.BubbType + 1);
-                _bubbsCache.ForEach(bubb =>
-                {
-                    if (changed == bubb.StageNode)
-                    {
-                        bubb.UpdateSprite();
-                    }
-                });
-
-            }
 
             foreach (var wipe in wipeNodes)
             {
                 if (wipe.ParentNode == wipe)
                     _parentRecords.Remove(wipe);
-                if (wipe.ParentNode == wipe)
-                {
-                    _parentRecords[wipe] = new HashSet<StageNode>();
-                }
                 wipe.BubbType   = BubbType.Empty;
                 wipe.ParentNode = null;
             }
@@ -405,6 +379,21 @@ namespace Logic
             _bubbsCache.RemoveAll(bubb => !wipeNodes.Contains(bubb.StageNode));
             foreach (var bubb in _bubbsCache)
                 bubb.PlayWipeAnim();
+
+
+            // 隨機挑選一顆換色
+            _stageBubbParent.GetComponentsInChildren(_bubbsCache);
+            var bubbs = _bubbsCache.Where((b) => b.StageNode.BubbType != BubbType.Empty).ToList();
+            if (bubbs.Count > 0)
+            {
+                var changed = bubbs[UnityEngine.Random.Range(0, bubbs.Count - 1)];
+                if (changed.StageNode.BubbType < (BubbType.Colorful - 2))
+                {
+                    changed.StageNode.BubbType = (BubbType)(changed.StageNode.BubbType + 1);
+                    changed.UpdateSprite();
+                }
+            }
+
 
             return wipeNodes.Count;
 
