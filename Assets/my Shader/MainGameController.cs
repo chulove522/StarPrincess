@@ -37,7 +37,7 @@ public class MainGameController : MonoBehaviour {
     List<AsyncOperation> scenes = new List<AsyncOperation>();
     //事先把場景名稱取名吧我怕打錯字
     string[] scenesName = { "SpaceScene", "Maker", "Travel" ,
-        "Game1","Game02","Game03","Game04",
+        "Game1","Game2","Game3","Game4",
         "DialogScene","other",};
 
     private bool showornot = false;

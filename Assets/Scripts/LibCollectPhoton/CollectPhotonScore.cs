@@ -16,13 +16,24 @@ public class CollectPhotonScore : MonoBehaviour
 
     public int MaxGameTime=15;
 
-    public static bool stop;
+    public bool stop;
 
-    MainGameController maincontrol;
+    MainGameController mainGameController;
+
+    public GameObject[] stars;
+
+    Move[] move;
 
     private void Start() {
+        mainGameController = UnityEngine.GameObject.Find("MainGameController").GetComponent<MainGameController>();
         numberCollected = 0;
         stop = false;
+        
+        for (int i = 0; i < stars.Length; i++) {
+            move[i] = stars[i].GetComponent<Move>();
+        }
+        
+
     }
     private void FixedUpdate() {
         showtime();
@@ -35,17 +46,24 @@ public class CollectPhotonScore : MonoBehaviour
     }
     public void gamewin() {
         if(stop == false)
-        maincontrol.GameWin();
+            mainGameController.GameWin();
 
+        stopAll();
+
+    }
+    void stopAll() {
         stop = true;
-
+        for (int i = 0; i < stars.Length; i++) {
+            move[i].stopall();
+        }
+        
     }
     public void gameover() {
         numberCollected = 0;
         if (stop == false)
-            maincontrol.GameOver();
+            mainGameController.GameOver();
 
-        stop = true;
+        stopAll();
     }
 
 
@@ -54,12 +72,16 @@ public class CollectPhotonScore : MonoBehaviour
     }
 
     private void OnTriggerEnter2D(Collider2D other) {
+        int score;
         if (other.tag == "PhotonGetScore") {
             Destroy(other);
             numberCollected++;
             // TODO remove this log after integeration
             //Debug.Log("socre is " + GetScore());
-            ScoreText.text = GetScore().ToString();
+            score = GetScore();
+            ScoreText.text = "Score: " + score.ToString();
+            if (score == 100)
+                gamewin();
         }
     }
 }

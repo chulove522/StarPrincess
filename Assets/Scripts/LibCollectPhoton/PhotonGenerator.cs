@@ -2,8 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PhotonGenerator : MonoBehaviour
-{
+public class PhotonGenerator : MonoBehaviour {
     // shot photon to the player
     public GameObject player;
     public GameObject photon;
@@ -19,17 +18,16 @@ public class PhotonGenerator : MonoBehaviour
         newPhoton.GetComponent<Rigidbody2D>().velocity = photonSpeed * dirToPlayer2;
     }
 
-   IEnumerator LoopGenPhoton() {
-      //Declare a yield instruction.
-      WaitForSeconds wait = new WaitForSeconds(waitForSeconds);
-      while (enableShot) {
-         GenPhoton();
-         yield return wait; // pause
-      }
-   }
+    IEnumerator LoopGenPhoton() {
+        //Declare a yield instruction.
+        WaitForSeconds wait = new WaitForSeconds(waitForSeconds);
+        while (enableShot) {
+            GenPhoton();
+            yield return wait; // pause
+        }
+    }
 
-    void Start()
-    {
+    void Start() {
     }
 
     void SetEnableGenPhoton(bool enable) {
@@ -42,5 +40,9 @@ public class PhotonGenerator : MonoBehaviour
 
     public void StartGame() {
         SetEnableGenPhoton(true);
+    }
+    public void endGame() {
+        SetEnableGenPhoton(false);
+
     }
 }
