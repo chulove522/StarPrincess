@@ -62,8 +62,7 @@ namespace Logic
         protected void InitAppSetting()
         {
             Application.targetFrameRate         = 60;
-            Thread.CurrentThread.CurrentCulture = new CultureInfo("zh-CN");
-
+            Thread.CurrentThread.CurrentCulture = new CultureInfo("zh-TW");
             Camera.main.orthographicSize     = Mathf.Max(1920f, Screen.height) / 2 / 100;
         }
 
@@ -80,12 +79,6 @@ namespace Logic
             _bubbsCache     = new List<StageBubble>();
             _nodesCache     = new HashSet<StageNode>();
             _nodesPathCache = new HashSet<StageNode>();
-
-            if (Permission.HasUserAuthorizedPermission(Permission.ExternalStorageRead))
-            {
-                Permission.RequestUserPermission(Permission.ExternalStorageRead);
-                Permission.RequestUserPermission(Permission.ExternalStorageWrite);
-            }
 
             LoadData();
         }
@@ -368,16 +361,47 @@ namespace Logic
             }
 
             _nodesCache.Clear(); // GenLinkDataByBubb 用到了缓存
+            int checkRow = int.MaxValue;
+            StageNode changed = null;
+            // 找出最上面的
+            foreach(var node in wipeNodes)
+            {
+                if( node.Row <= checkRow)
+                {
+                    checkRow = node.Row;
+                    changed = node;
+                }
+            }
+
+            _stageBubbParent.GetComponentsInChildren(_bubbsCache);
+
+
+            if (changed.BubbType != ((BubbType)BubbType.Colorful-2))
+            {
+                wipeNodes.Remove(changed);
+                changed.BubbType = (BubbType)(changed.BubbType + 1);
+                _bubbsCache.ForEach(bubb =>
+                {
+                    if (changed == bubb.StageNode)
+                    {
+                        bubb.UpdateSprite();
+                    }
+                });
+
+            }
+
             foreach (var wipe in wipeNodes)
             {
                 if (wipe.ParentNode == wipe)
                     _parentRecords.Remove(wipe);
-
+                if (wipe.ParentNode == wipe)
+                {
+                    _parentRecords[wipe] = new HashSet<StageNode>();
+                }
                 wipe.BubbType   = BubbType.Empty;
                 wipe.ParentNode = null;
             }
 
-            _stageBubbParent.GetComponentsInChildren(_bubbsCache);
             _bubbsCache.RemoveAll(bubb => !wipeNodes.Contains(bubb.StageNode));
             foreach (var bubb in _bubbsCache)
                 bubb.PlayWipeAnim();

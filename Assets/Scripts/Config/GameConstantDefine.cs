@@ -8,7 +8,7 @@ namespace Config
         public const           int   RowBubbMaxNum     = 10;
         public const           int   RowBubbMinNum     = RowBubbMaxNum - 1;
         public const           float BubbRadius        = 0.5f; // 泡泡半径(unity单位)
-        public const           int   BubbWipeThreshold = 8;
+        public const           int   BubbWipeThreshold = 3;
         public const           int   MoveDownRowNum    = 2;
         public static readonly float RowHeight;
 

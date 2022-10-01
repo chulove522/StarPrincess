@@ -1,5 +1,6 @@
 ﻿using DG.Tweening;
 using Logic;
+using UnityEditor.Experimental.UIElements.GraphView;
 using UnityEngine;
 
 namespace GamePrefab
@@ -19,6 +20,11 @@ namespace GamePrefab
         {
             StageNode        = node;
             _renderer.sprite = Manager.Instance.GameCfg.BubbSprites[(int) node.BubbType];
+        }
+
+        public void UpdateSprite()
+        {
+            _renderer.sprite = Manager.Instance.GameCfg.BubbSprites[(int)StageNode.BubbType];
         }
 
         public void PlayWipeAnim()
