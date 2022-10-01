@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -14,9 +15,11 @@ public class Move : MonoBehaviour
     // Update is called once per frame
 
     public void StartGame() {
-        m = StartCoroutine(Move_Routine(this.transform, new List<Vector3> { this.transform.position, target }));
+        m = StartCoroutine(MoveTo(this.gameObject, this.transform.position, target , speed));
     }
 
+
+    //這什麼爛東西
     private IEnumerator Move_Routine(Transform transform, List<Vector3> vectors) {
         var duration = 20 / speed;
         for (int i = 0; i < vectors.Count - 1; i++) {
@@ -35,5 +38,30 @@ public class Move : MonoBehaviour
     }
     public void stopall() {
         stop = true;
+        StopCoroutine(m);
+    }
+
+    private IEnumerator MoveTo(GameObject obj, Vector3 currentPos, Vector3 targetPos, float speed) {
+
+
+        var duration = 20 / speed;
+
+        var timePassed = 0f;
+        while (timePassed < duration) {
+            // always a factor between 0 and 1
+            var factor = timePassed / duration;
+
+            obj.transform.position = Vector3.Lerp(currentPos, targetPos, factor);
+
+            // increase timePassed with Mathf.Min to avoid overshooting
+            timePassed += Math.Min(Time.deltaTime, duration - timePassed);
+
+            // "Pause" the routine here, render this frame and continue
+            // from here in the next frame
+            yield return null;
+        }
+
+        // move done!
+        yield return null;
     }
 }

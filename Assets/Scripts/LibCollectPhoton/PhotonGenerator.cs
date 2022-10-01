@@ -37,11 +37,15 @@ public class PhotonGenerator : MonoBehaviour {
             StartCoroutine(LoopGenPhoton());
         }
     }
-
-    public void StartGame() {
+    /*
+   放button 上*/
+    public void StartGame01() {
+        
         SetEnableGenPhoton(true);
     }
-    public void endGame() {
+    /*
+   放button 上*/
+    public void endGame01() {
         SetEnableGenPhoton(false);
 
     }

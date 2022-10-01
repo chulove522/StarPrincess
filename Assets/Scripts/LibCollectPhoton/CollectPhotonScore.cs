@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+
+/*this is game01 main !!!!*/
 public class CollectPhotonScore : MonoBehaviour
 {
     [SerializeField]
@@ -34,6 +36,19 @@ public class CollectPhotonScore : MonoBehaviour
         }
         
 
+    }
+
+    public void startGame01() {
+        for (int i = 0; i < stars.Length; i++) {
+            move[i].StartGame();
+        }
+        //    public void StartGame01() StartGame(); put button
+    }
+
+    public void endGame01() {
+        for (int i = 0; i < stars.Length; i++) {
+            move[i].stopall();
+        }
     }
     private void FixedUpdate() {
         showtime();
@@ -85,3 +100,4 @@ public class CollectPhotonScore : MonoBehaviour
         }
     }
 }
+/*this is game 01 main!*/
