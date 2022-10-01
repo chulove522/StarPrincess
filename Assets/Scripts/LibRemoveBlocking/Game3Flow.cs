@@ -10,40 +10,53 @@ public class Game3Flow : MonoBehaviour
     public int MaxGameTime=60;
     public int StartingTime;
     public MainGameController mainGame;
+    bool gameStart = false;
+    bool gameEnd = false;
 
     public void Game03Start() {
+        gameStart = true;
         SetStartingTime();
     }
 
+    void OnGameEnd() {
+        gameEnd = true;
+    }
     void GameOver() {
+        OnGameEnd();
         mainGame.GameOver();
     }
 
     void GameWin() {
+        OnGameEnd();
         mainGame.GameWin();
     }
     public void OnEventStartNotBlocking() {
-        Debug.Log("Game Win");
         GameWin();
     }
 
     void Start()
     {
-        
+        // TODO: better design
+        updateTimerText(MaxGameTime);
     }
 
     // Update is called once per frame
     void Update()
     {
-        ShowTime();
-        UpdateSocre();
+        if ((!gameStart) || gameEnd)
+            return;
+        int remaintime = (MaxGameTime - Time.time) > 0 ? (int)(MaxGameTime - Time.time) : 0;
+        if (remaintime == 0)
+            GameOver();
+        Debug.Log(gameEnd);
+        updateTimerText(remaintime);
+        UpdateSocre(remaintime);
     }
 
-    void UpdateSocre() {
-        int score = (MaxGameTime - StartingTime);
+    void UpdateSocre(int remaintime) {
+        int score = (int)Mathf.Ceil(remaintime/(float)(MaxGameTime - StartingTime)*100);
         if (score < 0)
             score = 0;
-        Debug.Log(score);
         ScoreText.text = "Score: " + score.ToString();
     }
 
@@ -52,10 +65,7 @@ public class Game3Flow : MonoBehaviour
         MaxGameTime += StartingTime;
     }
 
-    void ShowTime() {
-        int remaintime = (MaxGameTime - Time.time) > 0 ? (int)(MaxGameTime - Time.time) : 0;
-        if (remaintime == 0)
-            GameOver();
-        TimerText.text = "Time: " + remaintime.ToString();
+    void updateTimerText(int t) {
+        TimerText.text = "Time: " + t.ToString();
     }
 }
