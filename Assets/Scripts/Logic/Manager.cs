@@ -61,6 +61,7 @@ namespace Logic
         private List<StageBubble> _bubbsCache;     // Bubbles缓存
         private HashSet<StageNode> _nodesCache;     // Nodes缓存
         private HashSet<StageNode> _nodesPathCache; // Nodes缓存
+        private MainGameController mainGameController;
 
         protected void InitAppSetting()
         {
@@ -72,6 +73,7 @@ namespace Logic
         protected void Awake()
         {
             InitAppSetting();
+            mainGameController = UnityEngine.GameObject.Find("MainGameController").GetComponent<MainGameController>();
             Instance = this;
             _audioSource = GetComponent<AudioSource>();
             _lazyFlyBubble = new Lazy<FlyBubble>(() => Instantiate(GameCfg.FlyBubble).GetComponent<FlyBubble>());
@@ -558,17 +560,21 @@ namespace Logic
 
         private IEnumerator SetLevelResult(LevelResult result)
         {
-            yield return _gamePanel.DisplayLevelResult(result);
+            // yield return _gamePanel.DisplayLevelResult(result);
 
             if (result == LevelResult.Pass)
             {
                 var newRecord = Records.First.Value;
-                ++newRecord.Level;
-                Records.First.Value = newRecord;
-                InitLevelData(newRecord.Level);
+                mainGameController.Win(4);
+            } 
+            else if (result == LevelResult.FailToFindNode || result == LevelResult.FailToMoveDown)
+            {
+                mainGameController.Lose();
             }
             else
                 _startPanel.gameObject.SetActive(true);
+
+            yield return 0;
         }
 
         private void LoadData()
