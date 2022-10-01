@@ -3,13 +3,16 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Threading;
 using Config;
 using GamePrefab;
 using GameUI;
 using Sirenix.OdinInspector;
+using Sirenix.Utilities;
 using UnityEngine;
 using UnityEngine.Android;
+using static UnityEngine.Rendering.PostProcessing.HistogramMonitor;
 using UnityRandom = UnityEngine.Random;
 
 namespace Logic
@@ -43,41 +46,41 @@ namespace Logic
         private AudioSource _audioSource;
 
         // ReSharper disable once ConvertToAutoProperty
-        public  GameCfg         GameCfg => _gameCfg;
+        public GameCfg GameCfg => _gameCfg;
         private Lazy<FlyBubble> _lazyFlyBubble;
 
-        public static Manager               Instance        { get; private set; }
-        public        int                   Level           { get; private set; }
-        public        string                PlayerName      { get; set; }         // 玩家名字
-        public        LinkedList<Record>    Records         { get; private set; } // 游戏记录
-        public        int                   FlyCount        { get; private set; } // 发射次数
-        public        StageAnchorData       StageAnchorData { get; private set; } // 舞台及锚点数据
-        public        List<List<StageNode>> StageNodeData   { get; private set; } // 舞台Node数据
+        public static Manager Instance { get; private set; }
+        public int Level { get; private set; }
+        public string PlayerName { get; set; }         // 玩家名字
+        public LinkedList<Record> Records { get; private set; } // 游戏记录
+        public int FlyCount { get; private set; } // 发射次数
+        public StageAnchorData StageAnchorData { get; private set; } // 舞台及锚点数据
+        public List<List<StageNode>> StageNodeData { get; private set; } // 舞台Node数据
 
         private Dictionary<StageNode, HashSet<StageNode>> _parentRecords;  // 同色泡泡记录表(并查集)
-        private List<StageBubble>                         _bubbsCache;     // Bubbles缓存
-        private HashSet<StageNode>                        _nodesCache;     // Nodes缓存
-        private HashSet<StageNode>                        _nodesPathCache; // Nodes缓存
+        private List<StageBubble> _bubbsCache;     // Bubbles缓存
+        private HashSet<StageNode> _nodesCache;     // Nodes缓存
+        private HashSet<StageNode> _nodesPathCache; // Nodes缓存
 
         protected void InitAppSetting()
         {
-            Application.targetFrameRate         = 60;
+            Application.targetFrameRate = 60;
             Thread.CurrentThread.CurrentCulture = new CultureInfo("zh-TW");
-            Camera.main.orthographicSize     = Mathf.Max(1920f, Screen.height) / 2 / 100;
+            Camera.main.orthographicSize = Mathf.Max(1920f, Screen.height) / 2 / 100;
         }
 
         protected void Awake()
         {
             InitAppSetting();
-            Instance       = this;
-            _audioSource   = GetComponent<AudioSource>();
+            Instance = this;
+            _audioSource = GetComponent<AudioSource>();
             _lazyFlyBubble = new Lazy<FlyBubble>(() => Instantiate(GameCfg.FlyBubble).GetComponent<FlyBubble>());
-            StageNodeData  = new List<List<StageNode>>(GameConstant.StageRowCount);
+            StageNodeData = new List<List<StageNode>>(GameConstant.StageRowCount);
             for (var i = 0; i < GameConstant.StageRowCount; ++i)
                 StageNodeData.Add(new List<StageNode>(GameConstant.RowBubbMaxNum));
-            _parentRecords  = new Dictionary<StageNode, HashSet<StageNode>>();
-            _bubbsCache     = new List<StageBubble>();
-            _nodesCache     = new HashSet<StageNode>();
+            _parentRecords = new Dictionary<StageNode, HashSet<StageNode>>();
+            _bubbsCache = new List<StageBubble>();
+            _nodesCache = new HashSet<StageNode>();
             _nodesPathCache = new HashSet<StageNode>();
 
             LoadData();
@@ -101,7 +104,7 @@ namespace Logic
         {
             _gamePanel.gameObject.SetActive(true);
 
-            var newRecord = Records.First?.Value ?? new Record {Level = 0, Score = 0};
+            var newRecord = Records.First?.Value ?? new Record { Level = 0, Score = 0 };
             Records.AddFirst(newRecord);
             var level = Records.First.Value.Level;
             InitLevelData(level);
@@ -115,12 +118,12 @@ namespace Logic
         [Button]
         public void InitLevelData(int lvl)
         {
-            Level    = lvl;
+            Level = lvl;
             FlyCount = 0;
             foreach (Transform child in _stageBubbParent)
                 Destroy(child.gameObject);
             var tunning = GameCfg.LevelTunnings[lvl];
-            StageAnchorData    = new StageAnchorData(tunning.StageType);
+            StageAnchorData = new StageAnchorData(tunning.StageType);
             InitLevelStage();
         }
 
@@ -142,7 +145,7 @@ namespace Logic
             foreach (var row in StageNodeData)
                 row.Clear();
             var lvlTunning = GameCfg.LevelTunnings[Level];
-            var initBubbs  = lvlTunning.InitBubles;
+            var initBubbs = lvlTunning.InitBubles;
             for (var row = 0; row < StageNodeData.Count; ++row)
             {
                 var rowCount = StageAnchorData.GetRowAnchorsCount(row);
@@ -151,7 +154,7 @@ namespace Logic
                     var cfgClr = row < initBubbs.GetLength(0) ? initBubbs[row, col] : BubbType.Empty;
                     if (cfgClr == BubbType.Colorful)
                         cfgClr = BubbTypeUtil.GetRandomStageType();
-                    var node = new StageNode {Row = row, Col = col, BubbType = cfgClr, AnchorPos = StageAnchorData[row, col]};
+                    var node = new StageNode { Row = row, Col = col, BubbType = cfgClr, AnchorPos = StageAnchorData[row, col] };
                     StageNodeData[row].Add(node);
                 }
             }
@@ -185,9 +188,9 @@ namespace Logic
                     // ReSharper disable once PossibleNullReferenceException
                     if (sideNode.ParentNode == null && node.ParentNode == null)
                     {
-                        node.ParentNode      = node;
-                        sideNode.ParentNode  = node;
-                        _parentRecords[node] = new HashSet<StageNode> {node, sideNode};
+                        node.ParentNode = node;
+                        sideNode.ParentNode = node;
+                        _parentRecords[node] = new HashSet<StageNode> { node, sideNode };
                     }
                     else if (sideNode.ParentNode != null && node.ParentNode == null)
                     {
@@ -207,8 +210,8 @@ namespace Logic
             // 如果周围没同色的
             if (node.ParentNode == null)
             {
-                node.ParentNode      = node;
-                _parentRecords[node] = new HashSet<StageNode> {node};
+                node.ParentNode = node;
+                _parentRecords[node] = new HashSet<StageNode> { node };
             }
 
             var stageBubble = Instantiate(GameCfg.StageBubble, node.AnchorPos, Quaternion.identity, _stageBubbParent).GetComponent<StageBubble>();
@@ -219,7 +222,7 @@ namespace Logic
         private void CombineParentSet(StageNode parent1, StageNode parent2)
         {
             var parent = parent2.Row < parent1.Row ? parent2 : parent1;
-            var child  = parent2.Row < parent1.Row ? parent1 : parent2;
+            var child = parent2.Row < parent1.Row ? parent1 : parent2;
             foreach (var node in _parentRecords[child])
                 node.ParentNode = parent;
             _parentRecords[parent].UnionWith(_parentRecords[child]);
@@ -231,10 +234,10 @@ namespace Logic
         // 碰撞到泡泡回调
         public void OnCollideStageBubble(Collision2D collision)
         {
-            var involveBubb  = collision.gameObject.GetComponent<StageBubble>();
-            var involveNode  = involveBubb.StageNode;
+            var involveBubb = collision.gameObject.GetComponent<StageBubble>();
+            var involveNode = involveBubb.StageNode;
             var contactPoint = collision.GetContact(0).point;
-            var flyBubble    = _lazyFlyBubble.Value;
+            var flyBubble = _lazyFlyBubble.Value;
 
             StageNode targetNode = null;
             foreach (var sideNode in involveNode)
@@ -243,7 +246,7 @@ namespace Logic
                     continue;
 
                 // 空泡泡位置离飞行泡泡的距离超过一个半径
-                var flyPos       = new Vector2(flyBubble.transform.position.x, flyBubble.transform.position.y);
+                var flyPos = new Vector2(flyBubble.transform.position.x, flyBubble.transform.position.y);
                 var ditanceToFly = Vector2.SqrMagnitude(sideNode.AnchorPos - flyPos);
                 if (ditanceToFly > GameConstant.BubbRadius * GameConstant.BubbRadius)
                     continue;
@@ -273,8 +276,8 @@ namespace Logic
         // 碰到Stage上边缘
         public void OnCollideStageTopEdge(Collision2D collision)
         {
-            var       contactPoint = collision.contacts[0].point;
-            StageNode targetNode   = null;
+            var contactPoint = collision.contacts[0].point;
+            StageNode targetNode = null;
             foreach (var rowNode in StageNodeData[0])
             {
                 if (rowNode.BubbType != BubbType.Empty) continue;
@@ -361,50 +364,47 @@ namespace Logic
             }
 
             _nodesCache.Clear(); // GenLinkDataByBubb 用到了缓存
-            int checkRow = int.MaxValue;
-            StageNode changed = null;
-            // 找出最上面的
-            foreach(var node in wipeNodes)
-            {
-                if( node.Row <= checkRow)
-                {
-                    checkRow = node.Row;
-                    changed = node;
-                }
-            }
 
             _stageBubbParent.GetComponentsInChildren(_bubbsCache);
 
-
-            if (changed.BubbType != ((BubbType)BubbType.Colorful-2))
-            {
-                wipeNodes.Remove(changed);
-                changed.BubbType = (BubbType)(changed.BubbType + 1);
-                _bubbsCache.ForEach(bubb =>
-                {
-                    if (changed == bubb.StageNode)
-                    {
-                        bubb.UpdateSprite();
-                    }
-                });
-
-            }
 
             foreach (var wipe in wipeNodes)
             {
                 if (wipe.ParentNode == wipe)
                     _parentRecords.Remove(wipe);
-                if (wipe.ParentNode == wipe)
-                {
-                    _parentRecords[wipe] = new HashSet<StageNode>();
-                }
-                wipe.BubbType   = BubbType.Empty;
+                wipe.BubbType = BubbType.Empty;
                 wipe.ParentNode = null;
             }
 
             _bubbsCache.RemoveAll(bubb => !wipeNodes.Contains(bubb.StageNode));
             foreach (var bubb in _bubbsCache)
                 bubb.PlayWipeAnim();
+
+
+            // 隨機挑選一顆換色
+            _stageBubbParent.GetComponentsInChildren(_bubbsCache);
+            var bubbs = _bubbsCache.Where((b) => b.StageNode.BubbType != BubbType.Empty).ToList();
+            if (bubbs.Count > 0)
+            {
+                var changed = bubbs[UnityEngine.Random.Range(0, bubbs.Count - 1)];
+                var type = changed.StageNode.BubbType;
+                if (type != ((BubbType)BubbType.Colorful - 2))
+                {
+                    wipeNodes.Remove(changed.StageNode);
+                    // 根據恆星種類變化
+                    if (type == BubbType.HighMass)
+                        type = BubbType.Giant;
+                    else if (type == BubbType.RedGiant)
+                        type = new BubbType[] { BubbType.BlackHole, BubbType.NeutronStar }[UnityEngine.Random.Range(0, 2)];
+                    else if (type == BubbType.LowMass)
+                        type = BubbType.RedGiant;
+                    else if (type == BubbType.RedGiant)
+                        type = BubbType.WhiteDwarf;
+                    changed.StageNode.BubbType = type;
+                    changed.UpdateSprite();
+                }
+            }
+
 
             return wipeNodes.Count;
 
@@ -467,9 +467,9 @@ namespace Logic
 
         private void MoveBubbDown()
         {
-            var count       = GameConstant.MoveDownRowNum;
+            var count = GameConstant.MoveDownRowNum;
             var lastMoveRow = GameConstant.StageRowCount - count;
-            var emptyRows   = StageNodeData.GetRange(lastMoveRow, count);
+            var emptyRows = StageNodeData.GetRange(lastMoveRow, count);
             StageNodeData.RemoveRange(lastMoveRow, count);
             StageNodeData.InsertRange(0, emptyRows);
 
@@ -480,8 +480,8 @@ namespace Logic
                 for (var col = 0; col < rowCount; ++col)
                 {
                     var node = StageNodeData[row][col];
-                    node.Row       = row;
-                    node.Col       = col;
+                    node.Row = row;
+                    node.Col = col;
                     node.AnchorPos = StageAnchorData[row, col];
                 }
             }
@@ -511,7 +511,7 @@ namespace Logic
 
         private bool IsMustFillNode(StageNode node)
         {
-            var downLeft  = node.GetDownLeft();
+            var downLeft = node.GetDownLeft();
             var downRight = node.GetDownRight();
 
             if (downLeft != null && downLeft.BubbType != BubbType.Empty)
@@ -546,9 +546,9 @@ namespace Logic
                 if (extraCount <= 0) continue;
 
                 if (wipeLevel == WipeLevel.Normal)
-                    wipeLevel = (WipeLevel) i;
+                    wipeLevel = (WipeLevel)i;
 
-                record.Score  += GameCfg.ExtraScores[i] * extraCount;
+                record.Score += GameCfg.ExtraScores[i] * extraCount;
                 wipeBubbCount -= extraCount;
             }
 
@@ -585,7 +585,7 @@ namespace Logic
                     var count = reader.ReadInt32();
                     for (var i = 0; i < count; ++i)
                     {
-                        var record = new Record {Level = reader.ReadInt32(), Score = reader.ReadInt32()};
+                        var record = new Record { Level = reader.ReadInt32(), Score = reader.ReadInt32() };
                         Records.AddLast(record);
                     }
                 }

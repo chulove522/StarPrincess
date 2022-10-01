@@ -6,13 +6,14 @@ namespace Config
     public enum BubbType
     {
         Empty
-      , Orange
-      , Pink
-      , Red
-      , Yellow
-      , Blue
-      , Green
-      , Purple
+      , HighMass
+      , LowMass
+      , BrowDwarf
+      , Giant
+      , RedGiant
+      , NeutronStar
+      , WhiteDwarf
+      , BlackHole
       , Colorful
     }
 
@@ -20,12 +21,12 @@ namespace Config
     {
         public static BubbType GetRandomStageType()
         {
-            return (BubbType) UnityEngine.Random.Range((int) BubbType.Orange, (int) BubbType.Colorful);
+            return (BubbType) UnityEngine.Random.Range((int) BubbType.HighMass, (int) BubbType.Colorful);
         }
 
         public static BubbType GetRandomRandType()
         {
-            return (BubbType) UnityEngine.Random.Range((int) BubbType.Orange, (int) BubbType.Colorful + 1);
+            return (BubbType) UnityEngine.Random.Range((int) BubbType.HighMass, (int) BubbType.Colorful + 1);
         }
 
         // 按权重选取
