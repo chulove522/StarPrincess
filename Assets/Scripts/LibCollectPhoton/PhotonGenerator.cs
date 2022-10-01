@@ -30,14 +30,17 @@ public class PhotonGenerator : MonoBehaviour
 
     void Start()
     {
-        // ref: https://forum.unity.com/threads/loop-with-a-timer.696965/
-        SetEnableGenPhoton(enableShot); // just for testing, please edit the flag
     }
 
     void SetEnableGenPhoton(bool enable) {
         enableShot = enable;
         if (enableShot) {
+            // ref: https://forum.unity.com/threads/loop-with-a-timer.696965/
             StartCoroutine(LoopGenPhoton());
         }
+    }
+
+    public void StartGame() {
+        SetEnableGenPhoton(true);
     }
 }
