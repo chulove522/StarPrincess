@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class CheckBlocking : MonoBehaviour
 {
+    public Game3Flow flow;
     enum BLOCK_OP {
         ADD,
         REMOVE,
@@ -37,6 +38,8 @@ public class CheckBlocking : MonoBehaviour
             // Don't need calc by area, please calc by sampling with RayCasting
         }
         LogIsBlocking();
+        if (!IsBlocking())
+            flow.OnEventStartNotBlocking();
     }
 
     private void OnTriggerEnter2D(Collider2D other) {
