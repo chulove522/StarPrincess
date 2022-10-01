@@ -9,6 +9,7 @@ public class PhotonGenerator : MonoBehaviour
     public GameObject photon;
     public float waitForSeconds = 1.0f;
     public float photonSpeed = 5.0f;
+    public bool enableShot = false;
 
     void GenPhoton() {
         Vector3 dirToPlayer3 = player.transform.position - transform.position;
@@ -21,7 +22,7 @@ public class PhotonGenerator : MonoBehaviour
    IEnumerator LoopGenPhoton() {
       //Declare a yield instruction.
       WaitForSeconds wait = new WaitForSeconds(waitForSeconds);
-      while (true) {
+      while (enableShot) {
          GenPhoton();
          yield return wait; // pause
       }
@@ -30,6 +31,13 @@ public class PhotonGenerator : MonoBehaviour
     void Start()
     {
         // ref: https://forum.unity.com/threads/loop-with-a-timer.696965/
-        StartCoroutine(LoopGenPhoton());
+        SetEnableGenPhoton(enableShot); // just for testing, please edit the flag
+    }
+
+    void SetEnableGenPhoton(bool enable) {
+        enableShot = enable;
+        if (enableShot) {
+            StartCoroutine(LoopGenPhoton());
+        }
     }
 }
