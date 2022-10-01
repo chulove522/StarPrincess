@@ -7,6 +7,7 @@ public class StarSign : MonoBehaviour {
     /// <summary>
     /// 這個東西應該用不著.廢棄
     /// </summary>
+    /*
     public byte starNum;
     [SerializeField] string Name;
     [SerializeField] static bool _clear;
@@ -32,7 +33,7 @@ public class StarSign : MonoBehaviour {
     public void hideAll() {
         //stellar.SetActive(false);
     }
-
+    */
 
 
 }

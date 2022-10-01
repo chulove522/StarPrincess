@@ -15,7 +15,7 @@ public class MainGameController : MonoBehaviour {
     public GameObject[] hideThese;
     public GameObject LoadingInterface; //loading panel本身
     public GameObject GameOverRetry;  //輸了prefab/如果關卡沒有輸贏.那就隨便拉一個fake
-    public GameObject GameWinScreen;  //贏了prefab/隨便拉一個fake
+    public GameObject GameWinScreen;  //贏了prefab/隨便拉一個fake.同上.如果沒有輸贏就fake.有輸贏就是認真寫1~4
     public Image loadingImg;  //把5star圖片拉近來這邊
     public GameObject TrophiesPanel;
     Trophies t;
@@ -109,13 +109,14 @@ public class MainGameController : MonoBehaviour {
      * 0 = "SpaceScene" 
      * 1 ="Maker"
      * 2= "Travel"
-       3= "stage01"
-       4= "stage02"
-       5= "stage03"
-       6= "stage04",
+       3= "stage01" // 光子
+       4= "stage02" // 閃焰
+       5= "stage03" // 移開恆星
+       6= "stage04", // 泡泡龍
        7= "DialogScene"
        8="Conversation02"
      */
+
     public void StartGame(int scenceNumber) {
 
         hideTheseThings(true);
@@ -161,6 +162,10 @@ public class MainGameController : MonoBehaviour {
         PlayerPrefs.DeleteAll();
         t.initClear();
     }
+    /*外部接口在這裡拉*//// <summary>
+    /// //破關就是win 會自動存檔
+    /// </summary>
+    /// <param name="stageNum"></param>
     public void Win(int stageNum) {
         if (stageNum > 0 && stageNum < 5)
             Save(stageNum);
@@ -168,6 +173,9 @@ public class MainGameController : MonoBehaviour {
             Debug.LogError("破關數字設定不正確.應該是1~4");
         t.FinishStage();
     }
+
+
+    
 
     void Save(int stagenum) {
         PlayerPrefs.SetInt("Stage", stagenum);
