@@ -7,15 +7,21 @@ public class Game3Flow : MonoBehaviour
 {
     public Text TimerText;
     public Text ScoreText;
-    public int MaxGameTime=60;
+    public int MaxGameTime=20;
     public int StartingTime;
     public MainGameController mainGame;
+    int GameEndTime = 0;
     bool gameStart = false;
     bool gameEnd = false;
 
     public void Game03Start() {
         gameStart = true;
         SetStartingTime();
+    }
+
+    public void Game03Restart() {
+        gameEnd = false;
+        Game03Start();
     }
 
     void OnGameEnd() {
@@ -45,16 +51,17 @@ public class Game3Flow : MonoBehaviour
     {
         if ((!gameStart) || gameEnd)
             return;
-        int remaintime = (MaxGameTime - Time.time) > 0 ? (int)(MaxGameTime - Time.time) : 0;
+        int remaintime = (int)Mathf.Round(GameEndTime - Time.time);
+        if (remaintime <= 0)
+            remaintime = 0;
         if (remaintime == 0)
             GameOver();
-        Debug.Log(gameEnd);
         updateTimerText(remaintime);
         UpdateSocre(remaintime);
     }
 
     void UpdateSocre(int remaintime) {
-        int score = (int)Mathf.Ceil(remaintime/(float)(MaxGameTime - StartingTime)*100);
+        int score = (int)Mathf.Ceil(remaintime/(float)(MaxGameTime)*100);
         if (score < 0)
             score = 0;
         ScoreText.text = "Score: " + score.ToString();
@@ -62,7 +69,7 @@ public class Game3Flow : MonoBehaviour
 
     void SetStartingTime() {
         StartingTime = (int) Mathf.Ceil(Time.time);
-        MaxGameTime += StartingTime;
+        GameEndTime = MaxGameTime + StartingTime;
     }
 
     void updateTimerText(int t) {
