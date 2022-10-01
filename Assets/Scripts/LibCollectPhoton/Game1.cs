@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 
 /*this is game01 main !!!!*/
-public class CollectPhotonScore : MonoBehaviour
+public class Game1 : MonoBehaviour
 {
     [SerializeField]
     int numberCollected = 0;
@@ -17,8 +17,10 @@ public class CollectPhotonScore : MonoBehaviour
     public Text TimerText;
 
     public int MaxGameTime=50;
-
-    public bool stop;
+    int GameEndTime = 0;
+    int StartingTime = 0;
+    bool isGameStarted = false;
+    bool isGameEnd = false;
 
     MainGameController mainGameController;
 
@@ -30,73 +32,64 @@ public class CollectPhotonScore : MonoBehaviour
 
     private void Start() {
         mainGameController = UnityEngine.GameObject.Find("MainGameController").GetComponent<MainGameController>();
-        numberCollected = 0;
-        stop = false;
-        Debug.Log("startgame01");
+        
+        SetTimeText(MaxGameTime);
+    }
 
-        /*
-        for (int i = 0; i < stars.Length; i++) {
-
-            //  這招行不通
-            //  move[i] = stars[i].GetComponent<Move>();
-
-            //  這招行不通
-            //pg[i] = stars[i].GetComponent<PhotonGenerator>();
-            Debug.Log(move[i].ToString());
-        }*/
-
-
+    private void Update() {
+        if (!isGameStarted || isGameEnd)
+            return;
+        int remaintime = (int) Mathf.Round(GameEndTime - Time.time);
+        if (remaintime <= 0)
+            remaintime = 0;
+        if (remaintime == 0)
+            GameOver();
+        SetTimeText(remaintime);
     }
     /*
      放button 上*/
+    
+    public void SetStartingTime() {
+        StartingTime = (int) Mathf.Ceil(Time.time);
+        GameEndTime = MaxGameTime + StartingTime;
+    }
     public void startGame01() {
+        numberCollected = 0;
         for (int i = 0; i < stars.Length; i++) {
             stars[i].GetComponent<Move>().StartGame01();
             stars[i].GetComponent<PhotonGenerator>().StartGame01();
         }
-
-        StartCoroutine(showtime());
-        //    public void StartGame01() StartGame(); put button
+        SetStartingTime();
+        isGameStarted = true;
     }
 
-    private void FixedUpdate() {
-        showtime();
-    }
-    IEnumerator showtime() {
-        while (stop != true) {
-            int remaintime = (MaxGameTime - Time.time) > 0 ? (int)(MaxGameTime - Time.time) : 0;
-            if (remaintime == 0)
-                gameover();
-            TimerText.text = "Time: " + remaintime.ToString();
-            yield return new WaitForSeconds(1f);
-        }
 
-        yield return null;
+    void SetTimeText(int remaintime) {
+        TimerText.text = "Time: " + remaintime.ToString();
     }
-    public void gamewin() {
-        if(stop == false)
-            mainGameController.GameWin();
+    public void GameWin() {
+        mainGameController.GameWin();
+        OnGameStop();
+    }
 
+    void OnGameStop() {
+        isGameEnd = true;
         stopAll();
-
+        isGameStarted = false;
     }
     void stopAll() {
-        stop = true;
+        if (!isGameStarted)
+            return;
         for (int i = 0; i < stars.Length; i++) {
             stars[i].GetComponent<Move>().stopall();
             stars[i].GetComponent<PhotonGenerator>().endGame01();
         }
-        StopAllCoroutines();
-        
     }
     /*
        放button 上*/
-    public void gameover() {
-        numberCollected = 0;
-        if (stop == false)
-            mainGameController.GameOver();
-
-        stopAll();
+    public void GameOver() {
+        mainGameController.GameOver();
+        OnGameStop();
     }
 
 
@@ -114,7 +107,7 @@ public class CollectPhotonScore : MonoBehaviour
             score = GetScore();
             ScoreText.text = "Score: " + score.ToString();
             if (score == 100)
-                gamewin();
+                GameWin();
         }
     }
 }
