@@ -16,7 +16,7 @@ public class CollectPhotonScore : MonoBehaviour
 
     public Text TimerText;
 
-    public int MaxGameTime=15;
+    public int MaxGameTime=50;
 
     public bool stop;
 
@@ -58,12 +58,18 @@ public class CollectPhotonScore : MonoBehaviour
         StartCoroutine(showtime());
         //    public void StartGame01() StartGame(); put button
     }
-  
+
+    private void FixedUpdate() {
+        showtime();
+    }
     IEnumerator showtime() {
-        int remaintime = (MaxGameTime - Time.time) > 0 ? (int)(MaxGameTime - Time.time) : 0;
-        if (remaintime == 0)
-            gameover();
-        TimerText.text = "Time: " + remaintime.ToString();
+        while (stop != true) {
+            int remaintime = (MaxGameTime - Time.time) > 0 ? (int)(MaxGameTime - Time.time) : 0;
+            if (remaintime == 0)
+                gameover();
+            TimerText.text = "Time: " + remaintime.ToString();
+            yield return new WaitForSeconds(1f);
+        }
 
         yield return null;
     }
