@@ -24,40 +24,48 @@ public class CollectPhotonScore : MonoBehaviour
 
     public GameObject[] stars;
 
-    Move[] move;
+    //PhotonGenerator[] pg ;
+    //
+    //Move[] move;
 
     private void Start() {
         mainGameController = UnityEngine.GameObject.Find("MainGameController").GetComponent<MainGameController>();
         numberCollected = 0;
         stop = false;
-        
+        Debug.Log("startgame01");
+
+        /*
         for (int i = 0; i < stars.Length; i++) {
-            move[i] = stars[i].GetComponent<Move>();
-        }
-        
+
+            //  這招行不通
+            //  move[i] = stars[i].GetComponent<Move>();
+
+            //  這招行不通
+            //pg[i] = stars[i].GetComponent<PhotonGenerator>();
+            Debug.Log(move[i].ToString());
+        }*/
+
 
     }
-
+    /*
+     放button 上*/
     public void startGame01() {
         for (int i = 0; i < stars.Length; i++) {
-            move[i].StartGame();
+            stars[i].GetComponent<Move>().StartGame01();
+            stars[i].GetComponent<PhotonGenerator>().StartGame01();
         }
+
+        StartCoroutine(showtime());
         //    public void StartGame01() StartGame(); put button
     }
-
-    public void endGame01() {
-        for (int i = 0; i < stars.Length; i++) {
-            move[i].stopall();
-        }
-    }
-    private void FixedUpdate() {
-        showtime();
-    }
-    public void showtime() {
+  
+    IEnumerator showtime() {
         int remaintime = (MaxGameTime - Time.time) > 0 ? (int)(MaxGameTime - Time.time) : 0;
         if (remaintime == 0)
             gameover();
         TimerText.text = "Time: " + remaintime.ToString();
+
+        yield return null;
     }
     public void gamewin() {
         if(stop == false)
@@ -69,10 +77,14 @@ public class CollectPhotonScore : MonoBehaviour
     void stopAll() {
         stop = true;
         for (int i = 0; i < stars.Length; i++) {
-            move[i].stopall();
+            stars[i].GetComponent<Move>().stopall();
+            stars[i].GetComponent<PhotonGenerator>().endGame01();
         }
+        StopAllCoroutines();
         
     }
+    /*
+       放button 上*/
     public void gameover() {
         numberCollected = 0;
         if (stop == false)

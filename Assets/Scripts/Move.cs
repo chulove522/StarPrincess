@@ -14,7 +14,7 @@ public class Move : MonoBehaviour
     Coroutine m;
     // Update is called once per frame
 
-    public void StartGame() {
+    public void StartGame01() {
         m = StartCoroutine(MoveTo(this.gameObject, this.transform.position, target , speed));
     }
 
