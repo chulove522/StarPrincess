@@ -58,38 +58,38 @@ public class MainGameController : MonoBehaviour {
         string name = SceneManager.GetActiveScene().name;
 
 
-        if (name == scenesName[7]) {
+        if (name == scenesName[7]) {  //DialogScene
             //DialogScene
-            audioSource.clip = audioClips[1];
+            audioSource.clip = audioClips[5];  //對話歌 嘟 嘟~嘟
 
         }
-        else if (name == scenesName[2]) {
+        else if (name == scenesName[2]) {  //Travel
             //Travel
-            audioSource.clip = audioClips[6];
+            audioSource.clip = audioClips[5]; //探險歌
         }
-        else if (name == scenesName[0]) {
+        else if (name == scenesName[0]) {  //SpaceScene
             //spacetitle
-            audioSource.clip = audioClips[6];
+            audioSource.clip = audioClips[6]; //宇宙歌
         }
-        else if (name == scenesName[1]) {
+        else if (name == scenesName[1]) {  //Maker
             //Maker
-            audioSource.clip = audioClips[3];
+            audioSource.clip = audioClips[3];  //愉快歌
         }
-        else if (name == scenesName[3]) {
+        else if (name == scenesName[3]) {  //stage01
             //stage01
-            audioSource.clip = audioClips[3];
+            audioSource.clip = audioClips[4];
         }
-        else if (name == scenesName[4]) {
+        else if (name == scenesName[4]) {   //stage02
             //stage02
             audioSource.clip = audioClips[3];
         }
-        else if (name == scenesName[5]) {
+        else if (name == scenesName[5]) {  //stage03
             //stage03
-            audioSource.clip = audioClips[3];
+            audioSource.clip = audioClips[2];
         }
-        else if (name == scenesName[6]) {
+        else if (name == scenesName[6]) {  //stage04
             //stage04
-            audioSource.clip = audioClips[3];
+            audioSource.clip = audioClips[0];
         }
         else {
             //意料之外的scene名稱
@@ -102,13 +102,7 @@ public class MainGameController : MonoBehaviour {
     {
         
     }
-    void Save(int stagenum) {
-        PlayerPrefs.SetInt("Stage",stagenum);
-        //PlayerPrefs.GetString("Stage");
 
-
-
-    }
 
     /*
      * scenesName 
@@ -167,9 +161,18 @@ public class MainGameController : MonoBehaviour {
         PlayerPrefs.DeleteAll();
         t.initClear();
     }
-    public void Win(int stage) {
-        t.FinishStage(stage);
+    public void Win(int stageNum) {
+        if (stageNum > 0 && stageNum < 5)
+            Save(stageNum);
+        else
+            Debug.LogError("破關數字設定不正確.應該是1~4");
+        t.FinishStage();
     }
+
+    void Save(int stagenum) {
+        PlayerPrefs.SetInt("Stage", stagenum);
+    }
+
     public void Lose() {
 
     }
