@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+using UnityEngine.SceneManagement;
 
 /*this is game01 main !!!!*/
 public class Game1 : MonoBehaviour
@@ -63,6 +63,10 @@ public class Game1 : MonoBehaviour
         isGameStarted = true;
     }
 
+    public void RestartGame01() {
+        // I'm asleep
+        SceneManager.LoadScene("Game1");
+    }
 
     void SetTimeText(int remaintime) {
         TimerText.text = "Time: " + remaintime.ToString();
@@ -98,13 +102,14 @@ public class Game1 : MonoBehaviour
     }
 
     private void OnTriggerEnter2D(Collider2D other) {
-        int score;
         if (other.tag == "PhotonGetScore") {
             Destroy(other);
+
+            if (!isGameStarted || isGameEnd)
+                return;
+
             numberCollected++;
-            // TODO remove this log after integeration
-            //Debug.Log("socre is " + GetScore());
-            score = GetScore();
+            int score = GetScore();
             ScoreText.text = "Score: " + score.ToString();
             if (score == 100)
                 GameWin();
