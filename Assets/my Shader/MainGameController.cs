@@ -23,9 +23,9 @@ public class MainGameController : MonoBehaviour {
 
     [SerializeField]
     static int DialogueNum = 1;  /// <summary>
-    /// 先拿來測試啊啊啊之後要記得改掉!!!
+    /// 先拿來測試啊啊啊之後要記得改掉!!!預設是1!!
     /// </summary>
-    /// <param name="dia"></param>
+
 
 
     public static void setDialog(int dia) {

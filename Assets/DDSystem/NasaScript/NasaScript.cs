@@ -114,16 +114,28 @@ public class NasaScript : MonoBehaviour {
         dialog02.Add(new DialogData("哦~我看看，根據你設定的這個溫度跟尺寸呢...", "B"));
         dialog02.Add(new DialogData("不是很像這個星座的這個恆星嘛?...", "B", ()=> ShowThings(3,true)));
         dialog02.Add(new DialogData("诶~ /speed:0.1/ 有...嗎....", "A"));
+        dialog02.Add(new DialogData("那麼就送你上去這裡吧，沒問題吧？", "B"));
+        dialog02.Add(new DialogData("欸就這麼隨便決定的嗎？", "A"));
+        dialog02.Add(new DialogData("地球的太空總署NASA會協助你發射到恆星去。", "B")); //(火箭發射動畫!!~) 🚀
+        dialog02.Add(new DialogData("在那邊，你將面對殘酷的高溫與各種未知挑戰。", "B")); //(讓我們出發吧!!~) 🧑🏻‍🚀
         dialog02.Add(new DialogData("那就~ /color:red/ 事不宜遲,準備出發吧!", "A", () => ShowThings(4) ,false)); 
 
         DialogManager.Show(dialog02);
         
     }
 
+    // 3. 抵達恆星 {A: 玩家, B: 📱}
     private void Bosstalk02() {
-        var dialog02 = new List<DialogData>();
-        dialog02.Add(new DialogData("這是到星球上的劇情", "A"));
-        dialog02.Add(new DialogData("這是到星球上的劇情", "B", ()=>ShowThings(5)));
+        var dialog03 = new List<DialogData>();
+        dialog03.Add(new DialogData("莫名奇妙就被送上來了，長官也太隨便了吧", "A", null, false, false));
+        dialog03.Add(new DialogData("喂喂，聽得到嗎？", "B"));
+        dialog03.Add(new DialogData("欸？什麼時候我帶了這個通訊器上來的OAO", "A"));
+        dialog03.Add(new DialogData("你看一下任務清單，這邊有恆星的地圖，你試著探索一下，尋找看看星星會在哪裡。", "B"));
+        dialog03.Add(new DialogData("等等，我自己一個人探索嗎？", "A"));
+        dialog03.Add(new DialogData("你看看附近還有別人嗎？", "B"));
+        dialog03.Add(new DialogData("...", "A",null, false));
+
+        DialogManager.Show(dialog03);
     }
 
     /*
@@ -135,34 +147,138 @@ public class NasaScript : MonoBehaviour {
         第4個 那就出發吧!按鈕
         5
      */
-    private void ShowThings(int index, bool isShow = true) {
-        showSomething[index].SetActive(isShow);
-    }
-    private void Gametalk04() {
-        var dialog02 = new List<DialogData>();
-        dialog02.Add(new DialogData("這是到遊玩後的的劇情", "A"));
+
+
+    /*
+        玩家：（左右上下操作）
+        ⬇️
+        觸發關卡: (2) 恆星本身閃焰或爆炸: 防衛太陽風小遊戲，解鎖🌟🌟🌟
+        ⬇️
+        */
+    private void Gametalk01() {
+        var dialog03 = new List<DialogData>();
+        dialog03.Add(new DialogData("如何？探索有一些收穫嗎？", "B", null, false, false));
+        dialog03.Add(new DialogData("我剛剛好像進去了異世界玩了什麽防衛太陽風的遊戲….", "A"));
+        dialog03.Add(new DialogData("你是在暗喻什麼嗎？你就在恆星閃焰上啊，不過你的防護衣可以抵禦，沒問題的。", "B"));
+        dialog03.Add(new DialogData("我還偶然間找到了🌟🌟🌟，難道我找到的就是.../wait:0.5/神奇力量星星OAO？", "A"));
+        dialog03.Add(new DialogData("欸是的就是這個！你運氣也太好了吧？過去一下子就找到了3顆。", "B"));
+        dialog03.Add(new DialogData("我們本來沒有預期你會找到的。", "B"));
+        dialog03.Add(new DialogData("所以... /speed:down/你們本來預期我是來送死的嗎🙂", "A"));
+        dialog03.Add(new DialogData("咳， /wait:0.5/沒有這個意思🙂", "B"));
+        dialog03.Add(new DialogData("那請你繼續探索吧！地球就交給你了啊😇", "B"));
+        dialog03.Add(new DialogData("….🙂", "A"));
+
+        DialogManager.Show(dialog03);
     }
 
-    private void Gametalk03() {
-        var dialog02 = new List<DialogData>();
-        dialog02.Add(new DialogData("這是到遊玩後的的劇情", "A"));
-    }
+    /*
+    ⬇️
+    觸發關卡：(3)被其他恆星等遮擋: 移開恆星，發現最亮的那一顆
+    ⬇️				
+    */
 
     private void Gametalk02() {
-        var dialog02 = new List<DialogData>();
-        dialog02.Add(new DialogData("這是到遊玩後的的劇情", "A"));
+        var dialog03 = new List<DialogData>();
+
+        dialog03.Add(new DialogData("報告，我又找到了三顆喲。", "A", null, false, false));
+        dialog03.Add(new DialogData("太厲害了吧！看來神奇力量星星不是什麼難找的東西啊，早知道我也上去看看了。", "B"));
+        dialog03.Add(new DialogData("你不是說預期我會回不來嗎？", "A"));
+        dialog03.Add(new DialogData("等等，/wait:0.5/通訊不太好...", "B"));
+        dialog03.Add(new DialogData("明明就很好嘛。", "A"));
+        dialog03.Add(new DialogData("那個，還剩下6顆🌟要找呢，就麻煩你繼續探索了。", "B", null, false));
+
+
+        DialogManager.Show(dialog03);
     }
 
-    private void Gametalk01() {
-        var dialog02 = new List<DialogData>();
-        dialog02.Add(new DialogData("這是到遊玩後的的劇情", "A"));
+
+    /*
+		⬇️
+		走一走
+		觸發關卡: (4)恆星的一生
+		⬇️		
+		*/
+    private void Gametalk03() {
+        var dialog03 = new List<DialogData>();
+        dialog03.Add(new DialogData("呼，為什麼有那麼多種恆星啦。我到底是來玩overcook還是來拯救世界的啊。", "A", null, false, false));
+        dialog03.Add(new DialogData("什麼overcook？你餓了嗎？", "B"));
+        dialog03.Add(new DialogData("嚇死我了，不要偷聽好嗎", "A"));
+        dialog03.Add(new DialogData("你說的一切我都聽的一清二楚呢！", "B"));
+        dialog03.Add(new DialogData("不要像變態一樣好嗎QAQ", "A"));
+        dialog03.Add(new DialogData("這邊跟你說明，其實恆星有很多種面向，也依照生存年份的長短，質量的增加與損失，呈現不同的菜色...", "B"));
+        dialog03.Add(new DialogData("我是說，樣貌。", "B"));
+        dialog03.Add(new DialogData("我看你才餓了🙂", "A"));
+        dialog03.Add(new DialogData("就剩最後三個，我等你趕快回來唷❤️", "B"));
+        dialog03.Add(new DialogData("太噁心了吧，我要把通訊器關機。", "A", null, false));
+
+        DialogManager.Show(dialog03);
     }
+
+
+
+
+    /*
+    ⬇️
+    回到玩家控制
+    繼續往下走
+    觸發關卡：(1) 地球大氣層擾動星光。 (最後一個關卡)		
+    ⬇️
+    */
+    private void Gametalk04() {
+
+        var dialog03 = new List<DialogData>();
+        dialog03.Add(new DialogData("喂喂喂，為什麼不回應啊，你死了嗎？", "B", null, false, false));
+        dialog03.Add(new DialogData("我只是覺得你很吵，剛剛關機而已。不要隨便詛咒我好嗎…", "A"));
+        dialog03.Add(new DialogData("看來是任務完成了啊，如何？", "B"));
+        dialog03.Add(new DialogData("看著光子被折射十分有趣吧，這就是為什麼在地球上看，恆星閃閃發亮呢。", "B"));
+        dialog03.Add(new DialogData("我現在看著恆星也十分的亮…", "A"));
+        dialog03.Add(new DialogData("我好像忘記跟你說，防護衣能夠持續的時間並不長", "B"));
+        dialog03.Add(new DialogData("你要是再不回來地球，可能就要葬生火海.../wait:0.5/葬生核聚變之中。", "B"));
+        dialog03.Add(new DialogData("/speed:down/？？？？？", "A"));
+        dialog03.Add(new DialogData("怎麼樣，我很幽默吧😉", "B"));
+        dialog03.Add(new DialogData("/speed:down/？？？？？", "A"));
+
+        DialogManager.Show(dialog03);
+    }
+    /*
+    ⬇️
+    搭乘火箭離開
+    */
+
+    // 4. 結尾 {A: 玩家, B: 長官}
+
+    /*
+    闖關完畢拯救了地球與人類
+    ⬇️
+    回到地球
+    */
 
     private void Ending() {
-        var dialog02 = new List<DialogData>();
-        dialog02.Add(new DialogData("這是到結束的劇情", "A"));
+
+        var dialog04 = new List<DialogData>();
+
+
+        dialog04.Add(new DialogData("把哺把哺～～～🎉歡迎你回來，我好開心", "B", null, false, false));
+        dialog04.Add(new DialogData("我感覺被玩弄了，一點都不開心", "A"));
+        dialog04.Add(new DialogData("不要這樣嘛。起碼你成為了全人類中，第一個踏上恆星的人，而且還帶回了超級星星拯救人類。", "B"));
+        dialog04.Add(new DialogData("這次旅途中，你不但知道了恆星的亮度跟溫度有關，也認識到了xxx星座的xxx星。", "B"));
+        dialog04.Add(new DialogData("大氣、閃焰、恆星遮擋、一生變化，其實都分分秒秒的發生在宇宙中的某個角落。", "B"));
+        dialog04.Add(new DialogData("主畫面可以看到你獲取的星星列表", "B"));
+        dialog04.Add(new DialogData("你也可以選擇再重來一次任務，或許會去到不同的星座旅行喔！", "B"));
+
+        dialog04.Add(new DialogData("本來被暗物質籠罩的天空", "C", null, false, false));
+        dialog04.Add(new DialogData("在超級星星的力量之下", "C"));
+        dialog04.Add(new DialogData("地球終於恢復了平靜", "C"));
+        dialog04.Add(new DialogData("恭喜你體驗完本次的恆星旅行🚀", "C"));
+        dialog04.Add(new DialogData("我們祝福地球和平愉快❤️再見", "C"));
+        dialog04.Add(new DialogData("人們仰望天空又可以看到美麗的星空了🌃🌟🌠", "C"));
+        DialogManager.Show(dialog04);
+
     }
 
+        private void ShowThings(int index, bool isShow = true) {
+        showSomething[index].SetActive(isShow);
+    }
     public void ShowTrophies() {
 
 
