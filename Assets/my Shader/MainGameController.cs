@@ -37,7 +37,7 @@ public class MainGameController : MonoBehaviour {
     List<AsyncOperation> scenes = new List<AsyncOperation>();
     //事先把場景名稱取名吧我怕打錯字
     string[] scenesName = { "SpaceScene", "Maker", "Travel" ,
-        "stage01","stage02","stage03","stage04",
+        "Game1","Game02","Game03","Game04",
         "DialogScene","other",};
 
     private bool showornot = false;
@@ -93,7 +93,7 @@ public class MainGameController : MonoBehaviour {
         }
         else {
             //意料之外的scene名稱
-            Debug.LogError("在main的setAudioClip之中 有意料之外的scene名稱");
+            Debug.Log("在main的setAudioClip之中 有意料之外的scene名稱");
             audioSource.clip = audioClips[3];
         }
 
