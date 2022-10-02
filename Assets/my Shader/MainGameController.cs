@@ -7,7 +7,7 @@ using static NasaScript;
 
 public class MainGameController : MonoBehaviour {
     public static MainGameController Instance { get; private set; }
-    public static MainGameController BufferInstance { get; private set; }
+    public static MainGameController LoadingInstance { get; private set; }
     public AudioClip[] audioEffects;
     
     private AudioSource audioSource; //一律掛載在maingameobject上方
@@ -158,9 +158,6 @@ public class MainGameController : MonoBehaviour {
 
     void updateInstance() {
         DontDestroyOnLoad(transform.root.gameObject);
-        DontDestroyOnLoad(LoadingInterface.transform.root.gameObject);
-        DontDestroyOnLoad(loadingImg.transform.root.gameObject);
-        BufferInstance = Instance;
         Instance = this;
     }
     void Start() {
@@ -178,11 +175,17 @@ public class MainGameController : MonoBehaviour {
     }
     // Update is called once per frame
     void hideAll() {
-        GameOverRetry.SetActive(false);
-        GameWinScreen.SetActive(false);
-        LoadingInterface.SetActive(false);
-        TrophiesPanel.SetActive(false);
-        closeTro?.gameObject.SetActive(false);
+        // some object is optional
+        if (GameOverRetry)
+            GameOverRetry.SetActive(false);
+        if (GameWinScreen)
+            GameWinScreen.SetActive(false);
+        if (LoadingInterface)
+            LoadingInterface.SetActive(false);
+        if (TrophiesPanel)
+            TrophiesPanel.SetActive(false);
+        if (closeTro)
+            closeTro.gameObject.SetActive(false);
     }
 
 
@@ -203,9 +206,6 @@ public class MainGameController : MonoBehaviour {
         nameOfNowScene = SceneManager.GetActiveScene().name;
         nowSceneID = getSceneID(nameOfNowScene);
         audioSource.clip = getAudioWithId(nowSceneID);
-    }
-    void Awake() {
-        updateInstance();
     }
 
     /// <summary>
@@ -234,7 +234,7 @@ public class MainGameController : MonoBehaviour {
         for (int i = 0; i < scenes.Count; i++) {
             while (!scenes[i].isDone) {
                 totalProgress += scenes[i].progress;
-                Instance.loadingImg.fillAmount = totalProgress / scenes.Count;
+                LoadingInstance.loadingImg.fillAmount = totalProgress / scenes.Count;
                 yield return null;
             }
             yield return new WaitForSeconds(1);
@@ -242,13 +242,14 @@ public class MainGameController : MonoBehaviour {
         yield return new WaitForSeconds(1);
 
         showLoadingScreen(false);
-        Instance.hideAll();
+        LoadingInstance.hideAll();
         Instance.setAudioClip();
         Instance.audioSource.Play();
-
+        Destroy(LoadingInstance.gameObject);
+        LoadingInstance = null;
     }
     public static void showLoadingScreen(bool show) {
-        Instance.LoadingInterface.SetActive(show);
+        LoadingInstance.LoadingInterface.SetActive(show);
     }
 
 
@@ -291,11 +292,11 @@ public class MainGameController : MonoBehaviour {
     /// </summary>
     public void StartGame() {
         Debug.Log("StartGame");
-        // hideTheseThings(true);
+        LoadingInstance = Instance;
         showLoadingScreen(true);
         scenes.Add(SceneManager.LoadSceneAsync(getSceneName(targetSceneID)));
-        Instance.StartCoroutine(Loading());
-
+        // TODO wait or sleep, sync it
+        LoadingInstance.StartCoroutine(Loading());
     }
 
 

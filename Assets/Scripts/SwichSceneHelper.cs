@@ -13,6 +13,12 @@ public class SwichSceneHelper : MonoBehaviour
     {
         Debug.Log("next scene ID" + nextSceneID);
         MainGameController.setTargetScene(nextSceneID);
-        controller.StartGame();
+        // workaround
+        if (controller)
+            controller.StartGame();
+        else if (Instance)
+            MainGameController.Instance.StartGame();
+        else
+            Debug.Log("Failed to switch scene");
     }
 }
