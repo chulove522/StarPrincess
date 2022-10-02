@@ -3,24 +3,31 @@ using System.Collections;
 using System.Collections.Generic;
 using Doublsb.Dialog;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class NasaScript : MonoBehaviour {
 
     public DialogManager DialogManager;
 
     public GameObject[] showSomething;
-    public GameObject showTrophies;
+    //public GameObject showTrophies;
 
-
+    public Button goBtn;
 
     private void Start() {
         ShowDialog(MainGameController.getDialog());
+        goBtn.onClick.AddListener(TaskOnClick);
     }
+
+    private void TaskOnClick() {
+        MainGameController.Instance.StartGame();
+    }
+
     /*
-     
-     引數: 內容 /人名 / callback/能否略過/能否倒退(只有第一句是false)其他句子都不要動第五個參數
-    A:玩家 B:老闆 C:旁白
-     */
+
+引數: 內容 /人名 / callback/能否略過/能否倒退(只有第一句是false)其他句子都不要動第五個參數
+A:玩家 B:老闆 C:旁白
+*/
     public void ShowDialog(int DialogueNum) {
         switch (DialogueNum) {
             case 1: //旁白->星球製作
@@ -81,8 +88,9 @@ public class NasaScript : MonoBehaviour {
         dialog01.Add(new DialogData("你看看這個面板。顏色代表者恆星的溫度，不同溫度恆星有著不同顏色。", "B",() => ShowThings(0)));
         dialog01.Add(new DialogData("接著請你自己調整看看吧", "B"));
         dialog01.Add(new DialogData("我會幫你從12星座中，選擇最適配去的星球", "B"));
-        dialog01.Add(new DialogData("好吧我試試看", "A", () => ShowThings(1),false));
+        dialog01.Add(new DialogData("好吧我試試看", "A", () => Btnactive(), false));
 
+        MainGameController.setTargetScene(1); //Maker
         /*
         dialog01.Add(new DialogData("", "A"));
         dialog01.Add(new DialogData("", "B"));
@@ -118,7 +126,8 @@ public class NasaScript : MonoBehaviour {
         dialog02.Add(new DialogData("欸就這麼隨便決定的嗎？", "A"));
         dialog02.Add(new DialogData("地球的太空總署NASA會協助你發射到恆星去。", "B")); //(火箭發射動畫!!~) 🚀
         dialog02.Add(new DialogData("在那邊，你將面對殘酷的高溫與各種未知挑戰。", "B")); //(讓我們出發吧!!~) 🧑🏻‍🚀
-        dialog02.Add(new DialogData("那就~ /color:red/ 事不宜遲,準備出發吧!", "A", () => ShowThings(4) ,false)); 
+        dialog02.Add(new DialogData("那就~ /color:red/ 事不宜遲,準備出發吧!", "A", () => Btnactive(), false));
+        MainGameController.setTargetScene(2); //Travel
 
         DialogManager.Show(dialog02);
         
@@ -133,9 +142,10 @@ public class NasaScript : MonoBehaviour {
         dialog03.Add(new DialogData("你看一下任務清單，這邊有恆星的地圖，你試著探索一下，尋找看看星星會在哪裡。", "B"));
         dialog03.Add(new DialogData("等等，我自己一個人探索嗎？", "A"));
         dialog03.Add(new DialogData("你看看附近還有別人嗎？", "B"));
-        dialog03.Add(new DialogData("...", "A", () => ShowThings(5), false));
-
+        dialog03.Add(new DialogData("...", "A", () => Btnactive(), false));
+        //接下來的場景轉換交給stargate
         DialogManager.Show(dialog03);
+        MainGameController.setTargetScene(2);
     }
 
     /*
@@ -160,15 +170,16 @@ public class NasaScript : MonoBehaviour {
         dialog03.Add(new DialogData("如何？探索有一些收穫嗎？", "B", null, false, false));
         dialog03.Add(new DialogData("我剛剛好像進去了異世界玩了什麽防衛太陽風的遊戲….", "A"));
         dialog03.Add(new DialogData("你是在暗喻什麼嗎？你就在恆星閃焰上啊，不過你的防護衣可以抵禦，沒問題的。", "B"));
-        dialog03.Add(new DialogData("我還偶然間找到了🌟🌟🌟，難道我找到的就是.../wait:0.5/神奇力量星星OAO？", "A"));
+        dialog03.Add(new DialogData("我還偶然間找到了，難道我找到的就是.../wait:0.5/神奇力量星星OAO？", "A"));
         dialog03.Add(new DialogData("欸是的就是這個！你運氣也太好了吧？過去一下子就找到了3顆。", "B"));
         dialog03.Add(new DialogData("我們本來沒有預期你會找到的。", "B"));
-        dialog03.Add(new DialogData("所以... /speed:down/你們本來預期我是來送死的嗎🙂", "A"));
-        dialog03.Add(new DialogData("咳， /wait:0.5/沒有這個意思🙂", "B"));
-        dialog03.Add(new DialogData("那請你繼續探索吧！地球就交給你了啊😇", "B"));
-        dialog03.Add(new DialogData("….🙂", "A", () => ShowThings(6)));
+        dialog03.Add(new DialogData("所以... /speed:down/你們本來預期我是來送死的嗎", "A"));
+        dialog03.Add(new DialogData("咳， /wait:0.5/沒有這個意思", "B"));
+        dialog03.Add(new DialogData("那請你繼續探索吧！地球就交給你了啊", "B"));
+        dialog03.Add(new DialogData("….", "A", () => Btnactive()));
 
         DialogManager.Show(dialog03);
+        MainGameController.setTargetScene(2);
     }
 
     /*
@@ -185,10 +196,11 @@ public class NasaScript : MonoBehaviour {
         dialog03.Add(new DialogData("你不是說預期我會回不來嗎？", "A"));
         dialog03.Add(new DialogData("等等，/wait:0.5/通訊不太好...", "B"));
         dialog03.Add(new DialogData("明明就很好嘛。", "A"));
-        dialog03.Add(new DialogData("那個，還剩下6顆🌟要找呢，就麻煩你繼續探索了。", "B", () => ShowThings(7), false));
+        dialog03.Add(new DialogData("那個，還剩下6顆星星要找呢，就麻煩你繼續探索了。", "B", () => Btnactive()));
 
 
         DialogManager.Show(dialog03);
+        MainGameController.setTargetScene(2);
     }
 
 
@@ -207,11 +219,12 @@ public class NasaScript : MonoBehaviour {
         dialog03.Add(new DialogData("不要像變態一樣好嗎QAQ", "A"));
         dialog03.Add(new DialogData("這邊跟你說明，其實恆星有很多種面向，也依照生存年份的長短，質量的增加與損失，呈現不同的Bobble...", "B"));
         dialog03.Add(new DialogData("我是說，樣貌。", "B"));
-        dialog03.Add(new DialogData("我看你才累了🙂", "A"));
+        dialog03.Add(new DialogData("我看你才累了", "A"));
         dialog03.Add(new DialogData("就剩最後三個，我等你趕快回來唷❤️", "B"));
-        dialog03.Add(new DialogData("太噁心了吧，我要把通訊器關機。", "A", null, false));
+        dialog03.Add(new DialogData("太噁心了吧，我要把通訊器關機。", "A", () => Btnactive()));
 
         DialogManager.Show(dialog03);
+        MainGameController.setTargetScene(2);
     }
 
 
@@ -235,10 +248,11 @@ public class NasaScript : MonoBehaviour {
         dialog03.Add(new DialogData("我好像忘記跟你說，防護衣能夠持續的時間並不長", "B"));
         dialog03.Add(new DialogData("你要是再不回來地球，可能就要葬生火海.../wait:0.5/葬生核聚變之中。", "B"));
         dialog03.Add(new DialogData("/speed:down/？？？？？", "A"));
-        dialog03.Add(new DialogData("怎麼樣，我很幽默吧😉", "B"));
-        dialog03.Add(new DialogData("/speed:down/？？？？？", "A"));
+        dialog03.Add(new DialogData("怎麼樣，我很幽默吧", "B"));
+        dialog03.Add(new DialogData("/speed:down/？？？？？", "A",()=> Btnactive()));
 
         DialogManager.Show(dialog03);
+        MainGameController.setTargetScene(2);
     }
     /*
     ⬇️
@@ -258,7 +272,7 @@ public class NasaScript : MonoBehaviour {
         var dialog04 = new List<DialogData>();
 
 
-        dialog04.Add(new DialogData("把哺把哺～～～🎉歡迎你回來，我好開心", "B", null, false, false));
+        dialog04.Add(new DialogData("把哺把哺～～～歡迎你回來，我好開心", "B", null, false, false));
         dialog04.Add(new DialogData("我感覺被玩弄了，一點都不開心", "A"));
         dialog04.Add(new DialogData("不要這樣嘛。起碼你成為了全人類中，第一個踏上恆星的人，而且還帶回了超級星星拯救人類。", "B"));
         dialog04.Add(new DialogData("這次旅途中，你不但知道了恆星的亮度跟溫度有關，也認識到了xxx星座的xxx星。", "B"));
@@ -269,15 +283,20 @@ public class NasaScript : MonoBehaviour {
         dialog04.Add(new DialogData("本來被暗物質籠罩的天空", "C", null, false, false));
         dialog04.Add(new DialogData("在超級星星的力量之下", "C"));
         dialog04.Add(new DialogData("地球終於恢復了平靜", "C"));
-        dialog04.Add(new DialogData("恭喜你體驗完本次的恆星旅行🚀", "C"));
+        dialog04.Add(new DialogData("恭喜你體驗完本次的恆星旅行", "C"));
         dialog04.Add(new DialogData("我們祝福地球和平愉快❤️再見", "C"));
-        dialog04.Add(new DialogData("人們仰望天空又可以看到美麗的星空了🌃🌟🌠", "C"));
+        dialog04.Add(new DialogData("人們仰望天空又可以看到美麗的星空了", "C"));
         DialogManager.Show(dialog04);
+        MainGameController.setTargetScene(1);
 
     }
 
+    void Btnactive() {
+        goBtn.gameObject.SetActive(true);
+    }
         private void ShowThings(int index, bool isShow = true) {
         showSomething[index].SetActive(isShow);
+        
     }
 
 }

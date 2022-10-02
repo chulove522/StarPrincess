@@ -18,10 +18,12 @@ public class MainGameController : MonoBehaviour {
     public GameObject GameOverRetry;  //輸了prefab/如果關卡沒有輸贏.那就隨便拉一個fake
     public GameObject GameWinScreen;  //贏了prefab/隨便拉一個fake.同上.如果沒有輸贏就fake.有輸贏就是認真寫1~4
     public Image loadingImg;  //把5star圖片拉近來這邊
-    public GameObject TrophiesPanel;
-    public Button closeTro; //成就系統的叉叉壞了所以弄一個新的
+   
 
     static string nameOfNowScene;
+    /// <summary>
+    /// 僅代表關卡
+    /// </summary>
     static int NowGame;
 
     public static int TargetScenceNumber;
@@ -44,24 +46,27 @@ public class MainGameController : MonoBehaviour {
 
         Debug.Log("start called");
         DontDestroyOnLoad(this.gameObject);
-        hideAll();
-
-
-
+        
+        
         audioSource = this.GetComponent<AudioSource>();
         audioSource.playOnAwake = true;
         audioSource.loop = true;
-        setAudioClip();
+        Instance.setAudioClip();
         audioSource.Play();
 
+        LoadingInterface = GameObject.Find("Canvas/Loading");
+        GameOverRetry = GameObject.Find("Canvas/gameover");
+        GameWinScreen = GameObject.Find("Canvas/gamewin");
+        loadingImg = GameObject.Find("Canvas/Loading/5star").GetComponent<Image>();
+
+        Instance.hideAll();
     }
     // Update is called once per frame
     void hideAll() {
         GameOverRetry.SetActive(false);
         GameWinScreen.SetActive(false);
         LoadingInterface.SetActive(false);
-        TrophiesPanel.SetActive(false);
-        closeTro?.gameObject.SetActive(false);
+
     }
 
 
@@ -86,7 +91,7 @@ public class MainGameController : MonoBehaviour {
         Debug.Log("now!:" + nameOfNowScene);
         if (nameOfNowScene == scenesName[7]) {  //DialogScene
             //DialogScene
-            audioSource.clip = audioClips[5];  //對話歌 嘟 嘟~嘟
+            audioSource.clip = audioClips[0];  //對話歌 嘟 嘟~嘟
 
         }
         else if (nameOfNowScene == scenesName[2]) {  //Travel
@@ -129,6 +134,12 @@ public class MainGameController : MonoBehaviour {
 
     }
     void Awake() {
+
+        Stage = 0;
+        PlayerPrefs.SetInt("Stage",0);
+        setTargetScene(7); //對話
+
+
         if (Instance == null) {
             Instance = this;
             DontDestroyOnLoad(gameObject);
@@ -209,9 +220,6 @@ public class MainGameController : MonoBehaviour {
         }
     }
     */
-    static int getSceneNum(int gamenum) {
-        return gamenum + 2;
-    }
     
     /*game1234接口在這裡*/
     /// <summary>
@@ -225,11 +233,35 @@ public class MainGameController : MonoBehaviour {
     public static void GameOver() {
         Instance.GameOverRetry.SetActive(true);
         //設定Target
-        setTargetScene(getSceneNum(NowGame));
+        
+        switch (MainGameController.Stage) {
+
+
+            case 0:
+                MainGameController.setTargetScene(3);
+
+                MainGameController.Instance.StartGame();
+                break;
+            case 1:
+                MainGameController.setTargetScene(4);
+                MainGameController.Instance.StartGame();
+                break;
+            case 2:
+                MainGameController.setTargetScene(5);
+                MainGameController.Instance.StartGame();
+                break;
+            case 3:
+                MainGameController.setTargetScene(6);
+                MainGameController.Instance.StartGame();
+                break;
+
+        }
     }
     public void GameWin() {
         Debug.Log("Win, NowGame: " + NowGame.ToString());
         Win(NowGame);
+
+        Instance.GameWinScreen.SetActive(true);
     }
     /*居然是在播音樂時決定now game 太神奇ㄌ*/
 
@@ -241,7 +273,7 @@ public class MainGameController : MonoBehaviour {
         // hideTheseThings(true);
         showLoadingScreen(true);
         
-        SceneManager.LoadScene(nameOfNowScene,LoadSceneMode.Single);
+        SceneManager.LoadScene(TargetScenceNumber,LoadSceneMode.Single);
         //scenes.Add(SceneManager.LoadSceneAsync("Travel",LoadSceneMode.Additive));
 
         Instance.StartCoroutine(Loading());
@@ -251,13 +283,11 @@ public class MainGameController : MonoBehaviour {
 
 
     public void Win(int stageNum) {
-        Instance.GameWinScreen.SetActive(true);
-
-
-        if (stageNum > 0 && stageNum < 5) {  //1234
+        
+        if (stageNum > 0 && stageNum < 5) {  //1234 關卡
             Save(stageNum);
-            setTargetScene(7); //回到主對話
-            if(stageNum == 1)
+            setTargetScene(7); //去對話
+            if (stageNum == 1)
                 setDialog(4);
             else if (stageNum == 2)
                 setDialog(5);
@@ -266,35 +296,40 @@ public class MainGameController : MonoBehaviour {
             else if (stageNum == 4)
                 setDialog(7);
         }
-        else if(stageNum ==0) {
-            //星球
-            setTargetScene(7); //回到主對話
-            setDialog(2);  //捏好星球
+        else if (stageNum == 0 && (nameOfNowScene == scenesName[1])) {  //Maker
+            //捏好回對話!!                                                            
+            setTargetScene(7); //捏好星球!
+            setDialog(2);  //捏好星球的劇情
+
+        }
+        else if (stageNum == 0){ //第一個狀態!
+
+            setTargetScene(1); //去捏星球!
+            //setDialog(2);  //捏好星球的劇情
+        }
+        else if (stageNum == 5) { 
+            //出發囉! 填5!
+            setTargetScene(2); //Travel
+            setDialog(3);  //到那邊的劇情
+
 
         }
         else
-            Debug.LogError("破關數字設定不正確.應該是1~4");
+            Debug.LogError("破關數字設定不正確.");
 
-        showAward();
-        
     }
 
+    public static int Stage; 
 
     
     /*破關的記錄*/
     static void Save(int stagenum) {
         Debug.Log("stage saved." + stagenum.ToString());
-        PlayerPrefs.SetInt("Stage", stagenum);
+        //PlayerPrefs.SetInt("Stage", stagenum);
+        Stage = stagenum;
     }
 
-    public void showAward() {
-        
-        Instance.TrophiesPanel.GetComponent<Trophies>().FinishStage();
-        Instance.TrophiesPanel.SetActive(true);
-        Instance.closeTro.gameObject.SetActive(true);
-
-        Debug.Log("you found 3 stars!");
-    }
+   
 
 
     //世紀大銷毀

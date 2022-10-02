@@ -108,6 +108,15 @@ public class Trophies : MonoBehaviour
 
         isAllClear = false;
     }
-    
+
+
+    /*遊戲通關呼叫他*/
+    public void showAward() {
+
+        FinishStage();
+        gameObject.SetActive(true);
+
+        Debug.Log("you found 3 stars!");
+    }
 
 }
