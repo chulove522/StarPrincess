@@ -14,7 +14,6 @@ using UnityEngine;
 using UnityEngine.Android;
 using static UnityEngine.Rendering.PostProcessing.HistogramMonitor;
 using UnityRandom = UnityEngine.Random;
-using static MainGameController.SCENE_ID;
 
 namespace Logic
 {
@@ -547,7 +546,7 @@ namespace Logic
 
             if (result == LevelResult.Pass)
             {
-                MainGameController.Instance.Win(GAME_2);
+                MainGameController.Instance.Win(4);
             } 
             else if (result == LevelResult.FailToFindNode || result == LevelResult.FailToMoveDown)
             {
