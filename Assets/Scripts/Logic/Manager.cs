@@ -141,6 +141,11 @@ namespace Logic
 
         #region Logic
 
+        public void ResetGame()
+        {
+            InitLevelData(0);
+        }
+
         private void InitLevelStage()
         {
             // 数据
@@ -333,19 +338,7 @@ namespace Logic
 
             // 下移
 
-            var cfgTimes = GameCfg.LevelTunnings[Level].MoveDownFlyTimes;
-            if (cfgTimes != 0 && FlyCount % cfgTimes == 0)
-            {
-                if (CanMoveDown())
-                {
-                    var leftBubbs = _stageBubbParent.childCount - wipeCount;
-                    StartCoroutine(MoveDownWait(leftBubbs));
-                }
-                else
-                    StartCoroutine(SetLevelResult(LevelResult.FailToMoveDown));
-            }
-            else
-                _gamePanel.SpawnWaitBubble();
+             _gamePanel.SpawnWaitBubble();
         }
 
         // 消除泡泡,返回消除的个数
