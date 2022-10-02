@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static MainGameController.SCENE_ID;
 
 public class Stargate : MonoBehaviour
 {
@@ -26,20 +27,21 @@ public class Stargate : MonoBehaviour
         if (player.name == "Player") {
             switch (nowstage) {
                 case 0:
-                    MainGameController.setTargetScene(4);
+                    // TODO: why not pass arg to StartGame()?
+                    MainGameController.setTargetScene(GAME_2);
                     Debug.Log("scene 4");
                     MainGameController.Instance.StartGame();
                     break;
                 case 1:
-                    MainGameController.setTargetScene(5);
+                    MainGameController.setTargetScene(GAME_3);
                     MainGameController.Instance.StartGame();
                     break;
                 case 2:
-                    MainGameController.setTargetScene(6);
+                    MainGameController.setTargetScene(GAME_4);
                     MainGameController.Instance.StartGame();
                     break;
                 case 3:
-                    MainGameController.setTargetScene(3);
+                    MainGameController.setTargetScene(GAME_1);
                     MainGameController.Instance.StartGame();
                     break;
 

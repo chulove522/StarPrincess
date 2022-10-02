@@ -14,7 +14,8 @@ public class NasaScript_en : MonoBehaviour {
 
 
     private void Start() {
-        ShowDialog(MainGameController.getDialog());
+        // TODO
+        ShowDialog((int)MainGameController.getDialog());
     }
     /*
      
@@ -125,7 +126,8 @@ public class NasaScript_en : MonoBehaviour {
 
         dialog01.Add(new DialogData("That's it! Please check the documents. Good luck to you.", "Sa"));
         */
-        DialogManager.Show(dialog01);
+        // TODO null pointer 
+        //DialogManager.Show(dialog01);
     }
 
     private void Bosstalk01() {

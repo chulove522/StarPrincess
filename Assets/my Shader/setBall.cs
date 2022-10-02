@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using static NasaScript.DIALOG_ID;
+using static MainGameController.SCENE_ID;
 
 public class setBall : MonoBehaviour{
     public GameObject[] Ball;
@@ -119,8 +121,9 @@ public class setBall : MonoBehaviour{
         //材質是第幾個
         public byte GetBallMatByte => BallPointer;
         */
-        MainGameController.Instance.Win(0);  //只有從製作星球到主對話是這個數字
-        MainGameController.setDialog(2);
+        MainGameController.Instance.Win(SPACE_SCENE);  //只有從製作星球到主對話是這個數字
+        // TODO: correct dialog ID
+        MainGameController.setDialog(BOOSS_TALK_01);
         PlayerPrefs.SetFloat("PlanetColor", HueVal);
         //PlayerPrefs.SetInt("PlanetColor", (int)HueVal);
         PlayerPrefs.SetFloat("PlanetSize", ScaleVal);

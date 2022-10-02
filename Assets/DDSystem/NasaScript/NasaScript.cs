@@ -21,31 +21,43 @@ public class NasaScript : MonoBehaviour {
      引數: 內容 /人名 / callback/能否略過/能否倒退(只有第一句是false)其他句子都不要動第五個參數
     A:玩家 B:老闆 C:旁白
      */
-    public void ShowDialog(int DialogueNum) {
+    public enum DIALOG_ID: int {
+        MIN_DIALOG = 1,
+        OPENING = 1,
+        BOOSS_TALK_01 = 2,
+        BOOSS_TALK_02 = 3,
+        GAME_TALK_01 = 4,
+        GAME_TALK_02 = 5,
+        GAME_TALK_03 = 6,
+        GAME_TALK_04 = 7,
+        TALK_END = 8,
+        MAX_DIALOG,
+    };
+    public void ShowDialog(DIALOG_ID DialogueNum) {
         switch (DialogueNum) {
-            case 1: //旁白->星球製作
+            case DIALOG_ID.OPENING: //旁白->星球製作
                 opening();
                 break;
 
-            case 2: //做好星球,比對的畫面,並且出發(切換至travel場景)
+            case DIALOG_ID.BOOSS_TALK_01: //做好星球,比對的畫面,並且出發(切換至travel場景)
                 Bosstalk01();
                 break;
-            case 3: //出發後，切換到travel之後展開第一次對話
+            case DIALOG_ID.BOOSS_TALK_02: //出發後，切換到travel之後展開第一次對話
                 Bosstalk02();
                 break;
-            case 4: //觸發game01後回來
+            case DIALOG_ID.GAME_TALK_01: //觸發game01後回來
                 Gametalk01();
                 break;
-            case 5: //觸發game02後回來
+            case DIALOG_ID.GAME_TALK_02: //觸發game02後回來
                 Gametalk02();
                 break;
-            case 6: //觸發game03後回來
+            case DIALOG_ID.GAME_TALK_03: //觸發game03後回來
                 Gametalk03();
                 break;
-            case 7: //觸發game04後回來
+            case DIALOG_ID.GAME_TALK_04: //觸發game04後回來
                 Gametalk04();
                 break;
-            case 8: //返回地球
+            case DIALOG_ID.TALK_END: //返回地球
                 Ending();
                 break;
 
@@ -105,7 +117,8 @@ public class NasaScript : MonoBehaviour {
 
         dialog01.Add(new DialogData("That's it! Please check the documents. Good luck to you.", "Sa"));
         */
-        DialogManager.Show(dialog01);
+        // TODO: null pointer
+        // DialogManager.Show(dialog01);
     }
 
     private void Bosstalk01() {
