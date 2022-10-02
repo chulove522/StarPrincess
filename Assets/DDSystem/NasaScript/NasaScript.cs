@@ -117,8 +117,7 @@ public class NasaScript : MonoBehaviour {
 
         dialog01.Add(new DialogData("That's it! Please check the documents. Good luck to you.", "Sa"));
         */
-        // TODO: null pointer
-        // DialogManager.Show(dialog01);
+        DialogManager.Show(dialog01);
     }
 
     private void Bosstalk01() {
