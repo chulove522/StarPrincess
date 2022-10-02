@@ -52,7 +52,7 @@ namespace Logic
         public static Manager Instance { get; private set; }
         public int Level { get; private set; }
         public string PlayerName { get; set; }         // 玩家名字
-        public LinkedList<Record> Records { get; private set; } // 游戏记录
+        public int Score { get; set; }
         public int FlyCount { get; private set; } // 发射次数
         public StageAnchorData StageAnchorData { get; private set; } // 舞台及锚点数据
         public List<List<StageNode>> StageNodeData { get; private set; } // 舞台Node数据
@@ -84,20 +84,15 @@ namespace Logic
             _bubbsCache = new List<StageBubble>();
             _nodesCache = new HashSet<StageNode>();
             _nodesPathCache = new HashSet<StageNode>();
-
-            LoadData();
         }
 
         protected void OnDisable()
         {
-            SaveData();
         }
 
         protected void OnApplicationPause(bool pause)
         {
             if (!pause) return;
-
-            SaveData();
         }
 
         #region 对外接口
@@ -105,11 +100,7 @@ namespace Logic
         public void StartGame()
         {
             _gamePanel.gameObject.SetActive(true);
-
-            var newRecord = Records.First?.Value ?? new Record { Level = 0, Score = 0 };
-            Records.AddFirst(newRecord);
-            var level = Records.First.Value.Level;
-            InitLevelData(level);
+            InitLevelData(0);
         }
 
         public void DisplayRecords()
@@ -531,8 +522,7 @@ namespace Logic
 
         private WipeLevel CalcWipeScore(int wipeBubbCount)
         {
-            var record = Records.First.Value;
-            record.Score += wipeBubbCount; // 基础得分
+            Score += wipeBubbCount; // 基础得分
             var wipeLevel = WipeLevel.Normal;
 
             var extraWipes = GameCfg.ExtraWipes;
@@ -544,11 +534,9 @@ namespace Logic
                 if (wipeLevel == WipeLevel.Normal)
                     wipeLevel = (WipeLevel)i;
 
-                record.Score += GameCfg.ExtraScores[i] * extraCount;
+                Score += GameCfg.ExtraScores[i] * extraCount;
                 wipeBubbCount -= extraCount;
             }
-
-            Records.First.Value = record;
             return wipeLevel;
         }
 
@@ -558,7 +546,6 @@ namespace Logic
 
             if (result == LevelResult.Pass)
             {
-                var newRecord = Records.First.Value;
                 MainGameController.Instance.Win(4);
             } 
             else if (result == LevelResult.FailToFindNode || result == LevelResult.FailToMoveDown)
@@ -569,51 +556,6 @@ namespace Logic
                 _startPanel.gameObject.SetActive(true);
 
             yield return 0;
-        }
-
-        private void LoadData()
-        {
-            Records = new LinkedList<Record>();
-            var fileName = Path.Combine(Application.persistentDataPath, "save.data");
-            if (!File.Exists(fileName)) return;
-
-            using (var fileStream = File.OpenRead(fileName))
-            {
-                using (var reader = new BinaryReader(fileStream))
-                {
-                    PlayerName = reader.ReadString();
-                    var count = reader.ReadInt32();
-                    for (var i = 0; i < count; ++i)
-                    {
-                        var record = new Record { Level = reader.ReadInt32(), Score = reader.ReadInt32() };
-                        Records.AddLast(record);
-                    }
-                }
-            }
-        }
-
-        private void SaveData()
-        {
-            if (PlayerName == null) return;
-
-            var fileName = Path.Combine(Application.persistentDataPath, "save.data");
-            using (var fileStream = File.OpenWrite(fileName))
-            {
-                using (var writer = new BinaryWriter(fileStream))
-                {
-                    writer.Write(PlayerName);
-                    var maxSaveCount = 15;
-                    writer.Write(Mathf.Min(maxSaveCount, Records.Count));
-                    foreach (var record in Records)
-                    {
-                        --maxSaveCount;
-                        if (maxSaveCount < 0) break;
-
-                        writer.Write(record.Level);
-                        writer.Write(record.Score);
-                    }
-                }
-            }
         }
 
         #endregion

@@ -38,13 +38,7 @@ public class RecordsPanel : Panel, IPointerClickHandler
         _stringBuilder.AppendFormat(manager.GameCfg.RecordTitle, playerName);
         _stringBuilder.AppendLine();
 
-        var records = manager.Records;
-        foreach (var record in records)
-        {
-            _stringBuilder.AppendFormat(manager.GameCfg.RecordEntry, record.Level + 1, record.Score);
-            _stringBuilder.AppendLine();
-        }
-
+    
         _content.text = _stringBuilder.ToString();
         _stringBuilder.Clear();
     }

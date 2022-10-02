@@ -59,7 +59,7 @@ AudioClip[] audioClips;
         GameWinScreen.SetActive(false);
         LoadingInterface.SetActive(false);
         TrophiesPanel.SetActive(false);
-        closeTro.gameObject.SetActive(false);
+        closeTro?.gameObject.SetActive(false);
     }
 
 
