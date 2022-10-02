@@ -133,7 +133,7 @@ public class NasaScript : MonoBehaviour {
         dialog03.Add(new DialogData("你看一下任務清單，這邊有恆星的地圖，你試著探索一下，尋找看看星星會在哪裡。", "B"));
         dialog03.Add(new DialogData("等等，我自己一個人探索嗎？", "A"));
         dialog03.Add(new DialogData("你看看附近還有別人嗎？", "B"));
-        dialog03.Add(new DialogData("...", "A",null, false));
+        dialog03.Add(new DialogData("...", "A", () => ShowThings(5), false));
 
         DialogManager.Show(dialog03);
     }
@@ -144,8 +144,8 @@ public class NasaScript : MonoBehaviour {
         第1個 跳轉scene的按鈕
         第2個 太陽閃焰的rawimage(為了關閉他)
         第3個 12星座恆星比對結果
-        第4個 那就出發吧!按鈕
-        5
+        第4個 那就出發吧!按鈕(setSceneTarget = )
+        第5個 那就出發吧!按鈕
      */
 
 
@@ -166,7 +166,7 @@ public class NasaScript : MonoBehaviour {
         dialog03.Add(new DialogData("所以... /speed:down/你們本來預期我是來送死的嗎🙂", "A"));
         dialog03.Add(new DialogData("咳， /wait:0.5/沒有這個意思🙂", "B"));
         dialog03.Add(new DialogData("那請你繼續探索吧！地球就交給你了啊😇", "B"));
-        dialog03.Add(new DialogData("….🙂", "A"));
+        dialog03.Add(new DialogData("….🙂", "A", () => ShowThings(6)));
 
         DialogManager.Show(dialog03);
     }
@@ -185,7 +185,7 @@ public class NasaScript : MonoBehaviour {
         dialog03.Add(new DialogData("你不是說預期我會回不來嗎？", "A"));
         dialog03.Add(new DialogData("等等，/wait:0.5/通訊不太好...", "B"));
         dialog03.Add(new DialogData("明明就很好嘛。", "A"));
-        dialog03.Add(new DialogData("那個，還剩下6顆🌟要找呢，就麻煩你繼續探索了。", "B", null, false));
+        dialog03.Add(new DialogData("那個，還剩下6顆🌟要找呢，就麻煩你繼續探索了。", "B", () => ShowThings(7), false));
 
 
         DialogManager.Show(dialog03);
@@ -279,8 +279,5 @@ public class NasaScript : MonoBehaviour {
         private void ShowThings(int index, bool isShow = true) {
         showSomething[index].SetActive(isShow);
     }
-    public void ShowTrophies() {
 
-
-    }
 }

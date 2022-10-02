@@ -35,7 +35,7 @@ public class Game3Flow : MonoBehaviour
 
     void GameWin() {
         OnGameEnd();
-        MainGameController.GameWin();
+        MainGameController.Instance.GameWin();
     }
     public void OnEventStartNotBlocking() {
         GameWin();

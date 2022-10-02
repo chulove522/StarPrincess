@@ -19,6 +19,7 @@ AudioClip[] audioClips;
     public GameObject GameWinScreen;  //贏了prefab/隨便拉一個fake.同上.如果沒有輸贏就fake.有輸贏就是認真寫1~4
     public Image loadingImg;  //把5star圖片拉近來這邊
     public GameObject TrophiesPanel;
+    public Button closeTro; //成就系統的叉叉壞了所以弄一個新的
 
     static string nameOfNowScene;
     static int NowGame;
@@ -41,9 +42,10 @@ AudioClip[] audioClips;
 
     void Start() {
         DontDestroyOnLoad(this.gameObject);
-        GameOverRetry.SetActive(false);
-        GameWinScreen.SetActive(false);
-        LoadingInterface.SetActive(false);
+        hideAll();
+
+
+
         audioSource = this.GetComponent<AudioSource>();
         audioSource.playOnAwake = true;
         audioSource.loop = true;
@@ -52,7 +54,13 @@ AudioClip[] audioClips;
 
     }
     // Update is called once per frame
-
+    void hideAll() {
+        GameOverRetry.SetActive(false);
+        GameWinScreen.SetActive(false);
+        LoadingInterface.SetActive(false);
+        TrophiesPanel.SetActive(false);
+        closeTro.gameObject.SetActive(false);
+    }
 
 
     /*/ 設定第幾個對話!! /*/
@@ -174,10 +182,14 @@ AudioClip[] audioClips;
         }
         yield return new WaitForSeconds(1);
 
+        showLoadingScreen(false);
+        Instance.hideAll();
+
+
     }
-    public static void showLoadingScreen() {
+    public static void showLoadingScreen(bool show) {
        
-        Instance.LoadingInterface.SetActive(true);
+        Instance.LoadingInterface.SetActive(show);
     }
 
 
@@ -205,7 +217,7 @@ AudioClip[] audioClips;
         //設定Target
         setTargetScene(NowGame);
     }
-    public static void GameWin() {
+    public void GameWin() {
         Debug.Log("Win, NowGame: " + NowGame.ToString());
         Win(NowGame);
     }
@@ -217,7 +229,7 @@ AudioClip[] audioClips;
     public void StartGame() {
         Debug.Log("StartGame");
         // hideTheseThings(true);
-        showLoadingScreen();
+        showLoadingScreen(true);
         scenes.Add(SceneManager.LoadSceneAsync(Instance.scenesName[TargetScenceNumber]));
         //scenes.Add(SceneManager.LoadSceneAsync("Travel",LoadSceneMode.Additive));
 
@@ -226,7 +238,7 @@ AudioClip[] audioClips;
 
 
 
-    public static void Win(int stageNum) {
+    public void Win(int stageNum) {
         Instance.GameWinScreen.SetActive(true);
 
 
@@ -262,10 +274,12 @@ AudioClip[] audioClips;
         PlayerPrefs.SetInt("Stage", stagenum);
     }
 
-    public static void showAward() {
+    public void showAward() {
         
         Instance.TrophiesPanel.GetComponent<Trophies>().FinishStage();
         Instance.TrophiesPanel.SetActive(true);
+        Instance.closeTro.gameObject.SetActive(true);
+
         Debug.Log("you found 3 stars!");
     }
 

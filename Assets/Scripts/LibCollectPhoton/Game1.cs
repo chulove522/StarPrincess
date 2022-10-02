@@ -71,7 +71,7 @@ public class Game1 : MonoBehaviour
         TimerText.text = "Time: " + remaintime.ToString();
     }
     public void GameWin() {
-        MainGameController.GameWin();
+        MainGameController.Instance.GameWin();
         OnGameStop();
     }
 

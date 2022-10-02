@@ -9,7 +9,7 @@ using static UnityEngine.EventSystems.EventTrigger;
 
 public class Game2 : MonoBehaviour
 {
-    MainGameController mainGameController;
+    //MainGameController mainGameController;
     // Object references
     public GameObject Sun;
     public GameObject Shield;
@@ -47,7 +47,7 @@ public class Game2 : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        mainGameController = UnityEngine.GameObject.Find("MainGameController").GetComponent<MainGameController>();
+        //mainGameController = UnityEngine.GameObject.Find("MainGameController").GetComponent<MainGameController>();
         Shield.SetActive(false);
         scoreText = ScoreObject.GetComponent<Text>();
         lifeText = LifeObject.GetComponent<Text>();
@@ -114,7 +114,7 @@ public class Game2 : MonoBehaviour
     public void gamewin() {
         StopCoroutine(routineSunMovement);
         StopCoroutine(routineBulletMovement);
-        MainGameController.GameWin();
+        MainGameController.Instance.GameWin();
     }
     public void addScore() {
         this.Score += 10;

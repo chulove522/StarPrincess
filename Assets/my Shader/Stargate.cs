@@ -6,7 +6,7 @@ public class Stargate : MonoBehaviour
 {
     
     // public GameObject[] stargates; //4games
-    CapsuleCollider col;
+    //CapsuleCollider col;
     public int nowstage;  /// <summary>
     /// 方便測試所以寫public
     /// </summary>
