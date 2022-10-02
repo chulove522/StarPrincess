@@ -23,21 +23,10 @@ public class NasaScript : MonoBehaviour {
         MainGameController.Instance.StartGame();
     }
 
-    /*
-<<<<<<< Updated upstream
-=======
-<<<<<<< HEAD
->>>>>>> Stashed changes
 
-引數: 內容 /人名 / callback/能否略過/能否倒退(只有第一句是false)其他句子都不要動第五個參數
-A:玩家 B:老闆 C:旁白
-*/
-    public void ShowDialog(int DialogueNum) {
-<<<<<<< Updated upstream
-=======
-=======
+    public void ShowDialog(int DialogueNum) { }
      
-     引數: 內容 /人名 / callback/能否略過/能否倒退(只有第一句是false)其他句子都不要動第五個參數
+     /*引數: 內容 /人名 / callback/能否略過/能否倒退(只有第一句是false)其他句子都不要動第五個參數
     A:玩家 B:老闆 C:旁白
      */
     public enum DIALOG_ID: int {
@@ -53,8 +42,8 @@ A:玩家 B:老闆 C:旁白
         MAX_DIALOG,
     };
     public void ShowDialog(DIALOG_ID DialogueNum) {
->>>>>>> 027e7a3dee4e46f0b03771c40a94d884f71f2d54
->>>>>>> Stashed changes
+//>>>>>>> 027e7a3dee4e46f0b03771c40a94d884f71f2d54
+//>>>>>>> Stashed changes
         switch (DialogueNum) {
             case DIALOG_ID.OPENING: //旁白->星球製作
                 opening();

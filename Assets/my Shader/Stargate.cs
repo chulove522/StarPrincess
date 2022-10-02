@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static MainGameController.SCENE_ID;
+//using static MainGameController.SCENE_ID;
 
 public class Stargate : MonoBehaviour
 {
@@ -30,7 +30,7 @@ public class Stargate : MonoBehaviour
             Debug.Log("nowstage=" + nowstage.ToString());
         
             switch (nowstage) {
-
+                /*
 
                 case 0:
 <<<<<<< Updated upstream
@@ -49,7 +49,8 @@ public class Stargate : MonoBehaviour
                     break;
                 case 3:
                     MainGameController.setTargetScene(GAME_1);
-=======
+=======*/
+                case 0:
                     MainGameController.setTargetScene(3);
                     
                     MainGameController.Instance.StartGame();
@@ -64,7 +65,7 @@ public class Stargate : MonoBehaviour
                     break;
                 case 3:
                     MainGameController.setTargetScene(6);
->>>>>>> Stashed changes
+//>>>>>>> Stashed changes
                     MainGameController.Instance.StartGame();
                     break;
 

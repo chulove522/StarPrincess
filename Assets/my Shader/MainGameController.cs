@@ -9,10 +9,9 @@ public class MainGameController : MonoBehaviour {
     [SerializeField]  //以免不小心拉動到
     AudioClip[] audioClips;
     public static MainGameController Instance { get; private set; }
-<<<<<<< HEAD
-=======
+
     public static MainGameController BufferInstance { get; private set; }
->>>>>>> parent of 027e7a3 (Improve main game controller switch hand flow)
+
     public AudioClip[] audioEffects;
     private AudioSource audioSource; //一律掛載在maingameobject上方
 
@@ -45,9 +44,7 @@ public class MainGameController : MonoBehaviour {
         "Game1","Game2","Game3","Game4",
         "DialogScene","other",};
 
-
-<<<<<<< HEAD
-=======
+    /*
     static void addScenePair(string name, SCENE_ID id) {
         idToName.Add(id, name);
         nameToId.Add(name, id);
@@ -145,7 +142,7 @@ public class MainGameController : MonoBehaviour {
         BufferInstance = Instance;
         Instance = this;
     }
->>>>>>> parent of 027e7a3 (Improve main game controller switch hand flow)
+    */
     void Start() {
 
         Debug.Log("start called");
@@ -170,8 +167,7 @@ public class MainGameController : MonoBehaviour {
         GameOverRetry.SetActive(false);
         GameWinScreen.SetActive(false);
         LoadingInterface.SetActive(false);
-        TrophiesPanel.SetActive(false);
-        closeTro?.gameObject.SetActive(false);
+
     }
 
 
@@ -264,10 +260,7 @@ public class MainGameController : MonoBehaviour {
        遊玩順序 : 遊玩順序是：game02➡️game03➡️game04➡️game01 
        也就是：恆星閃焰3➡️找到最亮恆星4➡️恆星的一生5➡️用望遠鏡看見光子6
      */
-=======
-        updateInstance();
-    }
->>>>>>> parent of 027e7a3 (Improve main game controller switch hand flow)
+
 
     /// <summary>
     /// 星門走這
@@ -309,10 +302,7 @@ public class MainGameController : MonoBehaviour {
 
     }
     public static void showLoadingScreen(bool show) {
-<<<<<<< HEAD
-       
-=======
->>>>>>> parent of 027e7a3 (Improve main game controller switch hand flow)
+
         Instance.LoadingInterface.SetActive(show);
     }
 
@@ -378,14 +368,9 @@ public class MainGameController : MonoBehaviour {
         Debug.Log("StartGame");
         // hideTheseThings(true);
         showLoadingScreen(true);
-<<<<<<< HEAD
         
         SceneManager.LoadScene(TargetScenceNumber,LoadSceneMode.Single);
         //scenes.Add(SceneManager.LoadSceneAsync("Travel",LoadSceneMode.Additive));
-
-=======
-        scenes.Add(SceneManager.LoadSceneAsync(getSceneName(targetSceneID)));
->>>>>>> parent of 027e7a3 (Improve main game controller switch hand flow)
         Instance.StartCoroutine(Loading());
 
     }
