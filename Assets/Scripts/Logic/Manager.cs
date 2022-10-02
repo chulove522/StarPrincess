@@ -558,11 +558,11 @@ namespace Logic
             if (result == LevelResult.Pass)
             {
                 var newRecord = Records.First.Value;
-                mainGameController.Win(4);
+                MainGameController.Instance.Win(4);
             } 
             else if (result == LevelResult.FailToFindNode || result == LevelResult.FailToMoveDown)
             {
-                mainGameController.GameOver();
+                MainGameController.GameOver();
             }
             else
                 _startPanel.gameObject.SetActive(true);
