@@ -7,7 +7,7 @@ using DG.Tweening.Core.Easing;
 
 public class MainGameController : MonoBehaviour {
     [SerializeField]  //以免不小心拉動到
-AudioClip[] audioClips;
+    AudioClip[] audioClips;
     public static MainGameController Instance { get; private set; }
     public AudioClip[] audioEffects;
     private AudioSource audioSource; //一律掛載在maingameobject上方
@@ -41,6 +41,8 @@ AudioClip[] audioClips;
 
 
     void Start() {
+
+        Debug.Log("start called");
         DontDestroyOnLoad(this.gameObject);
         hideAll();
 
@@ -68,7 +70,9 @@ AudioClip[] audioClips;
         DialogueNum = dia;
     }
     public static int getDialog() { Debug.Log("載入對話" + DialogueNum.ToString()); 
-        if (DialogueNum > 0) return DialogueNum; else return 1;  }
+        if (DialogueNum > 0) return DialogueNum; else return 1;  
+        
+    }
 
     
 
@@ -77,8 +81,9 @@ AudioClip[] audioClips;
 
     void setAudioClip() {
         nameOfNowScene = SceneManager.GetActiveScene().name;
+        //nameOfNowScene = Instance.scenesName[TargetScenceNumber].ToString();
 
-
+        Debug.Log("now!:" + nameOfNowScene);
         if (nameOfNowScene == scenesName[7]) {  //DialogScene
             //DialogScene
             audioSource.clip = audioClips[5];  //對話歌 嘟 嘟~嘟
@@ -139,15 +144,15 @@ AudioClip[] audioClips;
      * 0 = "SpaceScene" 
      * 1 ="Maker"
      * 2= "Travel"
-       3= "game1" // 光子
-       4= "game02" // 閃焰
-       5= "game03" // 移開恆星
-       6= "game04", // 泡泡龍
+       6= "game1" // 光子
+       3= "game02" // 閃焰
+       4= "game03" // 移開恆星
+       5= "game04", // 泡泡龍
        7= "DialogScene"
        8="Conversation02"
 
        遊玩順序 : 遊玩順序是：game02➡️game03➡️game04➡️game01 
-       也就是：恆星閃焰4➡️找到最亮恆星5➡️恆星的一生6➡️用望遠鏡看見光子3
+       也就是：恆星閃焰3➡️找到最亮恆星4➡️恆星的一生5➡️用望遠鏡看見光子6
      */
 
     /// <summary>
@@ -164,7 +169,8 @@ AudioClip[] audioClips;
     //restart按鈕走這
     public void setTargetSceneBtn() {
         Debug.Log("set restart stage" + NowGame.ToString());
-        TargetScenceNumber = NowGame+2;
+        TargetScenceNumber = NowGame + 2;
+
     }
 
 
@@ -184,7 +190,8 @@ AudioClip[] audioClips;
 
         showLoadingScreen(false);
         Instance.hideAll();
-
+        Instance.setAudioClip();
+        Instance.audioSource.Play();
 
     }
     public static void showLoadingScreen(bool show) {
@@ -202,6 +209,9 @@ AudioClip[] audioClips;
         }
     }
     */
+    static int getSceneNum(int gamenum) {
+        return gamenum + 2;
+    }
     
     /*game1234接口在這裡*/
     /// <summary>
@@ -215,7 +225,7 @@ AudioClip[] audioClips;
     public static void GameOver() {
         Instance.GameOverRetry.SetActive(true);
         //設定Target
-        setTargetScene(NowGame);
+        setTargetScene(getSceneNum(NowGame));
     }
     public void GameWin() {
         Debug.Log("Win, NowGame: " + NowGame.ToString());
@@ -230,10 +240,12 @@ AudioClip[] audioClips;
         Debug.Log("StartGame");
         // hideTheseThings(true);
         showLoadingScreen(true);
-        scenes.Add(SceneManager.LoadSceneAsync(Instance.scenesName[TargetScenceNumber]));
+        
+        SceneManager.LoadScene(nameOfNowScene,LoadSceneMode.Single);
         //scenes.Add(SceneManager.LoadSceneAsync("Travel",LoadSceneMode.Additive));
 
         Instance.StartCoroutine(Loading());
+
     }
 
 
@@ -242,7 +254,7 @@ AudioClip[] audioClips;
         Instance.GameWinScreen.SetActive(true);
 
 
-        if (stageNum > 0 && stageNum < 5) {
+        if (stageNum > 0 && stageNum < 5) {  //1234
             Save(stageNum);
             setTargetScene(7); //回到主對話
             if(stageNum == 1)
@@ -271,6 +283,7 @@ AudioClip[] audioClips;
     
     /*破關的記錄*/
     static void Save(int stagenum) {
+        Debug.Log("stage saved." + stagenum.ToString());
         PlayerPrefs.SetInt("Stage", stagenum);
     }
 
