@@ -14,7 +14,7 @@ public class NasaScript : MonoBehaviour {
 
 
     private void Start() {
-        ShowDialog(MainGameController.getDialog);
+        ShowDialog(MainGameController.getDialog());
     }
     /*
      

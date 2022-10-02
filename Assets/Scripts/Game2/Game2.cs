@@ -25,6 +25,8 @@ public class Game2 : MonoBehaviour
     private int Life = 8;
     // 遊戲時間
     public int MaxGameTime = 16;
+    public int StartingTime;
+    int GameEndTime = 0;
 
     // Score Component
     private Text scoreText;
@@ -50,17 +52,29 @@ public class Game2 : MonoBehaviour
         scoreText = ScoreObject.GetComponent<Text>();
         lifeText = LifeObject.GetComponent<Text>();
         timeText = TimeObject.GetComponent<Text>();
-        routineSunMovement = StartCoroutine(MoveSun());
+        
     }
-    private void FixedUpdate() {
-        showtime();
+    /*接口!!!!!!!!!!!!!*/
+    public void gameStart() {
+        SetStartingTime();
+ 
+        routineSunMovement = StartCoroutine(MoveSun());
     }
 
     // Update is called once per frame
     void Update()
     {
-            // Controll Sheild
-            if (lastUseShield > 0)  //可以使用次數=10 並且每1秒才能開啟一個
+        int remaintime = (int)Mathf.Round(GameEndTime - Time.time);
+        if (remaintime <= 0)
+            remaintime = 0;
+        if (remaintime == 0)
+            gameover();
+
+        updateTimerText(remaintime);
+
+
+        // Controll Sheild
+        if (lastUseShield > 0)  //可以使用次數=10 並且每1秒才能開啟一個
             {
                 if (Input.GetKeyDown(KeyCode.Space))
                 {
@@ -92,7 +106,7 @@ public class Game2 : MonoBehaviour
         stopped = true;
         StopCoroutine(routineBulletMovement);
         StopCoroutine(routineSunMovement);
-        mainGameController.GameOver();
+        MainGameController.GameOver();
     }
 
 
@@ -100,7 +114,7 @@ public class Game2 : MonoBehaviour
     public void gamewin() {
         StopCoroutine(routineSunMovement);
         StopCoroutine(routineBulletMovement);
-        mainGameController.GameWin();
+        MainGameController.GameWin();
     }
     public void addScore() {
         this.Score += 10;
@@ -121,12 +135,27 @@ public class Game2 : MonoBehaviour
             gameover();
         }
     }
+
+    void updateTimerText(int t) {
+        timeText.text = "Time: " + t.ToString();
+
+
+    }
+    void SetStartingTime() {
+        StartingTime = (int)Mathf.Ceil(Time.time);
+        GameEndTime = MaxGameTime + StartingTime;
+    }
+
+
+    /*
     public void showtime() {
         int remaintime = (MaxGameTime - Time.time) > 0 ? (int)(MaxGameTime - Time.time) : 0;
         if (remaintime == 0)
             gamewin();
         timeText.text = "Time: " + remaintime.ToString();
     }
+    
+     */
     private IEnumerator MoveSun() {
         while(stopped != true) {
             // Controll Sun

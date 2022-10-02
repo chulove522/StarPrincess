@@ -22,7 +22,7 @@ public class Game1 : MonoBehaviour
     bool isGameStarted = false;
     bool isGameEnd = false;
 
-    MainGameController mainGameController;
+    //MainGameController mainGameController;
 
     public GameObject[] stars;
 
@@ -31,7 +31,6 @@ public class Game1 : MonoBehaviour
     //Move[] move;
 
     private void Start() {
-        mainGameController = UnityEngine.GameObject.Find("MainGameController").GetComponent<MainGameController>();
         
         SetTimeText(MaxGameTime);
     }
@@ -72,7 +71,7 @@ public class Game1 : MonoBehaviour
         TimerText.text = "Time: " + remaintime.ToString();
     }
     public void GameWin() {
-        mainGameController.GameWin();
+        MainGameController.GameWin();
         OnGameStop();
     }
 
@@ -92,7 +91,7 @@ public class Game1 : MonoBehaviour
     /*
        放button 上*/
     public void GameOver() {
-        mainGameController.GameOver();
+        MainGameController.GameOver();
         OnGameStop();
     }
 

@@ -20,7 +20,7 @@ public class Trophies : MonoBehaviour
     //Image starsignImg;
 
     private void Start() {
-        stageCleared = PlayerPrefs.GetInt("Stage", 0);
+        stageCleared = PlayerPrefs.GetInt("Stage", 0); //1~4 0:new
     }
 
     //在每次破關後都呼叫main.save存起來歐!
@@ -51,7 +51,7 @@ public class Trophies : MonoBehaviour
         starCleared[starsignNum] = false;
 
     }
-
+    /*每次開啟面板都呼叫他!*/
     public void FinishStage() {
         stageCleared = PlayerPrefs.GetInt("Stage", 0);
         if (stageCleared == 1) { //fire
