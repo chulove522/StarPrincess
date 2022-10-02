@@ -18,7 +18,7 @@ namespace Logic
         public float     TopEdge       { get; private set; } = 8.6f;
         public float     BottomEdge    => TopEdge - GameConstant.RowHeight * GameConstant.StageRowCount;
         public float     LeftEdge      { get; private set; } = -6;
-        public float     RightEdge     { get; private set; } = 5.2f;
+        public float     RightEdge     { get; private set; } = 5.6f;
         public StageType CurrStageType { get; private set; }
 
         private readonly Vector2[][] _bubbleAnchors;

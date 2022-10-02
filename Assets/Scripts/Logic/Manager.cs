@@ -143,6 +143,7 @@ namespace Logic
 
         public void ResetGame()
         {
+            MainGameController.Instance.GameOverRetry.SetActive(false);
             InitLevelData(0);
         }
 
