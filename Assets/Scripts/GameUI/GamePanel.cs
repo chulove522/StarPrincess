@@ -69,7 +69,7 @@ namespace GameUI
             var level = Manager.Instance.Level;
             var cfg   = Manager.Instance.GameCfg.LevelTunnings[level];
             var fmt   = Manager.Instance.GameCfg.LevelNameFmt;
-            _lvlName.text = string.Format(fmt, level + 1, cfg.Name);
+            // _lvlName.text = string.Format(fmt, level + 1, cfg.Name);
             // ReSharper disable once PossiblyMistakenUseOfInterpolatedStringInsert
             _score.text = $"{0:D4}";
             _randomBubble.Respawn();
