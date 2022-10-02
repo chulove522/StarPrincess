@@ -251,23 +251,23 @@ public class NasaScript_en : MonoBehaviour {
     */
     private void Gametalk03() {
         var dialog03 = new List<DialogData>();
-        // dialog03.Add(new DialogData("呼，為什麼有那麼多種恆星啦。我到底是來玩overcook還是來拯救世界的啊。", "A", null, false, false));
-        dialog03.Add(new DialogData("Oh, why are there so many kinds of stars? I am here to play overcook or to save the world.", "A", null, false, false));
-        // dialog03.Add(new DialogData("什麼overcook？你餓了嗎？", "B"));
-        dialog03.Add(new DialogData("What overcook, you are hungry?", "B"));
+        // dialog03.Add(new DialogData("呼，為什麼有那麼多種恆星啦。我到底是來玩Puzzle Bobble還是來拯救世界的啊。", "A", null, false, false));
+        dialog03.Add(new DialogData("Oh, why are there so many kinds of stars? I am here to play Puzzle Bobble or to save the world.", "A", null, false, false));
+        // dialog03.Add(new DialogData("什麼Puzzle Bobble？你累了嗎？", "B"));
+        dialog03.Add(new DialogData("What Puzzle Bobble, you are tired?", "B"));
         // dialog03.Add(new DialogData("嚇死我了，不要偷聽好嗎", "A"));
         dialog03.Add(new DialogData("You scared me, don't eavesdrop, okay?", "A"));
         // dialog03.Add(new DialogData("你說的一切我都聽的一清二楚呢！", "B"));
         dialog03.Add(new DialogData("Everything you said is 'loud and clear.'", "B"));
         // dialog03.Add(new DialogData("不要像變態一樣好嗎QAQ", "A"));
         dialog03.Add(new DialogData("Don't be like a pervert, okay? QAQ", "A"));
-        // dialog03.Add(new DialogData("這邊跟你說明，其實恆星有很多種面向，也依照生存年份的長短，質量的增加與損失，呈現不同的菜色...", "B"));
+        // dialog03.Add(new DialogData("這邊跟你說明，其實恆星有很多種面向，也依照生存年份的長短，質量的增加與損失，呈現不同的Bobble...", "B"));
         dialog03.Add(new DialogData("Here to explain to you is that there are many kinds of stars facing, but also according to the length of survival, ", "B"));
-        dialog03.Add(new DialogData("the increase and loss of mass, shows different dishes...", "B"));
+        dialog03.Add(new DialogData("the increase and loss of mass, shows different Bobble...", "B"));
         // dialog03.Add(new DialogData("我是說，樣貌。", "B"));
         dialog03.Add(new DialogData("I mean, the appearance", "B"));
-        // dialog03.Add(new DialogData("我看你才餓了🙂", "A"));
-        dialog03.Add(new DialogData("I think you are the hungry one.🙂", "A"));
+        // dialog03.Add(new DialogData("我看你才累了🙂", "A"));
+        dialog03.Add(new DialogData("I think you are the tired one.🙂", "A"));
         // dialog03.Add(new DialogData("就剩最後三個，我等你趕快回來唷❤️", "B"));
         dialog03.Add(new DialogData("Only the last three are left, and I'm waiting for you to come back soon!❤️", "B"));
         // dialog03.Add(new DialogData("太噁心了吧，我要把通訊器關機。", "A", null, false));
