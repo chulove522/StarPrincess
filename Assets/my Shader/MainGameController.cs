@@ -7,7 +7,6 @@ using static NasaScript;
 
 public class MainGameController : MonoBehaviour {
     public static MainGameController Instance { get; private set; }
-    public static MainGameController BufferInstance { get; private set; }
     public AudioClip[] audioEffects;
     
     private AudioSource audioSource; //一律掛載在maingameobject上方
@@ -156,17 +155,10 @@ public class MainGameController : MonoBehaviour {
         initTables();
     }
 
-    void updateInstance() {
-        DontDestroyOnLoad(transform.root.gameObject);
-        DontDestroyOnLoad(LoadingInterface.transform.root.gameObject);
-        DontDestroyOnLoad(loadingImg.transform.root.gameObject);
-        BufferInstance = Instance;
-        Instance = this;
-    }
     void Start() {
 
         Debug.Log("start called");
-        updateInstance();
+        DontDestroyOnLoad(this.gameObject);
         hideAll();
 
         audioSource = this.GetComponent<AudioSource>();
@@ -205,7 +197,13 @@ public class MainGameController : MonoBehaviour {
         audioSource.clip = getAudioWithId(nowSceneID);
     }
     void Awake() {
-        updateInstance();
+        if (Instance == null) {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else if (Instance != this) {
+            Destroy(gameObject);
+        }
     }
 
     /// <summary>
@@ -248,6 +246,7 @@ public class MainGameController : MonoBehaviour {
 
     }
     public static void showLoadingScreen(bool show) {
+       
         Instance.LoadingInterface.SetActive(show);
     }
 
