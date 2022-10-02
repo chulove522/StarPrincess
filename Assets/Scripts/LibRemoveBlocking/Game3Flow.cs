@@ -9,7 +9,7 @@ public class Game3Flow : MonoBehaviour
     public Text ScoreText;
     public int MaxGameTime=20;
     public int StartingTime;
-    public MainGameController mainGame;
+    //public MainGameController mainGame;
     int GameEndTime = 0;
     bool gameStart = false;
     bool gameEnd = false;
@@ -18,7 +18,8 @@ public class Game3Flow : MonoBehaviour
         gameStart = true;
         SetStartingTime();
     }
-
+    /*我是用重新載入一次原場景達成restart效果. 同時也再次開啟說明面板*/
+    /*這個void我就不使用他了*/
     public void Game03Restart() {
         gameEnd = false;
         Game03Start();
@@ -29,12 +30,12 @@ public class Game3Flow : MonoBehaviour
     }
     void GameOver() {
         OnGameEnd();
-        mainGame.GameOver();
+        MainGameController.GameOver();
     }
 
     void GameWin() {
         OnGameEnd();
-        mainGame.GameWin();
+        MainGameController.GameWin();
     }
     public void OnEventStartNotBlocking() {
         GameWin();

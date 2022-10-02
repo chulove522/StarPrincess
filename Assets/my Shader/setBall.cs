@@ -119,7 +119,7 @@ public class setBall : MonoBehaviour{
         //材質是第幾個
         public byte GetBallMatByte => BallPointer;
         */
-        
+        MainGameController.Win(0);  //只有從製作星球到主對話是這個數字
         MainGameController.setDialog(2);
         PlayerPrefs.SetFloat("PlanetColor", HueVal);
         //PlayerPrefs.SetInt("PlanetColor", (int)HueVal);

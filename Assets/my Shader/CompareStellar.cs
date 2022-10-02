@@ -9,8 +9,8 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class CompareStellar : MonoBehaviour {
-    private float HueVal, ScaleVal;
-    private int BallPointer;
+    private static float HueVal, ScaleVal;
+    private static int BallPointer;
     //Canvas canvas;
 
     [SerializeField] static int result;
@@ -156,18 +156,28 @@ public class CompareStellar : MonoBehaviour {
 
 
     private void Start() {
-
+        readrMapsettings();
         //canvas = this.transform.GetComponent<Canvas>();
+        theStarYoumade.GetComponent<Renderer>().material = mat[BallPointer];
+        ShowCompareScreen();
+    }
+    void readrMapsettings() {
         HueVal = PlayerPrefs.GetFloat("PlanetColor", 0);
         ScaleVal = PlayerPrefs.GetFloat("PlanetSize", 0);
         BallPointer = PlayerPrefs.GetInt("PlanetMat", 1);
 
 
-        Debug.Log("hue = "+HueVal); Debug.Log(ScaleVal); Debug.Log(BallPointer);
-        theStarYoumade.GetComponent<Renderer>().material = mat[BallPointer];
-
-        ShowCompareScreen();
+        Debug.Log("hue = " + HueVal); Debug.Log(ScaleVal); Debug.Log(BallPointer);
     }
+
+
+    /// <summary>
+    /// /接口! 給星球!
+    /// 
+    /// </summary>
+    public static float getHue => HueVal;
+    public static int getBallMapNumber => BallPointer;
+    
     public static string returnname(int num) {
         return starlist[num];
     }

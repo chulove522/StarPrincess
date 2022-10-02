@@ -25,7 +25,7 @@ public class CheckBlocking : MonoBehaviour
     }
 
     private void LogIsBlocking() {
-        Debug.Log("Is blocking? " + IsBlocking());
+        //Debug.Log("Is blocking? " + IsBlocking());
     }
 
     private void UpdateBlocking(BLOCK_OP op, Collider2D other) {
