@@ -62,17 +62,14 @@ public class Game1 : MonoBehaviour
         isGameStarted = true;
     }
 
-    public void RestartGame01() {
-        // I'm asleep
-        SceneManager.LoadScene("Game1");
-    }
 
     void SetTimeText(int remaintime) {
         TimerText.text = "Time: " + remaintime.ToString();
     }
     public void GameWin() {
-        MainGameController.Instance.GameWin();
+        
         OnGameStop();
+        MainGameController.Instance.GameWin();
     }
 
     void OnGameStop() {
@@ -91,8 +88,9 @@ public class Game1 : MonoBehaviour
     /*
        放button 上*/
     public void GameOver() {
-        MainGameController.GameOver();
+        
         OnGameStop();
+        MainGameController.GameOver();
     }
 
 

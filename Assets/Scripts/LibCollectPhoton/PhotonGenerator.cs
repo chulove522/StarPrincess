@@ -13,7 +13,7 @@ public class PhotonGenerator : MonoBehaviour {
     void GenPhoton() {
         Vector3 dirToPlayer3 = player.transform.position - transform.position;
         Vector2 dirToPlayer2 = (new Vector2(dirToPlayer3.x, dirToPlayer3.y)).normalized;
-        // ref: https://answers.unity.com/questions/808262/how-to-instantiate-a-prefab-with-initial-velocity.html
+        
         GameObject newPhoton = Instantiate(photon, transform.position, Quaternion.identity);
         newPhoton.GetComponent<Rigidbody2D>().velocity = photonSpeed * dirToPlayer2;
     }

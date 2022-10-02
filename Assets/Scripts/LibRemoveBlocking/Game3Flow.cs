@@ -20,10 +20,7 @@ public class Game3Flow : MonoBehaviour
     }
     /*我是用重新載入一次原場景達成restart效果. 同時也再次開啟說明面板*/
     /*這個void我就不使用他了*/
-    public void Game03Restart() {
-        gameEnd = false;
-        Game03Start();
-    }
+
 
     void OnGameEnd() {
         gameEnd = true;

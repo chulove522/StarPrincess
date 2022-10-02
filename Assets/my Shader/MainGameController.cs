@@ -9,6 +9,10 @@ public class MainGameController : MonoBehaviour {
     [SerializeField]  //以免不小心拉動到
     AudioClip[] audioClips;
     public static MainGameController Instance { get; private set; }
+<<<<<<< HEAD
+=======
+    public static MainGameController BufferInstance { get; private set; }
+>>>>>>> parent of 027e7a3 (Improve main game controller switch hand flow)
     public AudioClip[] audioEffects;
     private AudioSource audioSource; //一律掛載在maingameobject上方
 
@@ -42,6 +46,106 @@ public class MainGameController : MonoBehaviour {
         "DialogScene","other",};
 
 
+<<<<<<< HEAD
+=======
+    static void addScenePair(string name, SCENE_ID id) {
+        idToName.Add(id, name);
+        nameToId.Add(name, id);
+    }
+
+    static SCENE_ID getSceneID(string sceneName) {
+        // TODO error handleing
+        return nameToId[sceneName];
+    }
+
+    static string getSceneName(SCENE_ID sceneId) {
+        // TODO error handleing
+        return idToName[sceneId];
+    }
+
+
+    static void initScenePacking() {
+        for (int i=0; i < (int) SCENE_ID.MAX_SCENE; i++) {
+            SCENE_ID id = (SCENE_ID)i;
+            idToAttr.Add(id, new SceneAttr());
+            // TODO: better constructor / setter
+            idToAttr[id].sceneID = id;
+        }
+        initSceneIdDialogIdMapping();
+        initAudios();
+    }
+
+    static void initAudios() {
+        // TODO: refactoring, merge it to packing function
+        // TODO: or other prefab to store audi list
+        idToAttr[SCENE_ID.DIALOG_SCENE].audioPath = "Audio/universe title.mp3";
+        idToAttr[SCENE_ID.TRAVEL].audioPath = "Audio/universe title.mp3";
+        idToAttr[SCENE_ID.SPACE_SCENE].audioPath = "Audio/urgent.mp3";
+        idToAttr[SCENE_ID.MAKER].audioPath = "Audio/maker Blue_Moon.mp3";
+        idToAttr[SCENE_ID.GAME_1].audioPath = "Audio/sad and slow.mp3";
+        idToAttr[SCENE_ID.GAME_2].audioPath = "Audio/maker Blue_Moon.mp3";
+        idToAttr[SCENE_ID.GAME_3].audioPath = "Audio/happyandunkown.mp3";
+        idToAttr[SCENE_ID.GAME_4].audioPath = "Audio/conversation happy.mp3";
+    }
+
+    static void initScneneIDMapping() {
+
+        addScenePair("SpaceScene", SCENE_ID.SPACE_SCENE);
+        addScenePair("Maker", SCENE_ID.MAKER);
+        addScenePair("Travel", SCENE_ID.TRAVEL);
+        addScenePair("Game1", SCENE_ID.GAME_1);
+        addScenePair("Game2", SCENE_ID.GAME_2);
+        addScenePair("Game3", SCENE_ID.GAME_3);
+        addScenePair("Game4", SCENE_ID.GAME_4);
+        addScenePair("DialogScene", SCENE_ID.DIALOG_SCENE);
+        addScenePair("other", SCENE_ID.OTHER);
+    }
+
+    static void initSceneIdDialogIdMapping() {
+        // TODO: update this table
+        idToAttr[SCENE_ID.SPACE_SCENE].dialogs.Add(DIALOG_ID.OPENING);
+
+        idToAttr[SCENE_ID.MAKER].dialogs.Add(DIALOG_ID.BOOSS_TALK_01);
+        idToAttr[SCENE_ID.MAKER].dialogs.Add(DIALOG_ID.BOOSS_TALK_02);
+
+        idToAttr[SCENE_ID.GAME_1].dialogs.Add(DIALOG_ID.GAME_TALK_01);
+        idToAttr[SCENE_ID.GAME_2].dialogs.Add(DIALOG_ID.GAME_TALK_02);
+        idToAttr[SCENE_ID.GAME_3].dialogs.Add(DIALOG_ID.GAME_TALK_03);
+        idToAttr[SCENE_ID.GAME_4].dialogs.Add(DIALOG_ID.GAME_TALK_04);
+
+
+        idToAttr[SCENE_ID.OTHER].dialogs.Add(DIALOG_ID.OPENING);
+    }
+
+    static AudioClip getAudioWithId(SCENE_ID sceneID) {
+        if (idToAttr.ContainsKey(sceneID)) {
+            // TODO: cache pool to load audios
+            return Resources.Load<AudioClip>(idToAttr[sceneID].audioPath);
+        } else {
+            return Resources.Load<AudioClip>("Audio/happyandunkown.mp3");
+        }
+    }
+    static DIALOG_ID getDialogID(SCENE_ID sceneId, int seq = 0) {
+        // TODO: eror handling
+        return idToAttr[sceneId].dialogs[seq];
+    }
+    static void initTables() {
+        initScneneIDMapping();
+        initScenePacking();
+    }
+
+    static MainGameController() { // static constructor to init table
+        initTables();
+    }
+
+    void updateInstance() {
+        DontDestroyOnLoad(transform.root.gameObject);
+        DontDestroyOnLoad(LoadingInterface.transform.root.gameObject);
+        DontDestroyOnLoad(loadingImg.transform.root.gameObject);
+        BufferInstance = Instance;
+        Instance = this;
+    }
+>>>>>>> parent of 027e7a3 (Improve main game controller switch hand flow)
     void Start() {
 
         Debug.Log("start called");
@@ -66,7 +170,8 @@ public class MainGameController : MonoBehaviour {
         GameOverRetry.SetActive(false);
         GameWinScreen.SetActive(false);
         LoadingInterface.SetActive(false);
-
+        TrophiesPanel.SetActive(false);
+        closeTro?.gameObject.SetActive(false);
     }
 
 
@@ -134,12 +239,6 @@ public class MainGameController : MonoBehaviour {
 
     }
     void Awake() {
-
-        Stage = 0;
-        PlayerPrefs.SetInt("Stage",0);
-        setTargetScene(7); //對話
-
-
         if (Instance == null) {
             Instance = this;
             DontDestroyOnLoad(gameObject);
@@ -165,6 +264,10 @@ public class MainGameController : MonoBehaviour {
        遊玩順序 : 遊玩順序是：game02➡️game03➡️game04➡️game01 
        也就是：恆星閃焰3➡️找到最亮恆星4➡️恆星的一生5➡️用望遠鏡看見光子6
      */
+=======
+        updateInstance();
+    }
+>>>>>>> parent of 027e7a3 (Improve main game controller switch hand flow)
 
     /// <summary>
     /// 星門走這
@@ -206,7 +309,10 @@ public class MainGameController : MonoBehaviour {
 
     }
     public static void showLoadingScreen(bool show) {
+<<<<<<< HEAD
        
+=======
+>>>>>>> parent of 027e7a3 (Improve main game controller switch hand flow)
         Instance.LoadingInterface.SetActive(show);
     }
 
@@ -272,10 +378,14 @@ public class MainGameController : MonoBehaviour {
         Debug.Log("StartGame");
         // hideTheseThings(true);
         showLoadingScreen(true);
+<<<<<<< HEAD
         
         SceneManager.LoadScene(TargetScenceNumber,LoadSceneMode.Single);
         //scenes.Add(SceneManager.LoadSceneAsync("Travel",LoadSceneMode.Additive));
 
+=======
+        scenes.Add(SceneManager.LoadSceneAsync(getSceneName(targetSceneID)));
+>>>>>>> parent of 027e7a3 (Improve main game controller switch hand flow)
         Instance.StartCoroutine(Loading());
 
     }

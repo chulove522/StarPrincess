@@ -18,15 +18,22 @@ public class Stargate : MonoBehaviour
     }
 
     void OnTriggerEnter2D(Collider2D player) {
-        nowstage = PlayerPrefs.GetInt("stage", 0);  //1~4(4 = FinishAll) . 0 = All not done.
+        //nowstage = PlayerPrefs.GetInt("Stage", 0);  //1~4(4 = FinishAll) . 0 = All not done.
+        nowstage = MainGameController.Stage;
         Debug.Log("touch"+ player.name);
         //stage here doesn't has the same meaning as torphies's.
         //trophies's stage means the cleared stage.
         //here, means the uncleared stage.
         /////game02 =4 //game03 = 5//game04 =6//game01 = 3 ////
-        if (player.name == "Player") {
+        if (player.name == "Player"){
+
+            Debug.Log("nowstage=" + nowstage.ToString());
+        
             switch (nowstage) {
+
+
                 case 0:
+<<<<<<< Updated upstream
                     // TODO: why not pass arg to StartGame()?
                     MainGameController.setTargetScene(GAME_2);
                     Debug.Log("scene 4");
@@ -42,6 +49,22 @@ public class Stargate : MonoBehaviour
                     break;
                 case 3:
                     MainGameController.setTargetScene(GAME_1);
+=======
+                    MainGameController.setTargetScene(3);
+                    
+                    MainGameController.Instance.StartGame();
+                    break;
+                case 1:
+                    MainGameController.setTargetScene(4);
+                    MainGameController.Instance.StartGame();
+                    break;
+                case 2:
+                    MainGameController.setTargetScene(5);
+                    MainGameController.Instance.StartGame();
+                    break;
+                case 3:
+                    MainGameController.setTargetScene(6);
+>>>>>>> Stashed changes
                     MainGameController.Instance.StartGame();
                     break;
 

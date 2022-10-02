@@ -14,11 +14,10 @@ using UnityEngine;
 using UnityEngine.Android;
 using static UnityEngine.Rendering.PostProcessing.HistogramMonitor;
 using UnityRandom = UnityEngine.Random;
+//using static MainGameController.SCENE_ID;
 
-namespace Logic
-{
-    public struct Record
-    {
+namespace Logic {
+    public struct Record {
         public int Level;
         public int Score;
     }
@@ -26,8 +25,7 @@ namespace Logic
     /* StageNode负责舞台数据部分,StageBubble是预设实例,事实上二个数据合并到一起会
      * 更好,另外StageBubble最好是可以Recycle.
      */
-    public class Manager : MonoBehaviour
-    {
+    public class Manager : MonoBehaviour {
         [SerializeField, LabelText("舞台泡泡Parent")]
         private Transform _stageBubbParent;
 
@@ -63,15 +61,13 @@ namespace Logic
         private HashSet<StageNode> _nodesPathCache; // Nodes缓存
         private MainGameController mainGameController;
 
-        protected void InitAppSetting()
-        {
+        protected void InitAppSetting() {
             Application.targetFrameRate = 60;
             Thread.CurrentThread.CurrentCulture = new CultureInfo("zh-TW");
             Camera.main.orthographicSize = Mathf.Max(1920f, Screen.height) / 2 / 100;
         }
 
-        protected void Awake()
-        {
+        protected void Awake() {
             InitAppSetting();
             mainGameController = UnityEngine.GameObject.Find("MainGameController").GetComponent<MainGameController>();
             Instance = this;
@@ -86,31 +82,26 @@ namespace Logic
             _nodesPathCache = new HashSet<StageNode>();
         }
 
-        protected void OnDisable()
-        {
+        protected void OnDisable() {
         }
 
-        protected void OnApplicationPause(bool pause)
-        {
+        protected void OnApplicationPause(bool pause) {
             if (!pause) return;
         }
 
         #region 对外接口
 
-        public void StartGame()
-        {
+        public void StartGame() {
             _gamePanel.gameObject.SetActive(true);
             InitLevelData(0);
         }
 
-        public void DisplayRecords()
-        {
+        public void DisplayRecords() {
             _recordsPanel.gameObject.SetActive(true);
         }
 
         [Button]
-        public void InitLevelData(int lvl)
-        {
+        public void InitLevelData(int lvl) {
             Level = lvl;
             FlyCount = 0;
             foreach (Transform child in _stageBubbParent)
@@ -120,8 +111,7 @@ namespace Logic
             InitLevelStage();
         }
 
-        public void ToggleBgm()
-        {
+        public void ToggleBgm() {
             if (_audioSource.isPlaying)
                 _audioSource.Stop();
             else
@@ -132,24 +122,20 @@ namespace Logic
 
         #region Logic
 
-        public void ResetGame()
-        {
+        public void ResetGame() {
             MainGameController.Instance.GameOverRetry.SetActive(false);
             InitLevelData(0);
         }
 
-        private void InitLevelStage()
-        {
+        private void InitLevelStage() {
             // 数据
             foreach (var row in StageNodeData)
                 row.Clear();
             var lvlTunning = GameCfg.LevelTunnings[Level];
             var initBubbs = lvlTunning.InitBubles;
-            for (var row = 0; row < StageNodeData.Count; ++row)
-            {
+            for (var row = 0; row < StageNodeData.Count; ++row) {
                 var rowCount = StageAnchorData.GetRowAnchorsCount(row);
-                for (var col = 0; col < rowCount; ++col)
-                {
+                for (var col = 0; col < rowCount; ++col) {
                     var cfgClr = row < initBubbs.GetLength(0) ? initBubbs[row, col] : BubbType.Empty;
                     if (cfgClr == BubbType.Colorful)
                         cfgClr = BubbTypeUtil.GetRandomStageType();
@@ -158,8 +144,7 @@ namespace Logic
                 }
             }
 
-            foreach (var rowNodes in StageNodeData)
-            {
+            foreach (var rowNodes in StageNodeData) {
                 foreach (var node in rowNodes)
                     SpawnStageBubble(node);
             }
@@ -167,37 +152,30 @@ namespace Logic
             _gamePanel.Reset();
         }
 
-        public void SpawnFlyBubble(BubbType type, Vector2 flyDir, Vector2 position)
-        {
+        public void SpawnFlyBubble(BubbType type, Vector2 flyDir, Vector2 position) {
             ++FlyCount;
             _lazyFlyBubble.Value.Respawn(type, flyDir, position);
         }
 
         // 在某个Node生成泡泡,并更新并查集
-        private void SpawnStageBubble(StageNode node)
-        {
+        private void SpawnStageBubble(StageNode node) {
             if (node.BubbType == BubbType.Empty || node.BubbType == BubbType.Colorful) return;
 
             // 遍历周围的泡泡,重设parent
-            foreach (var sideNode in node)
-            {
+            foreach (var sideNode in node) {
                 // 同色的合并
-                if (sideNode?.BubbType == node.BubbType)
-                {
+                if (sideNode?.BubbType == node.BubbType) {
                     // ReSharper disable once PossibleNullReferenceException
-                    if (sideNode.ParentNode == null && node.ParentNode == null)
-                    {
+                    if (sideNode.ParentNode == null && node.ParentNode == null) {
                         node.ParentNode = node;
                         sideNode.ParentNode = node;
                         _parentRecords[node] = new HashSet<StageNode> { node, sideNode };
                     }
-                    else if (sideNode.ParentNode != null && node.ParentNode == null)
-                    {
+                    else if (sideNode.ParentNode != null && node.ParentNode == null) {
                         node.ParentNode = sideNode.ParentNode;
                         _parentRecords[sideNode.ParentNode].Add(node);
                     }
-                    else if (sideNode.ParentNode == null && node.ParentNode != null)
-                    {
+                    else if (sideNode.ParentNode == null && node.ParentNode != null) {
                         sideNode.ParentNode = node.ParentNode;
                         _parentRecords[node.ParentNode].Add(sideNode);
                     }
@@ -207,8 +185,7 @@ namespace Logic
             }
 
             // 如果周围没同色的
-            if (node.ParentNode == null)
-            {
+            if (node.ParentNode == null) {
                 node.ParentNode = node;
                 _parentRecords[node] = new HashSet<StageNode> { node };
             }
@@ -218,8 +195,7 @@ namespace Logic
         }
 
         // 合并parent
-        private void CombineParentSet(StageNode parent1, StageNode parent2)
-        {
+        private void CombineParentSet(StageNode parent1, StageNode parent2) {
             var parent = parent2.Row < parent1.Row ? parent2 : parent1;
             var child = parent2.Row < parent1.Row ? parent1 : parent2;
             foreach (var node in _parentRecords[child])
@@ -231,16 +207,14 @@ namespace Logic
         #region 泡泡碰撞,消除,下移:碰撞后,判断能消除,消除后判断是否能下移,结束后产生新的待发射泡泡
 
         // 碰撞到泡泡回调
-        public void OnCollideStageBubble(Collision2D collision)
-        {
+        public void OnCollideStageBubble(Collision2D collision) {
             var involveBubb = collision.gameObject.GetComponent<StageBubble>();
             var involveNode = involveBubb.StageNode;
             var contactPoint = collision.GetContact(0).point;
             var flyBubble = _lazyFlyBubble.Value;
 
             StageNode targetNode = null;
-            foreach (var sideNode in involveNode)
-            {
+            foreach (var sideNode in involveNode) {
                 if (sideNode == null || sideNode.BubbType != BubbType.Empty)
                     continue;
 
@@ -252,8 +226,7 @@ namespace Logic
 
                 if (targetNode == null)
                     targetNode = sideNode;
-                else
-                {
+                else {
                     var distancePre = Vector2.SqrMagnitude(targetNode.AnchorPos - contactPoint);
                     var distanceNow = Vector2.SqrMagnitude(sideNode.AnchorPos - contactPoint);
 
@@ -262,8 +235,7 @@ namespace Logic
                 }
             }
 
-            if (targetNode == null)
-            {
+            if (targetNode == null) {
                 StartCoroutine(SetLevelResult(LevelResult.FailToFindNode));
                 return;
             }
@@ -273,18 +245,15 @@ namespace Logic
         }
 
         // 碰到Stage上边缘
-        public void OnCollideStageTopEdge(Collision2D collision)
-        {
+        public void OnCollideStageTopEdge(Collision2D collision) {
             var contactPoint = collision.contacts[0].point;
             StageNode targetNode = null;
-            foreach (var rowNode in StageNodeData[0])
-            {
+            foreach (var rowNode in StageNodeData[0]) {
                 if (rowNode.BubbType != BubbType.Empty) continue;
 
                 if (targetNode == null)
                     targetNode = rowNode;
-                else
-                {
+                else {
                     var disPre = Vector2.SqrMagnitude(targetNode.AnchorPos - contactPoint);
                     var disNow = Vector2.SqrMagnitude(rowNode.AnchorPos - contactPoint);
                     if (disNow < disPre)
@@ -292,14 +261,12 @@ namespace Logic
                 }
             }
 
-            if (targetNode == null)
-            {
+            if (targetNode == null) {
                 StartCoroutine(SetLevelResult(LevelResult.FailToFindNode));
                 return;
             }
 
-            if (_lazyFlyBubble.Value.BubbType == BubbType.Colorful)
-            {
+            if (_lazyFlyBubble.Value.BubbType == BubbType.Colorful) {
                 var weights = GameCfg.LevelTunnings[Level].StageBubbWeights;
                 targetNode.BubbType = weights.SelectByWeight();
             }
@@ -309,20 +276,17 @@ namespace Logic
             OnFindNodeSuccAfterCollide(targetNode);
         }
 
-        private void OnFindNodeSuccAfterCollide(StageNode stageNode)
-        {
+        private void OnFindNodeSuccAfterCollide(StageNode stageNode) {
             SpawnStageBubble(stageNode);
             var wipeCount = WipeBubbleAfterCollide(stageNode);
-            if (wipeCount > 0)
-            {
+            if (wipeCount > 0) {
                 // 计算得分
                 var wipeLevel = CalcWipeScore(wipeCount);
 
                 _gamePanel.UpdateScore(wipeLevel);
                 // 通关
                 _stageBubbParent.GetComponentsInChildren(_bubbsCache);
-                if (_bubbsCache.Count == wipeCount)
-                {
+                if (_bubbsCache.Count == wipeCount) {
                     StartCoroutine(SetLevelResult(LevelResult.Pass));
                     return;
                 }
@@ -330,21 +294,18 @@ namespace Logic
 
             // 下移
 
-             _gamePanel.SpawnWaitBubble();
+            _gamePanel.SpawnWaitBubble();
         }
 
         // 消除泡泡,返回消除的个数
-        private int WipeBubbleAfterCollide(StageNode stageNode)
-        {
+        private int WipeBubbleAfterCollide(StageNode stageNode) {
             var wipeNodes = _parentRecords[stageNode.ParentNode];
             if (wipeNodes.Count < GameConstant.BubbWipeThreshold)
                 return 0;
 
             // 没有挂载点的泡泡
-            for (var row = 0; row < GameConstant.StageRowCount; ++row)
-            {
-                for (var col = 0; col < StageNodeData[row].Count; ++col)
-                {
+            for (var row = 0; row < GameConstant.StageRowCount; ++row) {
+                for (var col = 0; col < StageNodeData[row].Count; ++col) {
                     var node = StageNodeData[row][col];
                     GenLinkDataByBubb(node);
                 }
@@ -355,8 +316,7 @@ namespace Logic
             _stageBubbParent.GetComponentsInChildren(_bubbsCache);
 
 
-            foreach (var wipe in wipeNodes)
-            {
+            foreach (var wipe in wipeNodes) {
                 if (wipe.ParentNode == wipe)
                     _parentRecords.Remove(wipe);
                 wipe.BubbType = BubbType.Empty;
@@ -371,12 +331,10 @@ namespace Logic
             // 隨機挑選一顆換色
             _stageBubbParent.GetComponentsInChildren(_bubbsCache);
             var bubbs = _bubbsCache.Where((b) => b.StageNode.BubbType != BubbType.Empty).ToList();
-            if (bubbs.Count > 0)
-            {
+            if (bubbs.Count > 0) {
                 var changed = bubbs[UnityEngine.Random.Range(0, bubbs.Count - 1)];
                 var type = changed.StageNode.BubbType;
-                if (type != ((BubbType)BubbType.Colorful - 2))
-                {
+                if (type != ((BubbType)BubbType.Colorful - 2)) {
                     wipeNodes.Remove(changed.StageNode);
                     // 根據恆星種類變化
                     if (type == BubbType.HighMass)
@@ -398,8 +356,7 @@ namespace Logic
             #region 局部函数
 
             // 从某个泡泡生成连接数据
-            void GenLinkDataByBubb(StageNode node)
-            {
+            void GenLinkDataByBubb(StageNode node) {
                 if (node.BubbType == BubbType.Empty || _nodesCache.Contains(node) || wipeNodes.Contains(node))
                     return;
 
@@ -412,16 +369,14 @@ namespace Logic
             }
 
             // 判断某个泡泡是否连到顶部
-            bool IsBubbLinkToTop(StageNode node, HashSet<StageNode> path)
-            {
+            bool IsBubbLinkToTop(StageNode node, HashSet<StageNode> path) {
                 if (!path.Add(node) || wipeNodes.Contains(node))
                     return false;
 
                 if (node.Row == 0 || wipeNodes.Contains(node))
                     return true;
 
-                foreach (var sideNode in node)
-                {
+                foreach (var sideNode in node) {
                     if (sideNode == null || sideNode.BubbType == BubbType.Empty) continue;
 
                     var isLink = IsBubbLinkToTop(sideNode, path);
@@ -435,8 +390,7 @@ namespace Logic
             #endregion
         }
 
-        private bool CanMoveDown()
-        {
+        private bool CanMoveDown() {
             var lastMoveRow = GameConstant.StageRowCount - GameConstant.MoveDownRowNum;
             if (StageNodeData[lastMoveRow].Exists(node => node.BubbType != BubbType.Empty))
                 return false;
@@ -444,16 +398,14 @@ namespace Logic
             return true;
         }
 
-        private IEnumerator MoveDownWait(int leftBubbCount)
-        {
+        private IEnumerator MoveDownWait(int leftBubbCount) {
             yield return new WaitWhile(() => _stageBubbParent.childCount > leftBubbCount);
 
             MoveBubbDown();
             _gamePanel.SpawnWaitBubble();
         }
 
-        private void MoveBubbDown()
-        {
+        private void MoveBubbDown() {
             var count = GameConstant.MoveDownRowNum;
             var lastMoveRow = GameConstant.StageRowCount - count;
             var emptyRows = StageNodeData.GetRange(lastMoveRow, count);
@@ -461,11 +413,9 @@ namespace Logic
             StageNodeData.InsertRange(0, emptyRows);
 
             // 更新锚点数据
-            for (var row = 0; row < StageNodeData.Count; ++row)
-            {
+            for (var row = 0; row < StageNodeData.Count; ++row) {
                 var rowCount = StageAnchorData.GetRowAnchorsCount(row);
-                for (var col = 0; col < rowCount; ++col)
-                {
+                for (var col = 0; col < rowCount; ++col) {
                     var node = StageNodeData[row][col];
                     node.Row = row;
                     node.Col = col;
@@ -479,16 +429,13 @@ namespace Logic
                 bubble.transform.position = bubble.StageNode.AnchorPos;
 
             // 为空生成新的泡泡
-            for (var row = count - 1; row >= 0; --row)
-            {
-                for (var col = 0; col < StageNodeData[row].Count; ++col)
-                {
+            for (var row = count - 1; row >= 0; --row) {
+                for (var col = 0; col < StageNodeData[row].Count; ++col) {
                     var node = StageNodeData[row][col];
 
                     var bubbType = GameCfg.LevelTunnings[Level].StageBubbWeights.SelectByWeight();
                     // 必需填充或者随机到填充,则填充
-                    if (IsMustFillNode(node) || GameCfg.LevelTunnings[Level].UnNecessaryFillRatio >= UnityRandom.value)
-                    {
+                    if (IsMustFillNode(node) || GameCfg.LevelTunnings[Level].UnNecessaryFillRatio >= UnityRandom.value) {
                         node.BubbType = bubbType;
                         SpawnStageBubble(node);
                     }
@@ -496,20 +443,17 @@ namespace Logic
             }
         }
 
-        private bool IsMustFillNode(StageNode node)
-        {
+        private bool IsMustFillNode(StageNode node) {
             var downLeft = node.GetDownLeft();
             var downRight = node.GetDownRight();
 
-            if (downLeft != null && downLeft.BubbType != BubbType.Empty)
-            {
+            if (downLeft != null && downLeft.BubbType != BubbType.Empty) {
                 var downLeftUpLeft = downLeft.GetUpLeft();
                 if (downLeftUpLeft == null || downLeftUpLeft.BubbType == BubbType.Empty)
                     return true;
             }
 
-            if (downRight != null && downRight.BubbType != BubbType.Empty)
-            {
+            if (downRight != null && downRight.BubbType != BubbType.Empty) {
                 var downRightUpRight = downRight.GetUpRight();
                 if (downRightUpRight == null || downRightUpRight.BubbType == BubbType.Empty)
                     return true;
@@ -520,14 +464,12 @@ namespace Logic
 
         #endregion
 
-        private WipeLevel CalcWipeScore(int wipeBubbCount)
-        {
+        private WipeLevel CalcWipeScore(int wipeBubbCount) {
             Score += wipeBubbCount; // 基础得分
             var wipeLevel = WipeLevel.Normal;
 
             var extraWipes = GameCfg.ExtraWipes;
-            for (var i = extraWipes.Length - 1; i >= 0; i--)
-            {
+            for (var i = extraWipes.Length - 1; i >= 0; i--) {
                 var extraCount = wipeBubbCount - extraWipes[i];
                 if (extraCount <= 0) continue;
 
@@ -537,19 +479,19 @@ namespace Logic
                 Score += GameCfg.ExtraScores[i] * extraCount;
                 wipeBubbCount -= extraCount;
             }
+            if (Score >= 10) { MainGameController.Instance.GameWin();  }
+
+
             return wipeLevel;
         }
 
-        private IEnumerator SetLevelResult(LevelResult result)
-        {
+        private IEnumerator SetLevelResult(LevelResult result) {
             // yield return _gamePanel.DisplayLevelResult(result);
 
-            if (result == LevelResult.Pass)
-            {
-                MainGameController.Instance.Win(4);
-            } 
-            else if (result == LevelResult.FailToFindNode || result == LevelResult.FailToMoveDown)
-            {
+            if (result == LevelResult.Pass) {
+                MainGameController.Instance.GameWin();
+            }
+            else if (result == LevelResult.FailToFindNode || result == LevelResult.FailToMoveDown) {
                 MainGameController.GameOver();
             }
             else

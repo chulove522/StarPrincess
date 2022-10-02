@@ -88,6 +88,8 @@ namespace GameUI
 
             var wipeLevelDesc = wipeLevel.ToString();
             _wipeLevel.text = wipeLevelDesc.PadRight((int) wipeLevel + wipeLevelDesc.Length, '!');
+
+            
             _wipeLevelTweener.Restart();
         }
 

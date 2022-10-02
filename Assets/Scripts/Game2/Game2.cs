@@ -37,7 +37,8 @@ public class Game2 : MonoBehaviour
 
     private int direction = 1;
     private bool stopped;
-    
+    bool gameStart = false;
+
     private int lastUseShield=10;
     private GameObject bulletClone;
 
@@ -52,10 +53,12 @@ public class Game2 : MonoBehaviour
         scoreText = ScoreObject.GetComponent<Text>();
         lifeText = LifeObject.GetComponent<Text>();
         timeText = TimeObject.GetComponent<Text>();
-        
+        updateTimerText(MaxGameTime);
+
     }
     /*接口!!!!!!!!!!!!!*/
-    public void gameStart() {
+    public void Startgame() {
+        gameStart = true;
         SetStartingTime();
  
         routineSunMovement = StartCoroutine(MoveSun());
@@ -64,11 +67,13 @@ public class Game2 : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if ((!gameStart) || stopped)
+            return;
         int remaintime = (int)Mathf.Round(GameEndTime - Time.time);
         if (remaintime <= 0)
             remaintime = 0;
         if (remaintime == 0)
-            gameover();
+            gamewin();
 
         updateTimerText(remaintime);
 
@@ -112,6 +117,7 @@ public class Game2 : MonoBehaviour
 
     //時間到就贏
     public void gamewin() {
+        stopped = true;
         StopCoroutine(routineSunMovement);
         StopCoroutine(routineBulletMovement);
         MainGameController.Instance.GameWin();
@@ -147,15 +153,7 @@ public class Game2 : MonoBehaviour
     }
 
 
-    /*
-    public void showtime() {
-        int remaintime = (MaxGameTime - Time.time) > 0 ? (int)(MaxGameTime - Time.time) : 0;
-        if (remaintime == 0)
-            gamewin();
-        timeText.text = "Time: " + remaintime.ToString();
-    }
-    
-     */
+
     private IEnumerator MoveSun() {
         while(stopped != true) {
             // Controll Sun

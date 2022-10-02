@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using static NasaScript.DIALOG_ID;
+using static MainGameController.SCENE_ID;
 
 public class setBall : MonoBehaviour{
     public GameObject[] Ball;
@@ -11,6 +13,9 @@ public class setBall : MonoBehaviour{
     private byte TexPointer= 0;
     private byte BallPointer=0;
     public Slider HueSlidebar,SizeSlider;
+
+
+    public Button activebtn;
     [SerializeField] 
     float HueVal=0;
     float ScaleVal=0;
@@ -26,13 +31,14 @@ public class setBall : MonoBehaviour{
 
     void OnEnable() {
         //Subscribe to the Slider Click event
-
+        activebtn.onClick.AddListener(TaskOnClick);
         SizeSlider.onValueChanged.AddListener(delegate { setSizeCallBack(SizeSlider); });
         HueSlidebar.onValueChanged.AddListener(delegate { setHueColor(); });
     }
 
-
-
+    private void TaskOnClick() {
+        MainGameController.Instance.StartGame();
+    }
 
     public void changeBall(int sample) {
         //alpha star
@@ -119,13 +125,19 @@ public class setBall : MonoBehaviour{
         //材質是第幾個
         public byte GetBallMatByte => BallPointer;
         */
-        MainGameController.Instance.Win(0);  //只有從製作星球到主對話是這個數字
-        MainGameController.setDialog(2);
+<<<<<<< HEAD
+        //MainGameController.Instance.Win(0);  //只有從製作星球到主對話是這個數字
+=======
+        MainGameController.Instance.Win(SPACE_SCENE);  //只有從製作星球到主對話是這個數字
+        // TODO: correct dialog ID
+        MainGameController.setDialog(BOOSS_TALK_01);
+>>>>>>> 027e7a3dee4e46f0b03771c40a94d884f71f2d54
         PlayerPrefs.SetFloat("PlanetColor", HueVal);
         //PlayerPrefs.SetInt("PlanetColor", (int)HueVal);
         PlayerPrefs.SetFloat("PlanetSize", ScaleVal);
         PlayerPrefs.SetInt("PlanetMat", BallPointer);
-
+        MainGameController.setTargetScene(7);
+        MainGameController.setDialog(2);
     }
 
 }
