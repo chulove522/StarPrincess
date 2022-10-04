@@ -59,93 +59,10 @@ public class MainGameController : MonoBehaviour {
     /*static List<AsyncOperation> scenes = new List<AsyncOperation>();
     // 所有需要載入的的場景list  事先把場景名稱取名吧我怕打錯字*/
     public enum scenesName{SpaceScene = 0, Maker = 1, Travel = 2,
-        Game1 = 6,Game2 = 4 ,Game3 = 5,Game4 = 3,
+        Game1 = 6,Game2 = 3 ,Game3 = 4,Game4 = 5,
         DialogScene = 7, other = 8};
     
 
-    /*
-    static void addScenePair(string name, SCENE_ID id) {
-        idToName.Add(id, name);
-        nameToId.Add(name, id);
-    }
-
-    static SCENE_ID getSceneID(string sceneName) {
-        // TODO error handleing
-        return nameToId[sceneName];
-    }
-
-    static string getSceneName(SCENE_ID sceneId) {
-        // TODO error handleing
-        return idToName[sceneId];
-    }
-
-
-    static void initScenePacking() {
-        for (int i=0; i < (int) SCENE_ID.MAX_SCENE; i++) {
-            SCENE_ID id = (SCENE_ID)i;
-            idToAttr.Add(id, new SceneAttr());
-            // TODO: better constructor / setter
-            idToAttr[id].sceneID = id;
-        }
-        initSceneIdDialogIdMapping();
-        initAudios();
-    }
-
-    static void initAudios() {
-        // TODO: refactoring, merge it to packing function
-        // TODO: or other prefab to store audi list
-        idToAttr[SCENE_ID.DIALOG_SCENE].audioPath = "Audio/universe title.mp3";
-        idToAttr[SCENE_ID.TRAVEL].audioPath = "Audio/universe title.mp3";
-        idToAttr[SCENE_ID.SPACE_SCENE].audioPath = "Audio/urgent.mp3";
-        idToAttr[SCENE_ID.MAKER].audioPath = "Audio/maker Blue_Moon.mp3";
-        idToAttr[SCENE_ID.GAME_1].audioPath = "Audio/sad and slow.mp3";
-        idToAttr[SCENE_ID.GAME_2].audioPath = "Audio/maker Blue_Moon.mp3";
-        idToAttr[SCENE_ID.GAME_3].audioPath = "Audio/happyandunkown.mp3";
-        idToAttr[SCENE_ID.GAME_4].audioPath = "Audio/conversation happy.mp3";
-    }
-
-    static void initScneneIDMapping() {
-
-        addScenePair("SpaceScene", SCENE_ID.SPACE_SCENE);
-        addScenePair("Maker", SCENE_ID.MAKER);
-        addScenePair("Travel", SCENE_ID.TRAVEL);
-        addScenePair("Game1", SCENE_ID.GAME_1);
-        addScenePair("Game2", SCENE_ID.GAME_2);
-        addScenePair("Game3", SCENE_ID.GAME_3);
-        addScenePair("Game4", SCENE_ID.GAME_4);
-        addScenePair("DialogScene", SCENE_ID.DIALOG_SCENE);
-        addScenePair("other", SCENE_ID.OTHER);
-    }
-
-    static AudioClip getAudioWithId(SCENE_ID sceneID) {
-        if (idToAttr.ContainsKey(sceneID)) {
-            // TODO: cache pool to load audios
-            return Resources.Load<AudioClip>(idToAttr[sceneID].audioPath);
-        } else {
-            return Resources.Load<AudioClip>("Audio/happyandunkown.mp3");
-        }
-    }
-    static DIALOG_ID getDialogID(SCENE_ID sceneId, int seq = 0) {
-        // TODO: eror handling
-        return idToAttr[sceneId].dialogs[seq];
-    }
-    static void initTables() {
-        initScneneIDMapping();
-        initScenePacking();
-    }
-
-    static MainGameController() { // static constructor to init table
-        initTables();
-    }
-
-    void updateInstance() {
-        DontDestroyOnLoad(transform.root.gameObject);
-        DontDestroyOnLoad(LoadingInterface.transform.root.gameObject);
-        DontDestroyOnLoad(loadingImg.transform.root.gameObject);
-        BufferInstance = Instance;
-        Instance = this;
-    }
-    */
     void Start() {
 
         Debug.Log("start called");
@@ -405,7 +322,7 @@ public class MainGameController : MonoBehaviour {
             //思考做法中
             setDialog(DIALOG_ID.BOOSS_TALK_02);
 
-            setTargetScene(scenesName.Game1);   //到星球就開始遊戲囉!
+            setTargetScene(scenesName.Game2);   //到星球就開始遊戲囉!
         }
         else if (nameOfNowScene == scenesName.Travel.ToString() && PlayerPrefs.GetInt("Stage") == 4) {
             //當你回到星球上 並且通關

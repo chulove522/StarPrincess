@@ -32,20 +32,20 @@ public class Stargate : MonoBehaviour
             switch (nowstage) {
 
                 case 0:
-                    MainGameController.setTargetScene(MainGameController.scenesName.Game1);
+                    MainGameController.setTargetScene(MainGameController.scenesName.Game2);
                     
                     MainGameController.Instance.StartGame();
                     break;
                 case 1:
-                    MainGameController.setTargetScene(MainGameController.scenesName.Game2);
-                    MainGameController.Instance.StartGame();
-                    break;
-                case 2:
                     MainGameController.setTargetScene(MainGameController.scenesName.Game3);
                     MainGameController.Instance.StartGame();
                     break;
-                case 3:
+                case 2:
                     MainGameController.setTargetScene(MainGameController.scenesName.Game4);
+                    MainGameController.Instance.StartGame();
+                    break;
+                case 3:
+                    MainGameController.setTargetScene(MainGameController.scenesName.Game1);
                     MainGameController.Instance.StartGame();
                     break;
 
