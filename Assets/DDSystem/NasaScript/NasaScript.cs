@@ -3,7 +3,32 @@ using System.Collections;
 using System.Collections.Generic;
 using Doublsb.Dialog;
 using UnityEngine;
-using UnityEngine.UI;
+using UnityEngine.UI; 
+
+//{
+    /*
+        dialog01.Add(new DialogData("", "A"));
+        dialog01.Add(new DialogData("", "B"));
+        */
+    /*
+     * 特效示範
+    dialog01.Add(new DialogData("You can easily change text /color:red/color, /color:white/and /size:up//size:up/size/size:init/ like this.", "C", () => ShowPic(0)));
+    dialog01.Add(new DialogData("You can also change the character's sprite /emote:Sad/like this, /click//emote:Happy/Smile.", "Li", () => ShowPic(2)));
+
+    dialog01.Add(new DialogData("", "C"));
+    dialog01.Add(new DialogData("If you need an emphasis effect, /wait:0.5/wait... /click/or click command.", "Li", () => ShowPic(3)));
+
+    dialog01.Add(new DialogData("Text can be /speed:down/slow... /speed:init//speed:up/or fast.", "Li", () => ShowPic(4)));
+
+    dialog01.Add(new DialogData("You don't even need to click on the window like this.../speed:0.1/ tada!/close/", "Li", () => ShowPic(5)));
+
+    dialog01.Add(new DialogData("/speed:0.1/AND YOU CAN'T SKIP THIS SENTENCE.", "Li", () => ShowPic(6), false));
+
+    dialog01.Add(new DialogData("And here we go, the haha sound! /click//sound:haha/haha.", "Li", null, false));
+
+    dialog01.Add(new DialogData("That's it! Please check the documents. Good luck to you.", "Sa"));
+    */
+//}
 
 public class NasaScript : MonoBehaviour {
 
@@ -12,14 +37,19 @@ public class NasaScript : MonoBehaviour {
     public GameObject[] showSomething;
     //public GameObject showTrophies;
 
-    public Button goBtn;
+    public Button goBtn;  /*active button*/
 
     private void Start() {
         ShowDialog(MainGameController.getDialog());
         goBtn.onClick.AddListener(TaskOnClick);
     }
+    /*
+    public void showdiaAgain() {
+        ShowDialog(MainGameController.getDialog());
 
+    }*/
     private void TaskOnClick() {
+        MainGameController.Instance.GameNextTalk();
         MainGameController.Instance.StartGame();
     }
 
@@ -41,10 +71,10 @@ public class NasaScript : MonoBehaviour {
         TALK_END = 8,
         MAX_DIALOG,
     };
-    public void ShowDialog(DIALOG_ID DialogueNum) {
-//>>>>>>> 027e7a3dee4e46f0b03771c40a94d884f71f2d54
-//>>>>>>> Stashed changes
-        switch (DialogueNum) {
+    public void ShowDialog(DIALOG_ID id) {
+        Debug.Log("id=" + id.ToString());
+
+        switch (id) {
             case DIALOG_ID.OPENING: //旁白->星球製作
                 opening();
                 break;
@@ -70,9 +100,11 @@ public class NasaScript : MonoBehaviour {
             case DIALOG_ID.TALK_END: //返回地球
                 Ending();
                 break;
-
+            case 0:
+                opening();
+                break;
             default:
-                Debug.LogError("dialogue 數字設定有錯");
+                Debug.Log("dialogue 數字設定有錯");
                 opening();
                 break;
 
@@ -105,29 +137,8 @@ public class NasaScript : MonoBehaviour {
         dialog01.Add(new DialogData("我會幫你從12星座中，選擇最適配去的星球", "B"));
         dialog01.Add(new DialogData("好吧我試試看", "A", () => Btnactive(), false));
 
-        MainGameController.setTargetScene(1); //Maker
-        /*
-        dialog01.Add(new DialogData("", "A"));
-        dialog01.Add(new DialogData("", "B"));
-        */
-        /*
-         * 特效示範
-        dialog01.Add(new DialogData("You can easily change text /color:red/color, /color:white/and /size:up//size:up/size/size:init/ like this.", "C", () => ShowPic(0)));
-        dialog01.Add(new DialogData("You can also change the character's sprite /emote:Sad/like this, /click//emote:Happy/Smile.", "Li", () => ShowPic(2)));
+        
 
-        dialog01.Add(new DialogData("", "C"));
-        dialog01.Add(new DialogData("If you need an emphasis effect, /wait:0.5/wait... /click/or click command.", "Li", () => ShowPic(3)));
-
-        dialog01.Add(new DialogData("Text can be /speed:down/slow... /speed:init//speed:up/or fast.", "Li", () => ShowPic(4)));
-
-        dialog01.Add(new DialogData("You don't even need to click on the window like this.../speed:0.1/ tada!/close/", "Li", () => ShowPic(5)));
-
-        dialog01.Add(new DialogData("/speed:0.1/AND YOU CAN'T SKIP THIS SENTENCE.", "Li", () => ShowPic(6), false));
-
-        dialog01.Add(new DialogData("And here we go, the haha sound! /click//sound:haha/haha.", "Li", null, false));
-
-        dialog01.Add(new DialogData("That's it! Please check the documents. Good luck to you.", "Sa"));
-        */
         DialogManager.Show(dialog01);
     }
 
@@ -142,7 +153,6 @@ public class NasaScript : MonoBehaviour {
         dialog02.Add(new DialogData("地球的太空總署NASA會協助你發射到恆星去。", "B")); //(火箭發射動畫!!~) 🚀
         dialog02.Add(new DialogData("在那邊，你將面對殘酷的高溫與各種未知挑戰。", "B")); //(讓我們出發吧!!~) 🧑🏻‍🚀
         dialog02.Add(new DialogData("那就~ /color:red/ 事不宜遲,準備出發吧!", "A", () => Btnactive(), false));
-        MainGameController.setTargetScene(2); //Travel
 
         DialogManager.Show(dialog02);
         
@@ -160,7 +170,6 @@ public class NasaScript : MonoBehaviour {
         dialog03.Add(new DialogData("...", "A", () => Btnactive(), false));
         //接下來的場景轉換交給stargate
         DialogManager.Show(dialog03);
-        MainGameController.setTargetScene(2);
     }
 
     /*
@@ -169,8 +178,6 @@ public class NasaScript : MonoBehaviour {
         第1個 跳轉scene的按鈕
         第2個 太陽閃焰的rawimage(為了關閉他)
         第3個 12星座恆星比對結果
-        第4個 那就出發吧!按鈕(setSceneTarget = )
-        第5個 那就出發吧!按鈕
      */
 
 
@@ -194,7 +201,6 @@ public class NasaScript : MonoBehaviour {
         dialog03.Add(new DialogData("….", "A", () => Btnactive()));
 
         DialogManager.Show(dialog03);
-        MainGameController.setTargetScene(2);
     }
 
     /*
@@ -215,7 +221,6 @@ public class NasaScript : MonoBehaviour {
 
 
         DialogManager.Show(dialog03);
-        MainGameController.setTargetScene(2);
     }
 
 
@@ -239,7 +244,6 @@ public class NasaScript : MonoBehaviour {
         dialog03.Add(new DialogData("太噁心了吧，我要把通訊器關機。", "A", () => Btnactive()));
 
         DialogManager.Show(dialog03);
-        MainGameController.setTargetScene(2);
     }
 
 
@@ -267,7 +271,6 @@ public class NasaScript : MonoBehaviour {
         dialog03.Add(new DialogData("/speed:down/？？？？？", "A",()=> Btnactive()));
 
         DialogManager.Show(dialog03);
-        MainGameController.setTargetScene(2);
     }
     /*
     ⬇️
@@ -302,14 +305,18 @@ public class NasaScript : MonoBehaviour {
         dialog04.Add(new DialogData("我們祝福地球和平愉快❤️再見", "C"));
         dialog04.Add(new DialogData("人們仰望天空又可以看到美麗的星空了", "C"));
         DialogManager.Show(dialog04);
-        MainGameController.setTargetScene(1);
 
     }
 
     void Btnactive() {
         goBtn.gameObject.SetActive(true);
+
+        //如果按鈕掛MainGameController.Instance.GameNextTalk();就是對話
+        //星門or restarT掛上        MainGameController.Instance.StartGame() 就是開啟遊戲
+        //照情況掛上需要的方法
+
     }
-        private void ShowThings(int index, bool isShow = true) {
+    private void ShowThings(int index, bool isShow = true) {
         showSomething[index].SetActive(isShow);
         
     }

@@ -37,6 +37,8 @@ public class setBall : MonoBehaviour{
     }
 
     private void TaskOnClick() {
+        FinishPlanet();
+        MainGameController.Instance.GameNextTalk();
         MainGameController.Instance.StartGame();
     }
 
@@ -117,7 +119,9 @@ public class setBall : MonoBehaviour{
 
         // move done!
     }
-
+    /*
+     製作星球Finish按鈕!
+     *//*這個按鈕本身就有追蹤.不需要掛start game*/
     public void FinishPlanet() {
         /*
         //提供給場景轉換時呼叫出那顆星球 顏色
@@ -126,18 +130,10 @@ public class setBall : MonoBehaviour{
         public byte GetBallMatByte => BallPointer;
         */
 
-        MainGameController.Instance.Win(0);  //只有從製作星球到主對話是這個數字
-
-        //MainGameController.Instance.Win(SPACE_SCENE);  //只有從製作星球到主對話是這個數字
-        // TODO: correct dialog ID
-        //MainGameController.setDialog(BOOSS_TALK_01);
-//
         PlayerPrefs.SetFloat("PlanetColor", HueVal);
-        //PlayerPrefs.SetInt("PlanetColor", (int)HueVal);
         PlayerPrefs.SetFloat("PlanetSize", ScaleVal);
         PlayerPrefs.SetInt("PlanetMat", BallPointer);
-        MainGameController.setTargetScene(7);
-        MainGameController.setDialog(2);
+
     }
 
 }

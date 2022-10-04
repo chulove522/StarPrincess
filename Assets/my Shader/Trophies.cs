@@ -8,10 +8,11 @@ using UnityEngine.UI;
 
 public class Trophies : MonoBehaviour
 {
+    /*這些都只是為了畫面顯示 沒有真正存檔的用途*/
     static int stageCleared;
     public GameObject[] starsignObj;
     public Image[] stars; //裝黃色 星星
-    private static bool isAllClear = false;
+    //private static bool isAllClear = false;  
     private static bool[] starCleared={false, false, false, false, false, false, false, false, false, false, false, false};
     private Vector3 showplace = new Vector3(0,0,-50f);
     public float showspeed = 20f;
@@ -20,8 +21,21 @@ public class Trophies : MonoBehaviour
     //Image starsignImg;
 
     private void Start() {
+        /*呼叫存檔*/
         stageCleared = PlayerPrefs.GetInt("Stage", 0); //1~4 0:new
+
+        /*
+        if (stageCleared == 4)
+            isAllClear = true;
+        else
+            isAllClear = false;
+
+        */
+        /*打開版面即刷新畫面*/
+        FinishStage();
+
     }
+
 
     //在每次破關後都呼叫main.save存起來歐!
 
@@ -53,36 +67,33 @@ public class Trophies : MonoBehaviour
     }
     /*每次開啟面板都呼叫他!*/
     public void FinishStage() {
-        stageCleared = PlayerPrefs.GetInt("Stage", 0);
         if (stageCleared == 1) { //fire
             setUnlock(0);
             setUnlock(4);
             setUnlock(8);
 
         }
-        else if(stageCleared == 2) { //soil
+        if(stageCleared == 2) { //soil
             setUnlock(1);
             setUnlock(5);
             setUnlock(9);
 
 
         }
-        else if(stageCleared == 3) { //water
+        if(stageCleared == 3) { //water
             setUnlock(3);
             setUnlock(7);
             setUnlock(11);
 
         }
-        else if (stageCleared == 4) { //wind
+        if (stageCleared == 4) { //wind
             setUnlock(2);
             setUnlock(6);
             setUnlock(10);
-            isAllClear = true;
+            //isAllClear = true;
             setTheFire();
         }
-        else {
-            isAllClear = false;
-        }
+
     }
 
     //for judges!! fast clear to see the result
@@ -90,15 +101,15 @@ public class Trophies : MonoBehaviour
         for (int i = 0; i < 12; i++)
             setUnlock(i);
 
-        isAllClear = true;
+        //isAllClear = true;
         setTheFire();
+
     }
 
     //fireworks!s
     public void setTheFire() { 
 
         Debug.Log("全通關");
-
     }
     public void initClear() {
 
@@ -106,7 +117,16 @@ public class Trophies : MonoBehaviour
             resetUnlock(i);
         }
 
-        isAllClear = false;
+        //isAllClear = false;
+        
+    }
+
+    public void clearAllDangerous() {
+        /*uiux裝兩層*/
+        /*跳出警告視窗是否重置一切存檔*/
+        initClear(); 
+        MainGameController.clearAllstatic();
+
     }
 
 

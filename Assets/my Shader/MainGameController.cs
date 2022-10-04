@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using DG.Tweening.Core.Easing;
+using static NasaScript;
+//using static NasaScript.DIALOG_ID;
 
 public class MainGameController : MonoBehaviour {
     [SerializeField]  //以免不小心拉動到
@@ -21,28 +23,45 @@ public class MainGameController : MonoBehaviour {
     public GameObject GameOverRetry;  //輸了prefab/如果關卡沒有輸贏.那就隨便拉一個fake
     public GameObject GameWinScreen;  //贏了prefab/隨便拉一個fake.同上.如果沒有輸贏就fake.有輸贏就是認真寫1~4
     public Image loadingImg;  //把5star圖片拉近來這邊
-   
 
+    static bool doneMaker = false;
     static string nameOfNowScene;
     /// <summary>
-    /// 僅代表關卡
+    /// 僅代表關卡./*請存檔就更新*/
     /// </summary>
     static int NowGame;
 
     public static int TargetScenceNumber;
 
+    static NasaScript.DIALOG_ID DIALOG_ID;
+
+
+    static Dictionary<scenesName, int> scenedic = new Dictionary<scenesName, int>();
+    /*
+     * scenesName 
+     * 0 = "SpaceScene" 
+     * 1 ="Maker"
+     * 2= "Travel"
+       6= "Game1" // 光子
+       3= "Game2" // 閃焰
+       4= "Game3" // 移開恆星
+       5= "Game4", // 泡泡龍
+       7= "DialogScene"
+       
+    */
 
     [SerializeField]
-    static int DialogueNum =1 ;  /// <summary>
+    //static int DialogueNum =1 ;  /// <summary>
                                  /// 先拿來測試啊啊啊之後要記得改掉!!!預設是1!!
                                  /// 設定其他數字可以直接看其他劇情!
                                  /// </summary>
     
-    static List<AsyncOperation> scenes = new List<AsyncOperation>();
-    // 所有需要載入的的場景list  事先把場景名稱取名吧我怕打錯字
-    string[] scenesName = { "SpaceScene", "Maker", "Travel" ,
-        "Game1","Game2","Game3","Game4",
-        "DialogScene","other",};
+    /*static List<AsyncOperation> scenes = new List<AsyncOperation>();
+    // 所有需要載入的的場景list  事先把場景名稱取名吧我怕打錯字*/
+    public enum scenesName{SpaceScene = 0, Maker = 1, Travel = 2,
+        Game1 = 6,Game2 = 4 ,Game3 = 5,Game4 = 3,
+        DialogScene = 7, other = 8};
+    
 
     /*
     static void addScenePair(string name, SCENE_ID id) {
@@ -98,22 +117,6 @@ public class MainGameController : MonoBehaviour {
         addScenePair("other", SCENE_ID.OTHER);
     }
 
-    static void initSceneIdDialogIdMapping() {
-        // TODO: update this table
-        idToAttr[SCENE_ID.SPACE_SCENE].dialogs.Add(DIALOG_ID.OPENING);
-
-        idToAttr[SCENE_ID.MAKER].dialogs.Add(DIALOG_ID.BOOSS_TALK_01);
-        idToAttr[SCENE_ID.MAKER].dialogs.Add(DIALOG_ID.BOOSS_TALK_02);
-
-        idToAttr[SCENE_ID.GAME_1].dialogs.Add(DIALOG_ID.GAME_TALK_01);
-        idToAttr[SCENE_ID.GAME_2].dialogs.Add(DIALOG_ID.GAME_TALK_02);
-        idToAttr[SCENE_ID.GAME_3].dialogs.Add(DIALOG_ID.GAME_TALK_03);
-        idToAttr[SCENE_ID.GAME_4].dialogs.Add(DIALOG_ID.GAME_TALK_04);
-
-
-        idToAttr[SCENE_ID.OTHER].dialogs.Add(DIALOG_ID.OPENING);
-    }
-
     static AudioClip getAudioWithId(SCENE_ID sceneID) {
         if (idToAttr.ContainsKey(sceneID)) {
             // TODO: cache pool to load audios
@@ -147,13 +150,11 @@ public class MainGameController : MonoBehaviour {
 
         Debug.Log("start called");
         DontDestroyOnLoad(this.gameObject);
-        
-        
+
+
         audioSource = this.GetComponent<AudioSource>();
         audioSource.playOnAwake = true;
         audioSource.loop = true;
-        Instance.setAudioClip();
-        audioSource.Play();
 
         LoadingInterface = GameObject.Find("Canvas/Loading");
         GameOverRetry = GameObject.Find("Canvas/gameover");
@@ -167,74 +168,89 @@ public class MainGameController : MonoBehaviour {
         GameOverRetry.SetActive(false);
         GameWinScreen.SetActive(false);
         LoadingInterface.SetActive(false);
-
+    }
+    public int getSceneNumByName(scenesName name) {
+        return scenedic[name];
     }
 
 
     /*/ 設定第幾個對話!! /*/
-    public static void setDialog(int dia) {
-        DialogueNum = dia;
+    public static void setDialog(DIALOG_ID dia) {
+        Debug.Log("dia ID:" + dia.ToString());
+        DIALOG_ID = dia;
     }
-    public static int getDialog() { Debug.Log("載入對話" + DialogueNum.ToString()); 
-        if (DialogueNum > 0) return DialogueNum; else return 1;  
+    public static DIALOG_ID getDialog() { 
+        Debug.Log("載入對話" + DIALOG_ID.ToString()); 
+        return DIALOG_ID;  
         
     }
 
     
 
-    private static bool showornot = false;
+    void setAudioClip(int TargetScenceNumber) {
+        
 
+        Debug.Log("now target!:" + TargetScenceNumber);
 
-    void setAudioClip() {
-        nameOfNowScene = SceneManager.GetActiveScene().name;
-        //nameOfNowScene = Instance.scenesName[TargetScenceNumber].ToString();
-
-        Debug.Log("now!:" + nameOfNowScene);
-        if (nameOfNowScene == scenesName[7]) {  //DialogScene
+        if (TargetScenceNumber == getSceneNumByName(scenesName.DialogScene)) {  //DialogScene
             //DialogScene
             audioSource.clip = audioClips[0];  //對話歌 嘟 嘟~嘟
 
         }
-        else if (nameOfNowScene == scenesName[2]) {  //Travel
+        else if (TargetScenceNumber == getSceneNumByName(scenesName.Travel)) {  //Travel
             //Travel
             audioSource.clip = audioClips[5]; //探險歌
         }
-        else if (nameOfNowScene == scenesName[0]) {  //SpaceScene
+        else if (TargetScenceNumber == getSceneNumByName(scenesName.SpaceScene)) {  //SpaceScene
             //spacetitle
             audioSource.clip = audioClips[6]; //宇宙歌
         }
-        else if (nameOfNowScene == scenesName[1]) {  //Maker
+        else if (TargetScenceNumber == getSceneNumByName(scenesName.Maker)) {  //Maker
             //Maker
             audioSource.clip = audioClips[3];  //愉快歌
         }
-        else if (nameOfNowScene == scenesName[3]) {  //stage01
+        else if (TargetScenceNumber == getSceneNumByName(scenesName.Game1)) {  //stage01
             //stage01
             NowGame = 1;
             audioSource.clip = audioClips[4];
         }
-        else if (nameOfNowScene == scenesName[4]) {   //stage02
+        else if (TargetScenceNumber == getSceneNumByName(scenesName.Game2)) {   //stage02
             //stage02
             NowGame = 2;
             audioSource.clip = audioClips[3];
         }
-        else if (nameOfNowScene == scenesName[5]) {  //stage03
+        else if (TargetScenceNumber == getSceneNumByName(scenesName.Game3)) {  //stage03
             //stage03
             NowGame = 3;
             audioSource.clip = audioClips[2];
         }
-        else if (nameOfNowScene == scenesName[6]) {  //stage04
+        else if (TargetScenceNumber == getSceneNumByName(scenesName.Game4)) {  //stage04
             //stage04
             NowGame = 4;
             audioSource.clip = audioClips[0];
         }
         else {
             //意料之外的scene名稱
-            Debug.Log("在main的setAudioClip之中 有意料之外的scene名稱");
+            Debug.Log("在main的setAudioClip之中 有例外發生");
             audioSource.clip = audioClips[3];
         }
 
     }
     void Awake() {
+
+        if (scenedic.Count ==0 ) {
+
+            scenedic.Add(scenesName.SpaceScene, 0);
+            scenedic.Add(scenesName.Maker, 1);
+            scenedic.Add(scenesName.Travel, 2);
+            scenedic.Add(scenesName.Game2, 3);
+            scenedic.Add(scenesName.Game3, 4);
+            scenedic.Add(scenesName.Game4, 5);
+            scenedic.Add(scenesName.Game1, 6);
+            scenedic.Add(scenesName.DialogScene, 7);
+        }
+
+
         if (Instance == null) {
             Instance = this;
             DontDestroyOnLoad(gameObject);
@@ -244,19 +260,8 @@ public class MainGameController : MonoBehaviour {
         }
     }
 
-
+    
     /*
-     * scenesName 
-     * 0 = "SpaceScene" 
-     * 1 ="Maker"
-     * 2= "Travel"
-       6= "game1" // 光子
-       3= "game02" // 閃焰
-       4= "game03" // 移開恆星
-       5= "game04", // 泡泡龍
-       7= "DialogScene"
-       8="Conversation02"
-
        遊玩順序 : 遊玩順序是：game02➡️game03➡️game04➡️game01 
        也就是：恆星閃焰3➡️找到最亮恆星4➡️恆星的一生5➡️用望遠鏡看見光子6
      */
@@ -266,40 +271,37 @@ public class MainGameController : MonoBehaviour {
     /// 星門走這
     /// </summary>
     /// <param name="stargate"></param>
-    public static void setTargetScene(int t) {
-        if (t >= 0 && t < 8)
-            TargetScenceNumber = t;
+    public static void setTargetScene(scenesName name) {
+        int target = scenedic[name];
+        Debug.Log("set taarget =" + target);
+        if (target < 8)
+            TargetScenceNumber = target;
         else
-            Debug.Log("目標場景數字不正確");
+            Debug.Log("目標場景文字不正確");
     }
 
-    //restart按鈕走這
-    public void setTargetSceneBtn() {
-        Debug.Log("set restart stage" + NowGame.ToString());
-        TargetScenceNumber = NowGame + 2;
-
-    }
 
 
 
     //這邊打開loading畫面並且作場景跳轉
     static IEnumerator Loading() {
-        float totalProgress = 0;
-        for (int i = 0; i < scenes.Count; i++) {
-            while (!scenes[i].isDone) {
-                totalProgress += scenes[i].progress;
-                Instance.loadingImg.fillAmount = totalProgress / scenes.Count;
-                yield return null;
-            }
-            yield return new WaitForSeconds(1);
+        showLoadingScreen(true);
+        //nameOfNowScene = SceneManager.GetActiveScene().name;
+        AsyncOperation op = SceneManager.LoadSceneAsync(TargetScenceNumber);
+        
+        float progress;
+        while (!op.isDone) {
+            progress = Mathf.Clamp01(op.progress / .9f);
+            Instance.loadingImg.fillAmount = progress;
+            
+            yield return null;
         }
-        yield return new WaitForSeconds(1);
-
+        Debug.Log("loading done");
         showLoadingScreen(false);
         Instance.hideAll();
-        Instance.setAudioClip();
+        Instance.setAudioClip(TargetScenceNumber);
         Instance.audioSource.Play();
-
+        yield return null;
     }
     public static void showLoadingScreen(bool show) {
 
@@ -328,34 +330,23 @@ public class MainGameController : MonoBehaviour {
     /*這兩個孩子是接口*/
     public static void GameOver() {
         Instance.GameOverRetry.SetActive(true);
-        //設定Target
-        
-        switch (MainGameController.Stage) {
-
-
-            case 0:
-                MainGameController.setTargetScene(3);
-
-                MainGameController.Instance.StartGame();
-                break;
-            case 1:
-                MainGameController.setTargetScene(4);
-                MainGameController.Instance.StartGame();
-                break;
-            case 2:
-                MainGameController.setTargetScene(5);
-                MainGameController.Instance.StartGame();
-                break;
-            case 3:
-                MainGameController.setTargetScene(6);
-                MainGameController.Instance.StartGame();
-                break;
-
-        }
+        // 掛在按鈕上 StartGame();
     }
     public void GameWin() {
+        Save(NowGame);
         Debug.Log("Win, NowGame: " + NowGame.ToString());
-        Win(NowGame);
+        //Win(NowGame);
+        setTargetScene(scenesName.DialogScene);
+
+        if (NowGame == 1)
+            setDialog(DIALOG_ID.GAME_TALK_01);
+        else if (NowGame == 2)
+            setDialog(DIALOG_ID.GAME_TALK_02);
+        else if (NowGame == 3)
+            setDialog(DIALOG_ID.GAME_TALK_03);
+        else if (NowGame == 4)
+            setDialog(DIALOG_ID.GAME_TALK_04);
+
 
         Instance.GameWinScreen.SetActive(true);
     }
@@ -366,73 +357,92 @@ public class MainGameController : MonoBehaviour {
     /// </summary>
     public void StartGame() {
         Debug.Log("StartGame");
-        // hideTheseThings(true);
-        showLoadingScreen(true);
-        
-        SceneManager.LoadScene(TargetScenceNumber,LoadSceneMode.Single);
-        //scenes.Add(SceneManager.LoadSceneAsync("Travel",LoadSceneMode.Additive));
+        nameOfNowScene = SceneManager.GetActiveScene().name;
         Instance.StartCoroutine(Loading());
 
     }
 
 
+    //純粹展開對話並不是遊戲贏了
+    //所以沒有必要解成就跟開win視窗
+    public void GameNextTalk(){
+        //為了保險起見 
+        //NowGame = 0;
+        nameOfNowScene = SceneManager.GetActiveScene().name;
 
-    public void Win(int stageNum) {
+        Debug.Log("nameOfNowScene" + nameOfNowScene);
+
+        if (nameOfNowScene == scenesName.SpaceScene.ToString()) { //剛進遊戲
+
+            setTargetScene(scenesName.DialogScene);
+            setDialog(DIALOG_ID.OPENING);
+            Debug.Log("開場白");
+            
+        }
+        else if (nameOfNowScene == scenesName.DialogScene.ToString()) {
+            if (doneMaker == false) {
+                Debug.Log("去maker");
+                setTargetScene(scenesName.Maker);
+            }
+            else {
+                Debug.Log("去Travel");
+                setTargetScene(scenesName.Travel);
+            }
+
+            
+        }
+        else if (nameOfNowScene == scenesName.Maker.ToString()) {
+            //從Maker離開
+            setTargetScene(scenesName.DialogScene);
+            setDialog(DIALOG_ID.BOOSS_TALK_01);
+            doneMaker = true;
+            Debug.Log("捏好星球的劇情");
+
+
+        }
+        else if (nameOfNowScene == scenesName.Travel.ToString()) {  //到達星球時開啟通訊器的劇情
+            
+            //思考做法中
+            setDialog(DIALOG_ID.BOOSS_TALK_02);
+
+            setTargetScene(scenesName.Game1);   //到星球就開始遊戲囉!
+        }
+        else if (nameOfNowScene == scenesName.Travel.ToString() && PlayerPrefs.GetInt("Stage") == 4) {
+            //當你回到星球上 並且通關
+            setDialog(NasaScript.DIALOG_ID.TALK_END);
+            setTargetScene(MainGameController.scenesName.DialogScene);
+        }
+        else if (nameOfNowScene == scenesName.DialogScene.ToString() && PlayerPrefs.GetInt("Stage") == 4) { 
+            //恩. 暫時沒有這個規畫
+
         
-        if (stageNum > 0 && stageNum < 5) {  //1234 關卡
-            Save(stageNum);
-            setTargetScene(7); //去對話
-            if (stageNum == 1)
-                setDialog(4);
-            else if (stageNum == 2)
-                setDialog(5);
-            else if (stageNum == 3)
-                setDialog(6);
-            else if (stageNum == 4)
-                setDialog(7);
-        }
-        else if (stageNum == 0 && (nameOfNowScene == scenesName[1])) {  //Maker
-            //捏好回對話!!                                                            
-            setTargetScene(7); //捏好星球!
-            setDialog(2);  //捏好星球的劇情
-
-        }
-        else if (stageNum == 0){ //第一個狀態!
-
-            setTargetScene(1); //去捏星球!
-            //setDialog(2);  //捏好星球的劇情
-        }
-        else if (stageNum == 5) { 
-            //出發囉! 填5!
-            setTargetScene(2); //Travel
-            setDialog(3);  //到那邊的劇情
-
-
-        }
-        else
-            Debug.LogError("破關數字設定不正確.");
+        }else
+            Debug.LogError("遊戲對話設定不正確.");
 
     }
 
-    public static int Stage; 
+    /*請存檔就更新*/
 
-    
     /*破關的記錄*/
-    static void Save(int stagenum) {
-        Debug.Log("stage saved." + stagenum.ToString());
-        //PlayerPrefs.SetInt("Stage", stagenum);
-        Stage = stagenum;
+    static void Save(int nowgame) {
+        Debug.Log("stage saved." + nowgame.ToString());
+        PlayerPrefs.SetInt("Stage", nowgame);   //這是為了成就系統而存的
     }
 
    
 
 
-    //世紀大銷毀
-    /*
-    public void clearAll() {
+    //世紀大銷毀 裝在tro銷毀按鈕上
+    
+    public static void clearAllstatic() {
 
         PlayerPrefs.DeleteAll();
-        TrophiesPanel.GetComponent<Trophies>().initClear();
+        
     }
-    */
+    public void clearAllBtn() {
+
+        PlayerPrefs.DeleteAll();
+
+    }
+
 }

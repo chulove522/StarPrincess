@@ -18,8 +18,8 @@ public class Stargate : MonoBehaviour
     }
 
     void OnTriggerEnter2D(Collider2D player) {
-        //nowstage = PlayerPrefs.GetInt("Stage", 0);  //1~4(4 = FinishAll) . 0 = All not done.
-        nowstage = MainGameController.Stage;
+        nowstage = PlayerPrefs.GetInt("Stage", 0);  //1~4(4 = FinishAll) . 0 = All not done.
+
         Debug.Log("touch"+ player.name);
         //stage here doesn't has the same meaning as torphies's.
         //trophies's stage means the cleared stage.
@@ -30,42 +30,22 @@ public class Stargate : MonoBehaviour
             Debug.Log("nowstage=" + nowstage.ToString());
         
             switch (nowstage) {
-                /*
 
                 case 0:
-<<<<<<< Updated upstream
-                    // TODO: why not pass arg to StartGame()?
-                    MainGameController.setTargetScene(GAME_2);
-                    Debug.Log("scene 4");
-                    MainGameController.Instance.StartGame();
-                    break;
-                case 1:
-                    MainGameController.setTargetScene(GAME_3);
-                    MainGameController.Instance.StartGame();
-                    break;
-                case 2:
-                    MainGameController.setTargetScene(GAME_4);
-                    MainGameController.Instance.StartGame();
-                    break;
-                case 3:
-                    MainGameController.setTargetScene(GAME_1);
-=======*/
-                case 0:
-                    MainGameController.setTargetScene(3);
+                    MainGameController.setTargetScene(MainGameController.scenesName.Game1);
                     
                     MainGameController.Instance.StartGame();
                     break;
                 case 1:
-                    MainGameController.setTargetScene(4);
+                    MainGameController.setTargetScene(MainGameController.scenesName.Game2);
                     MainGameController.Instance.StartGame();
                     break;
                 case 2:
-                    MainGameController.setTargetScene(5);
+                    MainGameController.setTargetScene(MainGameController.scenesName.Game3);
                     MainGameController.Instance.StartGame();
                     break;
                 case 3:
-                    MainGameController.setTargetScene(6);
-//>>>>>>> Stashed changes
+                    MainGameController.setTargetScene(MainGameController.scenesName.Game4);
                     MainGameController.Instance.StartGame();
                     break;
 
