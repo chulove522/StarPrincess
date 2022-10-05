@@ -48,6 +48,10 @@ public class Stargate : MonoBehaviour
                     MainGameController.setTargetScene(MainGameController.scenesName.Game1);
                     MainGameController.Instance.StartGame();
                     break;
+                case 4:
+                    MainGameController.Instance.GameNextTalk();
+                    MainGameController.Instance.StartGame();
+                    break;
 
             }
             Debug.Log("enter star gate:"+ nowstage);

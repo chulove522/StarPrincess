@@ -67,20 +67,20 @@ public class Trophies : MonoBehaviour
     }
     /*每次開啟面板都呼叫他!*/
     public void FinishStage() {
-        if (stageCleared == 1) { //fire
+        if (stageCleared >= 1) { //fire
             setUnlock(0);
             setUnlock(4);
             setUnlock(8);
 
         }
-        if(stageCleared == 2) { //soil
+        if(stageCleared >= 2) { //soil
             setUnlock(1);
             setUnlock(5);
             setUnlock(9);
 
 
         }
-        if(stageCleared == 3) { //water
+        if(stageCleared >= 3) { //water
             setUnlock(3);
             setUnlock(7);
             setUnlock(11);

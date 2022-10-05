@@ -24,7 +24,6 @@ public class MainGameController : MonoBehaviour {
     public GameObject GameWinScreen;  //贏了prefab/隨便拉一個fake.同上.如果沒有輸贏就fake.有輸贏就是認真寫1~4
     public Image loadingImg;  //把5star圖片拉近來這邊
 
-    static bool doneMaker = false;
     static string nameOfNowScene;
     /// <summary>
     /// 僅代表關卡./*請存檔就更新*/
@@ -128,22 +127,24 @@ public class MainGameController : MonoBehaviour {
         }
         else if (TargetScenceNumber == getSceneNumByName(scenesName.Game1)) {  //stage01
             //stage01
-            NowGame = 1;
+            NowGame = 4;
             audioSource.clip = audioClips[4];
         }
         else if (TargetScenceNumber == getSceneNumByName(scenesName.Game2)) {   //stage02
             //stage02
-            NowGame = 2;
+            NowGame = 1;
+            
             audioSource.clip = audioClips[3];
         }
         else if (TargetScenceNumber == getSceneNumByName(scenesName.Game3)) {  //stage03
             //stage03
-            NowGame = 3;
+            NowGame = 2;
             audioSource.clip = audioClips[2];
         }
         else if (TargetScenceNumber == getSceneNumByName(scenesName.Game4)) {  //stage04
             //stage04
-            NowGame = 4;
+            NowGame = 3;
+            
             audioSource.clip = audioClips[0];
         }
         else {
@@ -297,13 +298,14 @@ public class MainGameController : MonoBehaviour {
             
         }
         else if (nameOfNowScene == scenesName.DialogScene.ToString()) {
-            if (doneMaker == false) {
-                Debug.Log("去maker");
-                setTargetScene(scenesName.Maker);
-            }
-            else {
+            if(TargetScenceNumber>=3) {
                 Debug.Log("去Travel");
                 setTargetScene(scenesName.Travel);
+            }
+            else {
+
+                Debug.Log("去maker");
+                setTargetScene(scenesName.Maker);
             }
 
             
@@ -312,18 +314,11 @@ public class MainGameController : MonoBehaviour {
             //從Maker離開
             setTargetScene(scenesName.DialogScene);
             setDialog(DIALOG_ID.BOOSS_TALK_01);
-            doneMaker = true;
             Debug.Log("捏好星球的劇情");
 
 
         }
-        else if (nameOfNowScene == scenesName.Travel.ToString()) {  //到達星球時開啟通訊器的劇情
-            
-            //思考做法中
-            setDialog(DIALOG_ID.BOOSS_TALK_02);
-
-            setTargetScene(scenesName.Game2);   //到星球就開始遊戲囉!
-        }
+        
         else if (nameOfNowScene == scenesName.Travel.ToString() && PlayerPrefs.GetInt("Stage") == 4) {
             //當你回到星球上 並且通關
             setDialog(NasaScript.DIALOG_ID.TALK_END);
@@ -333,7 +328,15 @@ public class MainGameController : MonoBehaviour {
             //恩. 暫時沒有這個規畫
 
         
-        }else
+        }
+        else if (nameOfNowScene == scenesName.Travel.ToString()) {  //到達星球時開啟通訊器的劇情
+
+            //這段捨棄了
+            setDialog(DIALOG_ID.BOOSS_TALK_02);
+
+            setTargetScene(scenesName.Game2);   //到星球就開始遊戲囉!
+        }
+        else
             Debug.LogError("遊戲對話設定不正確.");
 
     }
