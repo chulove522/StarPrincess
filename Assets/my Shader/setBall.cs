@@ -134,6 +134,8 @@ public class setBall : MonoBehaviour{
         PlayerPrefs.SetFloat("PlanetSize", ScaleVal);
         PlayerPrefs.SetInt("PlanetMat", BallPointer);
 
+        PlayerPrefs.SetInt("MakerDone",1);
+
     }
 
 }

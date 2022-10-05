@@ -298,7 +298,7 @@ public class MainGameController : MonoBehaviour {
             
         }
         else if (nameOfNowScene == scenesName.DialogScene.ToString()) {
-            if(TargetScenceNumber>=3) {
+            if(PlayerPrefs.GetInt("MakerDone") == 1) {
                 Debug.Log("去Travel");
                 setTargetScene(scenesName.Travel);
             }
