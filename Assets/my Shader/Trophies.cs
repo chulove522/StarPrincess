@@ -33,6 +33,7 @@ public class Trophies : MonoBehaviour
         */
         /*打開版面即刷新畫面*/
         FinishStage();
+        this.gameObject.SetActive(false);
 
     }
 
